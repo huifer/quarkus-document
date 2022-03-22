@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Building applications with Maven</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/config.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/asciidoc-tabs.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+<script src="javascript/config.js"></script>
+<script src="javascript/asciidoc-tabs.js"></script>
+
+<style>
+    .book {
+        font-size: 14px;
+    }
+
+    .admonitionblock td.content>.title, .audioblock>.title, .exampleblock>.title, .imageblock>.title,
+    .listingblock>.title, .literalblock>.title, .stemblock>.title, .openblock>.title, .paragraph>.title,
+    .quoteblock>.title, table.tableblock>.title, .verseblock>.title, .videoblock>.title, .dlist>.title,
+    .olist>.title, .ulist>.title, .qlist>.title, .hdlist>.title {
+        font-size: 1.6rem;
+    }
+
+    p, blockquote, dt, td.content, span.alt, .quoteblock blockquote, .quoteblock blockquote p {
+        font-size: 1.6rem;
+    }
+
+    pre code {
+        font-size: 1.5rem;
+    }
+
+    #preamble>.sectionbody>[class="paragraph"]:first-of-type p {
+        font-size: 1.6rem;
+    }
+
+    #header, #content, #footer, #footnotes {
+        max-width: 72em;
+    }
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Building applications with Maven</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-creation"><a class="anchor" href="#project-creation"></a>Creating a new project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can scaffold a new Maven project with:</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus create app my-groupId:my-artifactId</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling.html">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:999-SNAPSHOT:create \
+    -DprojectGroupId=my-groupId \
+    -DprojectArtifactId=my-artifactId</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are using the CLI, you can get the list of available options with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus create app --help</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are using the Maven command, the following table lists the attributes you can pass to the <code>create</code> command:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>projectGroupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.acme.sample</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id of the created project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>projectArtifactId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>mandatory</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The artifact id of the created project. Not passing it triggers the interactive mode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>projectVersion</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1.0.0-SNAPSHOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the created project</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>platformGroupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus.platform</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group id of the target platform.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>platformArtifactId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus-bom</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The artifact id of the target platform BOM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>platformVersion</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version currently recommended by the <a href="https://quarkus.io/guides/extension-registry-user">Quarkus Extension Registry</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the platform you want the project to use. It can also accept a version range, in which case the latest from the specified range will be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>className</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Not created if omitted</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The fully qualified name of the generated resource</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/hello</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The resource path, only relevant if <code>className</code> is set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>extensions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>[]</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The list of extensions to add to the project (comma-separated)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkusRegistryClient</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not Quarkus should use the online registry to resolve extension catalogs. If this is set to false, the extension catalog will be narrowed to the defined (or default) platform BOM.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>By default, the command will target the <code>io.quarkus.platform:quarkus-bom:999-SNAPSHOT</code> platform release (unless the coordinates of the desired platform release have been specified).</p>
+</div>
+<div class="paragraph">
+<p>The project is generated in a directory named after the passed artifactId.
+If the directory already exists, the generation fails.</p>
+</div>
+<div class="paragraph">
+<p>A pair of Dockerfiles for native and jvm mode are also generated in <code>src/main/docker</code>.
+Instructions to build the image and run the container are written in those Dockerfiles.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dealing-with-extensions"><a class="anchor" href="#dealing-with-extensions"></a>Dealing with extensions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From inside a Quarkus project, you can obtain a list of the available extensions with:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:list-extensions</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can add an extension using:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'hibernate-validator'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="hibernate-validator"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Extensions are passed using a comma-separated list.</p>
+</div>
+<div class="paragraph">
+<p>The extension name is the GAV name of the extension: e.g. <code>io.quarkus:quarkus-agroal</code>.
+But you can pass a partial name and Quarkus will do its best to find the right extension.
+For example, <code>agroal</code>, <code>Agroal</code> or <code>agro</code>  will expand to <code>io.quarkus:quarkus-agroal</code>.
+If no extension is found or if more than one extensions match, you will see a red check mark  ❌ in the command result.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ ./mvnw quarkus:add-extensions -Dextensions=jdbc,agroal,non-exist-ent
+[...]
+❌ Multiple extensions matching 'jdbc'
+     * io.quarkus:quarkus-jdbc-h2
+     * io.quarkus:quarkus-jdbc-mariadb
+     * io.quarkus:quarkus-jdbc-postgresql
+     Be more specific e.g using the exact name or the full gav.
+✅ Adding extension io.quarkus:quarkus-agroal
+❌ Cannot find a dependency matching 'non-exist-ent', maybe a typo?
+[...]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can install all extensions which match a globbing pattern :</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'smallrye-*'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="smallrye-*"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-mode"><a class="anchor" href="#dev-mode"></a>Development mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus comes with a built-in development mode.
+Run your application with:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then update the application sources, resources and configurations.
+The changes are automatically reflected in your running application.
+This is great to do development spanning UI and database as you see changes reflected immediately.</p>
+</div>
+<div class="paragraph">
+<p>Dev mode enables hot deployment with background compilation, which means
+that when you modify your Java files or your resource files and refresh your browser these changes will automatically take effect.
+This works too for resource files like the configuration property file.
+The act of
+refreshing the browser triggers a scan of the workspace, and if any changes are detected the Java files are compiled,
+and the application is redeployed, then your request is serviced by the redeployed application. If there are any issues
+with compilation or deployment an error page will let you know.</p>
+</div>
+<div class="paragraph">
+<p>Hit <code>CTRL+C</code> to stop the application.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By default, <code>quarkus:dev</code> sets the debug host to <code>localhost</code> (for security reasons). If you need to change this, for example to enable debugging on all hosts, you can use the <code>-DdebugHost</code> option like so:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev -DdebugHost=0.0.0.0</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev -DdebugHost=0.0.0.0</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="remote-development-mode"><a class="anchor" href="#remote-development-mode"></a>Remote Development Mode</h3>
+<div class="paragraph">
+<p>It is possible to use development mode remotely, so that you can run Quarkus in a container environment (such as OpenShift)
+and have changes made to your local files become immediately visible.</p>
+</div>
+<div class="paragraph">
+<p>This allows you to develop in the same environment you will actually run your app in, and with access to the same services.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Do not use this in production. This should only be used in a development environment. You should not run production application in dev mode.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To do this you must build a mutable application, using the <code>mutable-jar</code> format. Set the following properties in <code>application.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.package.type=mutable-jar <i class="conum" data-value="1"></i><b>(1)</b>
+quarkus.live-reload.password=changeit <i class="conum" data-value="2"></i><b>(2)</b>
+quarkus.live-reload.url=http://my.cluster.host.com:8080 <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This tells Quarkus to use the mutable-jar format. Mutable applications also include the deployment time parts of Quarkus,
+so they take up a bit more disk space. If run normally they start just as fast and use the same memory as an immutable application,
+however they can also be started in dev mode.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The password that is used to secure communication between the remote side and the local side.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The URL that your app is going to be running in dev mode at. This is only needed on the local side, so you
+may want to leave it out of the properties file and specify it as a system property on the command line.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>mutable-jar</code> is then built in the same way that a regular Quarkus jar is built, i.e. by issuing:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Before you start Quarkus on the remote host set the environment variable <code>QUARKUS_LAUNCH_DEVMODE=true</code>. If you are
+on bare metal you can set it via the <code>export QUARKUS_LAUNCH_DEVMODE=true</code> command and then run the application with the proper <code>java -jar &#8230;&#8203;</code> command to run the application.</p>
+</div>
+<div class="paragraph">
+<p>If you plan on running the application via Docker, then you&#8217;ll need to add <code>-e QUARKUS_LAUNCH_DEVMODE=true</code> to the <code>docker run</code> command.
+When the application starts you should now see the following line in the logs: <code>Profile dev activated. Live Coding activated</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The remote side does not need to include Maven or any other development tools. The normal <code>fast-jar</code> Dockerfile
+that is generated with a new Quarkus application is all you need. If you are using bare metal launch the Quarkus runner
+jar, do not attempt to run normal devmode.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now you need to connect your local agent to the remote host, using the <code>remote-dev</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:remote-dev -Dquarkus.live-reload.url=http://my-remote-host:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now every time you refresh the browser you should see any changes you have made locally immediately visible in the remote
+app. This is done via a HTTP based long polling transport, that will synchronize your local workspace and the remote
+application via HTTP calls.</p>
+</div>
+<div class="paragraph">
+<p>If you do not want to use the HTTP feature then you can simply run the <code>remote-dev</code> command without specifying the URL.
+In this mode the command will continuously rebuild the local application, so you can use an external tool such as odo or
+rsync to sync to the remote application.</p>
+</div>
+<div class="paragraph">
+<p>All the config options are shown below:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is recommended you use SSL when using remote dev mode, however even if you are using an unencrypted connection
+your password is never sent directly over the wire. For the initial connection request the password is hashed with the
+initial state data, and subsequent requests hash it with a random session id generated by the server and any body contents
+for POST requests, and the path for DELETE requests, as well as an incrementing counter to prevent replay attacks.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-development-mode"><a class="anchor" href="#configuring-development-mode"></a>Configuring Development Mode</h3>
+<div class="paragraph">
+<p>By default, the Maven plugin picks up compiler flags to pass to
+<code>javac</code> from <code>maven-compiler-plugin</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you need to customize the compiler flags used in development mode,
+add a <code>configuration</code> section to the <code>plugin</code> block and set the
+<code>compilerArgs</code> property just as you would when configuring
+<code>maven-compiler-plugin</code>.  You can also set <code>source</code>, <code>target</code>, and
+<code>jvmArgs</code>.  For example, to pass <code>--enable-preview</code> to both the JVM
+and <code>javac</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+  &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+  &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+
+  &lt;configuration&gt;
+    &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+    &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+    &lt;compilerArgs&gt;
+      &lt;arg&gt;--enable-preview&lt;/arg&gt;
+    &lt;/compilerArgs&gt;
+    &lt;jvmArgs&gt;--enable-preview&lt;/jvmArgs&gt;
+  &lt;/configuration&gt;
+
+  ...
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging"><a class="anchor" href="#debugging"></a>Debugging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In development mode, Quarkus starts by default with debug mode enabled, listening to port <code>5005</code> without suspending the JVM.</p>
+</div>
+<div class="paragraph">
+<p>This behavior can be changed by giving the <code>debug</code> system property one of the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>false</code> - the JVM will start with debug mode disabled</p>
+</li>
+<li>
+<p><code>true</code> - The JVM is started in debug mode and will be listening on port <code>5005</code></p>
+</li>
+<li>
+<p><code>client</code> - the JVM will start in client mode and attempt to connect to <code>localhost:5005</code></p>
+</li>
+<li>
+<p><code>{port}</code> - The JVM is started in debug mode and will be listening on <code>{port}</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An additional system property <code>suspend</code> can be used to suspend the JVM, when launched in debug mode. <code>suspend</code> supports the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>y</code> or <code>true</code> - The debug mode JVM launch is suspended</p>
+</li>
+<li>
+<p><code>n</code> or <code>false</code> - The debug mode JVM is started without suspending</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also run a Quarkus application in debug mode with a suspended JVM using:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev -Dsuspend -Ddebug</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev -Dsuspend -Ddebug</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, attach your debugger to <code>localhost:5005</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="import-in-your-ide"><a class="anchor" href="#import-in-your-ide"></a>Import in your IDE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you have a <a href="#project-creation">project generated</a>, you can import it in your favorite IDE.
+The only requirement is the ability to import a Maven project.</p>
+</div>
+<div class="paragraph">
+<p><strong>Eclipse</strong></p>
+</div>
+<div class="paragraph">
+<p>In Eclipse, click on: <code>File &#8594; Import</code>.
+In the wizard, select: <code>Maven &#8594; Existing Maven Project</code>.
+On the next screen, select the root location of the project.
+The next screen list the found modules; select the generated project and click on <code>Finish</code>. Done!</p>
+</div>
+<div class="paragraph">
+<p>In a separated terminal, run:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and enjoy a highly productive environment.</p>
+</div>
+<div class="paragraph">
+<p><strong>IntelliJ</strong></p>
+</div>
+<div class="paragraph">
+<p>In IntelliJ:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From inside IntelliJ select <code>File &#8594; New &#8594; Project From Existing Sources&#8230;&#8203;</code> or, if you are on the welcome dialog, select <code>Import project</code>.</p>
+</li>
+<li>
+<p>Select the project root</p>
+</li>
+<li>
+<p>Select <code>Import project from external model</code> and <code>Maven</code></p>
+</li>
+<li>
+<p>Next a few times (review the different options if needed)</p>
+</li>
+<li>
+<p>On the last screen click on Finish</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In a separated terminal or in the embedded terminal, run:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enjoy!</p>
+</div>
+<div class="paragraph">
+<p><strong>Apache NetBeans</strong></p>
+</div>
+<div class="paragraph">
+<p>In NetBeans:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <code>File &#8594; Open Project</code></p>
+</li>
+<li>
+<p>Select the project root</p>
+</li>
+<li>
+<p>Click on <code>Open Project</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In a separated terminal or the embedded terminal, go to the project root and run:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enjoy!</p>
+</div>
+<div class="paragraph">
+<p><strong>Visual Studio Code</strong></p>
+</div>
+<div class="paragraph">
+<p>Open the project directory in VS Code. If you have installed the Java Extension Pack (grouping a set of Java extensions), the project is loaded as a Maven project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging-quarkus-application-build-classpath-tree"><a class="anchor" href="#logging-quarkus-application-build-classpath-tree"></a>Logging Quarkus application build classpath tree</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usually, dependencies of an application (which is a Maven project) could be displayed using <code>mvn dependency:tree</code> command. In case of a Quarkus application, however, this command will list only the runtime dependencies of the application.
+Given that the Quarkus build process adds deployment dependencies of the extensions used in the application to the original application classpath, it could be useful to know which dependencies and which versions end up on the build classpath.
+Luckily, the <code>quarkus</code> Maven plugin includes the <code>dependency-tree</code> goal which displays the build dependency tree for the application.</p>
+</div>
+<div class="paragraph">
+<p>Executing <code>./mvnw quarkus:dependency-tree</code> on your project should result in an output similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[INFO] --- quarkus-maven-plugin:999-SNAPSHOT:dependency-tree (default-cli) @ getting-started ---
+[INFO] org.acme:getting-started:jar:1.0.0-SNAPSHOT
+[INFO] └─ io.quarkus:quarkus-resteasy-deployment:jar:999-SNAPSHOT (compile)
+[INFO]    ├─ io.quarkus:quarkus-resteasy-server-common-deployment:jar:999-SNAPSHOT (compile)
+[INFO]    │  ├─ io.quarkus:quarkus-core-deployment:jar:999-SNAPSHOT (compile)
+[INFO]    │  │  ├─ commons-beanutils:commons-beanutils:jar:1.9.3 (compile)
+[INFO]    │  │  │  ├─ commons-logging:commons-logging:jar:1.2 (compile)
+[INFO]    │  │  │  └─ commons-collections:commons-collections:jar:3.2.2 (compile)
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The goal accepts the following optional parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mode</code> - the default value is <code>prod</code>, i.e. the production build dependency tree. Alternatively, it accepts values <code>test</code> to display the test dependency tree and <code>dev</code> to display the dev mode dependency tree;</p>
+</li>
+<li>
+<p><code>outputFile</code> - specifies the file to persist the dependency tree to;</p>
+</li>
+<li>
+<p><code>appendOutput</code> - the default value is <code>false</code>, indicates whether the output to the command should be appended to the file specified with the <code>outputFile</code> parameter or it should be overriden.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="downloading-maven-artifact-dependencies-for-offline-development-and-testing"><a class="anchor" href="#downloading-maven-artifact-dependencies-for-offline-development-and-testing"></a>Downloading Maven artifact dependencies for offline development and testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus extension dependencies are divided into the runtime extension dependencies that end up on the application runtime classpath and the deployment (or build time) extension dependencies that are resolved by Quarkus only at application build time to create
+the build classpath. Application developers are expected to express dependencies only on the runtime artifacts of Quarkus extensions. As a consequence, the deployment extension dependencies aren&#8217;t visible to Maven plugins that aren&#8217;t aware of the Quarkus
+extension dependency model, such as the <code>maven-dependency-plugin</code>, <code>go-offline-maven-plugin</code>, etc. That means those plugins can not be used to pre-download all the application dependencies to be able to build and test the application later in offline mode.</p>
+</div>
+<div class="paragraph">
+<p>To enable the use-case of building and testing a Quarkus application offline, the <code>quarkus-maven-plugin</code> includes the <code>go-offline</code> goal that could be called from the command line like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:go-offline</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This goal will resolve all the runtime, build time, test and dev mode dependencies of the application downloading them to the configured local Maven repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building-a-native-executable"><a class="anchor" href="#building-a-native-executable"></a>Building a native executable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Native executables make Quarkus applications ideal for containers and serverless workloads.</p>
+</div>
+<div class="paragraph">
+<p>Make sure to have <code>GRAALVM_HOME</code> configured and pointing to GraalVM version 22.0.0.2 (Make sure to use a Java 11 version of GraalVM).
+Verify that your <code>pom.xml</code> has the proper <code>native</code> profile (see <a href="#build-tool-maven">Maven configuration</a>).</p>
+</div>
+<div class="paragraph">
+<p>Create a native executable using:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build --native</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw package -Dnative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A native executable will be present in <code>target/</code>.</p>
+</div>
+<div class="paragraph">
+<p>To run Integration Tests on the native executable, make sure to have the proper Maven plugin configured (see <a href="#build-tool-maven">Maven configuration</a>) and launch the <code>verify</code> goal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">$ ./mvnw verify -Pnative
+...
+[quarkus-quickstart-runner:50955]     universe:     391.96 ms
+[quarkus-quickstart-runner:50955]      (parse):     904.37 ms
+[quarkus-quickstart-runner:50955]     (inline):   1,143.32 ms
+[quarkus-quickstart-runner:50955]    (compile):   6,228.44 ms
+[quarkus-quickstart-runner:50955]      compile:   9,130.58 ms
+[quarkus-quickstart-runner:50955]        image:   2,101.42 ms
+[quarkus-quickstart-runner:50955]        write:     803.18 ms
+[quarkus-quickstart-runner:50955]      [total]:  33,520.15 ms
+[INFO]
+[INFO] --- maven-failsafe-plugin:2.22.0:integration-test (default) @ quarkus-quickstart-native ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.acme.quickstart.GreetingResourceIT
+Executing [/Users/starksm/Dev/JBoss/Quarkus/starksm64-quarkus-quickstarts/getting-started-native/target/quarkus-quickstart-runner, -Dquarkus.http.port=8081, -Dtest.url=http://localhost:8081, -Dquarkus.log.file.path=target/quarkus.log]
+2019-02-28 16:52:42,020 INFO  [io.quarkus] (main) Quarkus started in 0.007s. Listening on: http://localhost:8080
+2019-02-28 16:52:42,021 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy]
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.081 s - in org.acme.quickstart.GreetingResourceIT
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+...</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-a-container-friendly-executable"><a class="anchor" href="#build-a-container-friendly-executable"></a>Build a container friendly executable</h3>
+<div class="paragraph">
+<p>The native executable will be specific to your operating system.
+To create an executable that will run in a container, use the following:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build --native -Dquarkus.native.container-build=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw package -Dnative -Dquarkus.native.container-build=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The produced executable will be a 64 bit Linux executable, so depending on your operating system it may no longer be runnable.
+However, it&#8217;s not an issue as we are going to copy it to a Docker container.
+Note that in this case the build itself runs in a Docker container too, so you don&#8217;t need to have GraalVM installed locally.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By default, the native executable will be generated using the <code>quay.io/quarkus/ubi-quarkus-native-image:22.0.0.2-java11</code> Docker image.</p>
+</div>
+<div class="paragraph">
+<p>If you want to build a native executable with a different Docker image (for instance to use a different GraalVM version),
+use the <code>-Dquarkus.native.builder-image=&lt;image name&gt;</code> build argument.</p>
+</div>
+<div class="paragraph">
+<p>The list of the available Docker images can be found on <a href="https://quay.io/repository/quarkus/ubi-quarkus-native-image?tab=tags">quay.io</a>.
+Be aware that a given Quarkus version might not be compatible with all the images available.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can follow the <a href="building-native-image.html">Build a native executable guide</a> as well as <a href="deploying-to-kubernetes.html">Deploying Application to Kubernetes and OpenShift</a> for more information.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-tool-maven"><a class="anchor" href="#build-tool-maven"></a>Maven configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have not used <a href="#project-creation">project scaffolding</a>, add the following elements in your <code>pom.xml</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+            &lt;artifactId&gt;quarkus-bom&lt;/artifactId&gt;
+            &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+            &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+            &lt;extensions&gt;true&lt;/extensions&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;build&lt;/goal&gt;
+                        &lt;goal&gt;generate-code&lt;/goal&gt;
+                        &lt;goal&gt;generate-code-tests&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;systemPropertyVariables&gt;
+                    &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
+                    &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
+                &lt;/systemPropertyVariables&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+
+&lt;profiles&gt;
+    &lt;profile&gt; <i class="conum" data-value="5"></i><b>(5)</b>
+        &lt;id&gt;native&lt;/id&gt;
+        &lt;properties&gt; <i class="conum" data-value="6"></i><b>(6)</b>
+            &lt;quarkus.package.type&gt;native&lt;/quarkus.package.type&gt;
+        &lt;/properties&gt;
+        &lt;build&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt; <i class="conum" data-value="7"></i><b>(7)</b>
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+                    &lt;executions&gt;
+                        &lt;execution&gt;
+                            &lt;goals&gt;
+                                &lt;goal&gt;integration-test&lt;/goal&gt;
+                                &lt;goal&gt;verify&lt;/goal&gt;
+                            &lt;/goals&gt;
+                            &lt;configuration&gt;
+                                &lt;systemPropertyVariables&gt;
+                                    &lt;native.image.path&gt;${project.build.directory}/${project.build.finalName}-runner&lt;/native.image.path&gt;
+                                    &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
+                                    &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
+                                &lt;/systemPropertyVariables&gt;
+                            &lt;/configuration&gt;
+                        &lt;/execution&gt;
+                    &lt;/executions&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/build&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Optionally use a BOM file to omit the version of the different Quarkus dependencies.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use the Quarkus Maven plugin that will hook into the build process.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Enabling Maven plugin extensions will register a Quarkus <code>MavenLifecycleParticipant</code> which will make sure the Quarkus classloaders used during the build are properly closed. During the <code>generate-code</code> and <code>generate-code-tests</code> goals the Quarkus application bootstrap is initialized and re-used in the <code>build</code> goal (which actually builds and packages a production application). The Quarkus classloaders will be properly closed in the <code>build</code> goal of the <code>quarkus-maven-plugin</code>. However, if the build fails in between the <code>generate-code</code> or <code>generate-code-tests</code> and <code>build</code> then the Quarkus augmentation classloader won&#8217;t be properly closed, which may lead to locking of JAR files that happened to be on the classpath on Windows OS.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Add system properties to <code>maven-surefire-plugin</code>.<br>
+<code>maven.home</code> is only required if you have custom configuration in <code>${maven.home}/conf/settings.xml</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Use a specific <code>native</code> profile for native executable building.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Enable the <code>native</code> package type. The build will therefore produce a native executable.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>If you want to test your native executable with Integration Tests, add the following plugin configuration. Test names <code>*IT</code> and annotated <code>@NativeImageTest</code> or <code>@QuarkusIntegrationTest</code> will be run against the native executable. See the <a href="building-native-image.html">Native executable guide</a> for more info.</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="fast-jar"><a class="anchor" href="#fast-jar"></a>Using fast-jar</h3>
+<div class="paragraph">
+<p><code>fast-jar</code> is the default quarkus package type.</p>
+</div>
+<div class="paragraph">
+<p>The result of the build is a directory under <code>target</code> named <code>quarkus-app</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can run the application using: <code>java -jar target/quarkus-app/quarkus-run.jar</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In order to successfully run the produced jar, you need to have the entire contents of the <code>quarkus-app</code> directory. If any of the files are missing, the application will not start or
+might not function correctly.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>fast-jar</code> packaging results in creating an artifact that starts a little faster and consumes slightly less memory than a legacy Quarkus jar
+because it has indexed information about which dependency jar contains classes and resources. It can thus avoid the lookup into potentially every jar
+on the classpath that the legacy jar necessitates, when loading a class or resource.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="uber-jar-maven"><a class="anchor" href="#uber-jar-maven"></a>Uber-Jar Creation</h3>
+<div class="paragraph">
+<p>Quarkus Maven plugin supports the generation of Uber-Jars by specifying a <code>quarkus.package.type=uber-jar</code> configuration option in your <code>application.properties</code>
+(or <code>&lt;quarkus.package.type&gt;uber-jar&lt;/quarkus.package.type&gt;</code> in your <code>pom.xml</code>).</p>
+</div>
+<div class="paragraph">
+<p>The original jar will still be present in the <code>target</code> directory but it will be renamed to contain the <code>.original</code> suffix.</p>
+</div>
+<div class="paragraph">
+<p>When building an Uber-Jar you can specify entries that you want to exclude from the generated jar by using the <code>quarkus.package.ignored-entries</code> configuration
+option, this takes a comma separated list of entries to ignore.</p>
+</div>
+<div class="paragraph">
+<p>Uber-Jar creation by default excludes <a href="https://docs.oracle.com/javase/tutorial/deployment/jar/intro.html">signature files</a> that might be present in the dependencies of the application.</p>
+</div>
+<div class="paragraph">
+<p>Uber-Jar&#8217;s final name is configurable via a Maven&#8217;s build settings <code>finalName</code> option.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multi-module-maven"><a class="anchor" href="#multi-module-maven"></a>Working with multi-module projects</h3>
+<div class="paragraph">
+<p>By default, Quarkus will not discover CDI beans inside another module.</p>
+</div>
+<div class="paragraph">
+<p>The best way to enable CDI bean discovery for a module in a multi-module project would be to include the <code>jandex-maven-plugin</code>,
+unless it is the main application module already configured with the quarkus-maven-plugin, in which case it will indexed automatically.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.jandex&lt;/groupId&gt;
+      &lt;artifactId&gt;jandex-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;1.2.2&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;id&gt;make-index&lt;/id&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;jandex&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>More information on this topic can be found on the <a href="cdi-reference.html#bean_discovery">Bean Discovery</a> section of the CDI guide.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-configuration-profile"><a class="anchor" href="#maven-configuration-profile"></a>Building with a specific configuration profile</h3>
+<div class="paragraph">
+<p>Quarkus supports <a href="config-reference.html#profiles">configuration profiles</a> in order to provide a specific configuration according to the target environment.</p>
+</div>
+<div class="paragraph">
+<p>The profile can be provided directly in the Maven build&#8217;s command thanks to the system property <code>quarkus.profile</code> with a command of type:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build -Dquarkus.profile=profile-name-here</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package -Dquarkus.profile=profile-name-here</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However it is also possible to specify the profile directly in the POM file of the project using project properties, the Quarkus Maven plugin configuration properties or system properties set in the Quarkus Maven plugin configuration.</p>
+</div>
+<div class="paragraph">
+<p>In order of precedence (greater precedence first):</p>
+</div>
+<div class="listingblock">
+<div class="title">1. System properties set in the Quarkus Maven plugin configuration</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  ...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;systemProperties&gt;
+            &lt;quarkus.profile&gt;prod-aws&lt;/quarkus.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+          &lt;/systemProperties&gt;
+        &lt;/configuration&gt;
+     &lt;/plugin&gt;
+     ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The default configuration profile of this project is <code>prod-aws</code>.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">2. Quarkus Maven plugin configuration properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  ...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;properties&gt;
+            &lt;quarkus.profile&gt;prod-aws&lt;/quarkus.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+          &lt;/properties&gt;
+        &lt;/configuration&gt;
+     &lt;/plugin&gt;
+     ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The default configuration profile of this project is <code>prod-aws</code>.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">3. Project properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  ...
+  &lt;properties&gt;
+    &lt;quarkus.profile&gt;prod-aws&lt;/quarkus.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+    ...
+  &lt;/properties&gt;
+...
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The default configuration profile of this project is <code>prod-aws</code>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Whatever the approach is chosen, the profile can still be overridden with the <code>quarkus.profile</code> system property or the <code>QUARKUS_PROFILE</code> environment variable.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-multi-build"><a class="anchor" href="#maven-multi-build"></a>Building several artifacts from a single module</h3>
+<div class="paragraph">
+<p>In some particular use cases, it can be interesting to build several artifacts of your application from the same module.
+A typical example is when you want to build your application with different configuration profiles.</p>
+</div>
+<div class="paragraph">
+<p>In that case, it is possible to add as many executions as needed to the Quarkus Maven plugin configuration.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example of a Quarkus Maven plugin configuration that will produce two builds of the same application: one using the <code>prod-oracle</code> profile and the other one using the <code>prod-postgresql</code> profile.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  ...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;oracle&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;build&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;properties&gt;
+                &lt;quarkus.profile&gt;prod-oracle&lt;/quarkus.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+                &lt;quarkus.package.output-directory&gt;oracle-quarkus-app&lt;/quarkus.package.output-directory&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+              &lt;/properties&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+          &lt;execution&gt;
+            &lt;id&gt;postgresql&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;build&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;properties&gt;
+                &lt;quarkus.profile&gt;prod-postgresql&lt;/quarkus.profile&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+                &lt;quarkus.package.output-directory&gt;postgresql-quarkus-app&lt;/quarkus.package.output-directory&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+              &lt;/properties&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+     &lt;/plugin&gt;
+     ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The default configuration profile of the first execution of the plugin is <code>prod-oracle</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The output directory of the first execution of the plugin is set to <code>oracle-quarkus-app</code> instead of <code>quarkus-app</code> to have a dedicated directory.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The default configuration profile of the second execution of the plugin is <code>prod-postgresql</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The output directory of the second execution of the plugin is set to <code>postgresql-quarkus-app</code> instead of <code>quarkus-app</code> to have a dedicated directory.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+With the configuration above, both profile builds will be using the same dependencies, so if we added dependencies on the Oracle and PostgreSQL drivers to the application, both of the drivers will appear in both builds.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To isolate profile-specific dependencies from other profiles, the JDBC drivers could be added as optional dependencies to the application but configured to be included in each profile that requires them, e.g.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+      &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+      &lt;version&gt;${postgresql.driver.version}&lt;/version&gt;
+      &lt;optional&gt;true&lt;/optional&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;executions&gt;
+          ...
+          &lt;execution&gt;
+            &lt;id&gt;postgresql&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;build&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;properties&gt;
+                &lt;quarkus.profile&gt;prod-postgresql&lt;/quarkus.profile&gt;
+                &lt;quarkus.package.output-directory&gt;postgresql-quarkus-app&lt;/quarkus.package.output-directory&gt;
+                &lt;quarkus.package.filter-optional-dependencies&gt;true&lt;/quarkus.package.filter-optional-dependencies&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+                &lt;quarkus.package.included-optional-dependencies&gt;org.postgresql:postgresql::jar&lt;/quarkus.package.included-optional-dependencies&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+              &lt;/properties&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+     &lt;/plugin&gt;
+     ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The JDBC driver of PostgreSQL is defined as an optional dependency</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For backward compatibility reasons, it is necessary to explicitly indicate that the optional dependencies need to be filtered.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Only the optional dependency corresponding to the JDBC driver of PostgreSQL is expected in the final artifact.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration-reference"><a class="anchor" href="#configuration-reference"></a>Configuring the Project Output</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a several configuration options that will define what the output of your project build will be.
+These are provided in <code>application.properties</code> the same as any other config property.</p>
+</div>
+<div class="paragraph">
+<p>The properties are shown below:</p>
+</div>
+<div class="sect2">
+<h3 id="custom-test-configuration-profile"><a class="anchor" href="#custom-test-configuration-profile"></a>Custom test configuration profile in JVM mode</h3>
+<div class="paragraph">
+<p>By default, Quarkus tests in JVM mode are run using the <code>test</code> configuration profile. If you are not familiar with Quarkus
+configuration profiles, everything you need to know is explained in the
+<a href="config.html#configuration-profiles">Configuration Profiles Documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>It is however possible to use a custom configuration profile for your tests with the Maven Surefire and Maven Failsafe
+configurations shown below. This can be useful if you need for example to run some tests using a specific database which is not
+your default testing database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project&gt;
+  [...]
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;systemPropertyVariables&gt;
+            &lt;quarkus.test.profile&gt;foo&lt;/quarkus.test.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;buildDirectory&gt;${project.build.directory}&lt;/buildDirectory&gt;
+            [...]
+          &lt;/systemPropertyVariables&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${failsafe-plugin.version}&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;systemPropertyVariables&gt;
+            &lt;quarkus.test.profile&gt;foo&lt;/quarkus.test.profile&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;buildDirectory&gt;${project.build.directory}&lt;/buildDirectory&gt;
+            [...]
+          &lt;/systemPropertyVariables&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  [...]
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>foo</code> configuration profile will be used to run the tests.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is not possible to use a custom test configuration profile in native mode for now. Native tests are always run using the
+<code>prod</code> profile.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bootstrap-maven-properties"><a class="anchor" href="#bootstrap-maven-properties"></a>Bootstrap Maven properties</h3>
+<div class="paragraph">
+<p>Quarkus bootstrap includes a Maven resolver implementation that is used to resolve application runtime and build time dependencies. The Quarkus Maven resolver is initialized from the same Maven command line that launched the build, test or dev mode. Typically, there is no need to add any extra configuration for it. However, there could be cases where an extra configuration option may be necessary to properly resolve application dependencies in test or dev modes, or IDEs.</p>
+</div>
+<div class="paragraph">
+<p>Maven test plugins (such as <code>surefire</code> and <code>failsafe</code>), for example, are not propagating build system properties to the running tests by default. Which means some of the system properties set by the Maven CLI aren&#8217;t available for the Quarkus Maven resolver initialized for the tests, which may result in test dependencies being resolved using different settings than the main Maven build.</p>
+</div>
+<div class="paragraph">
+<p>Here is a list of system properties the Quarkus bootstrap Maven resolver checks during its initialization.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property name</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maven.home</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MAVEN_HOME</code> envvar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Maven home dir is used to resolve the global settings file unless it was explicitly provided on the command line with the <code>-gs</code> argument</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maven.settings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>~/m2/settings.xml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unless the custom settings file has been provided with the <code>-s</code> argument, this property can be used to point the resolver to a custom Maven settings file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maven.repo.local</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>~/m2/repository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This property could be used to configure a custom local Maven repository directory, if it is different from the default one and the one specified in the <code>settings.xml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maven.top-level-basedir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This property may be useful to help the Maven resolver identify the top-level Maven project in the workspace. By default, the Maven resolver will be discovering a project&#8217;s workspace by navigating the parent-module POM relationship. However there could be project layouts that are using an aggregator module which isn&#8217;t appearing as the parent for its modules. In this case, this property will help the Quarkus Maven resolver to properly discover the workspace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.bootstrap.effective-model-builder</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, the Quarkus Maven resolver is reading project&#8217;s POMs directly when discovering the project&#8217;s layout. While in most cases it works well enough and relatively fast, reading raw POMs has its limitation. E.g. if a POM includes modules in a profile, these modules will not be discovered. This system property enables project&#8217;s layout discovery based on the effective POM models, that are properly interpolated, instead of the raw ones. The reason this option is not enabled by default is it may appear to be significantly more time consuming that could increase, e.g. CI testing times. Until there is a better approach found that could be used by default, projects that require it should enable this option.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>These system properties above could be added to, e.g., a <code>surefire</code> and/or <code>failsafe</code> plugin configuration as</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;project&gt;
+  [...]
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;systemPropertyVariables&gt;
+            &lt;maven.home&gt;${maven.hom}&lt;/maven.home&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;maven.repo.local&gt;${settings.localRepository}&lt;/maven.repo.local&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+            &lt;maven.settings&gt;${session.request.userSettingsFile.path}&lt;/maven.settings&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+            &lt;maven.top-level-basedir&gt;${session.topLevelProject.basedir.absolutePath}&lt;/maven.top-level-basedir&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+            &lt;quarkus.bootstrap.effective-model-builder&gt;true&lt;/quarkus.bootstrap.effective-model-builder&gt; <i class="conum" data-value="5"></i><b>(5)</b>
+          &lt;/systemPropertyVariables&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  [...]
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Propagate <code>maven.home</code> system property set by the Maven CLI to the tests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the Maven local repository directory for the tests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set the Maven settings file the tests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Point to the top-level project directory for the tests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Enable effective POM-based project layout discovery</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="top-level-vs-multi-module-project-directory"><a class="anchor" href="#top-level-vs-multi-module-project-directory"></a>Top-level vs Multi-module project directory</h4>
+<div class="paragraph">
+<p>In Maven there appears to be a notion of the top-level project (that is exposed as a project property <code>${session.topLevelProject.basedir.absolutePath}</code>)
+and the multi-module project directory (that is available as property <code>${maven.multiModuleProjectDirectory}</code>). These directories might not always match!</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<code>maven.multiModuleProjectDirectory</code> is meant to be consulted by the Maven code itself and not something to be relied upon by user code. So, if you find it useful, use it at your own risk!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>${maven.multiModuleProjectDirectory}</code> will be resolved to the first directory that contains <code>.mvn</code> directory as its child going up the workspace file system tree
+starting from the current directory (or the one specified with the <code>-f</code> argument) from which the <code>mvn</code> command was launched. If the <code>.mvn</code> directory was not found, however,
+the <code>${maven.multiModuleProjectDirectory}</code> will be pointing to the directory from which the <code>mvn</code> command was launched (or the one targeted with the <code>-f</code> argument).</p>
+</div>
+<div class="paragraph">
+<p>The <code>${session.topLevelProject.basedir.absolutePath}</code> will be pointing either to the directory from which the <code>mvn</code> command was launched or to the directory targeted with
+the <code>-f</code> argument, if it was specified.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-info"><a class="anchor" href="#project-info"></a>Quarkus project info</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Quarkus Maven plugin includes a goal called <code>info</code> (currently marked as 'experimental') that logs Quarkus-specific information about the project, such as: the imported Quarkus platform BOMs and the Quarkus extensions found among the project dependencies.
+In a multi-module project <code>quarkus:info</code> will assume that the current module, in which it is executed, is the main module of the application.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The report generated by <code>quarkus:info</code> is not currently including the Quarkus Maven plugin information, however it&#8217;s planned to be added in the future releases.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here is an example <code>info</code> output for a simple project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[aloubyansky@localhost code-with-quarkus]$ mvn quarkus:info
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------&lt; org.acme:code-with-quarkus &gt;---------------------
+[INFO] Building code-with-quarkus 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- quarkus-maven-plugin:999-SNAPSHOT:info (default-cli) @ code-with-quarkus ---
+[WARNING] quarkus:info goal is experimental, its options and output may change in future versions
+[INFO] Quarkus platform BOMs: <i class="conum" data-value="1"></i><b>(1)</b>
+[INFO]   io.quarkus.platform:quarkus-bom:pom:999-SNAPSHOT
+[INFO]   io.quarkus.platform:quarkus-kogito-bom:pom:999-SNAPSHOT
+[INFO]   io.quarkus.platform:quarkus-camel-bom:pom:999-SNAPSHOT
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-bom: <i class="conum" data-value="2"></i><b>(2)</b>
+[INFO]   io.quarkus:quarkus-resteasy-reactive
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-kogito-bom: <i class="conum" data-value="3"></i><b>(3)</b>
+[INFO]   org.kie.kogito:kogito-quarkus-decisions
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-camel-bom: <i class="conum" data-value="4"></i><b>(4)</b>
+[INFO]   org.apache.camel.quarkus:camel-quarkus-rabbitmq
+[INFO]
+[INFO] Extensions from registry.quarkus.io: <i class="conum" data-value="5"></i><b>(5)</b>
+[INFO]   io.quarkiverse.prettytime:quarkus-prettytime:0.2.1</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Quarkus platform BOMs imported in the project (BOMs imported by parent POMs will also be reported)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Direct Quarkus extension dependencies managed by the <code>quarkus-bom</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Direct Quarkus extension dependencies managed by the <code>quarkus-kogito-bom</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Direct Quarkus extension dependencies managed by the <code>quarkus-camel-bom</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Direct Quarkus extensions dependencies that aren&#8217;t managed by Quarkus BOMs but found in the Quarkus extension registry</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>quarkus:info</code> will also report Quarkus extensions that aren&#8217;t found in the Quarkus extension registries if those are present among the project dependencies, indicating they have an 'unknown origin'.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="project-info-misaligned"><a class="anchor" href="#project-info-misaligned"></a>Highlighing misaligned versions</h3>
+<div class="paragraph">
+<p><code>quarkus:info</code> will also highlight basic Quarkus dependency version misalignments, in case they are detected. For example, if we modify the project mentioned above by removing the <code>kogito-quarkus-decisions</code> extension from the dependencies and adding a <code>2.6.3.Final</code> <code>&lt;version&gt;</code> element to the <code>quarkus-resteasy-reactive</code> dependency that is managed by the <code>quarkus-bom</code> and then run <code>quarkus:info</code> again, we&#8217;ll see something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[INFO] --- quarkus-maven-plugin:999-SNAPSHOT:info (default-cli) @ code-with-quarkus ---
+[WARNING] quarkus:info goal is experimental, its options and output may change in future versions
+[INFO] Quarkus platform BOMs:
+[INFO]   io.quarkus.platform:quarkus-bom:pom:999-SNAPSHOT
+[INFO]   io.quarkus.platform:quarkus-kogito-bom:pom:999-SNAPSHOT | unnecessary <i class="conum" data-value="1"></i><b>(1)</b>
+[INFO]   io.quarkus.platform:quarkus-camel-bom:pom:999-SNAPSHOT
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-bom:
+[INFO]   io.quarkus:quarkus-resteasy-reactive:2.6.3.Final | misaligned <i class="conum" data-value="2"></i><b>(2)</b>
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-camel-bom:
+[INFO]   org.apache.camel.quarkus:camel-quarkus-rabbitmq
+[INFO]
+[INFO] Extensions from registry.quarkus.io:
+[INFO]   io.quarkiverse.prettytime:quarkus-prettytime:0.2.1
+[INFO]
+[WARNING] Non-recommended Quarkus platform BOM and/or extension versions were found. For more details, please, execute 'mvn quarkus:update -Drectify'</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>quarkus-kogito-bom</code> import is now reported as 'unnecessary' since none of the Quarkus extensions it includes are found among the project dependencies</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The version <code>2.6.3.Final</code> of the <code>quarkus-resteasy-reactive</code> is now reported as being misaligned with the version managed by the Quarkus platform BOM imported in the project, which is 999-SNAPSHOT</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-update"><a class="anchor" href="#project-update"></a>Quarkus project update</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>quarkus:update</code> goal (currently marked as 'experimental') provided by the Quarkus Maven plugin can be used to check whether there are Quarkus-related updates available for a project, such as: new releases of the relevant Quarkus platform BOMs and non-platform Quarkus extensions present in the project. In a multi-module project the <code>update</code> goal is meant to be executed from the main Quarkus application module.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+At this point, the <code>quarkus:update</code> goal does not actually apply the recommended updates but simply reports what they are and how to apply them manually.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Quarkus Maven plugin version isn&#8217;t currently included in the update report, however it&#8217;s planned to be added in the future releases.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The way <code>quarkus:update</code> works, first, all the direct Quarkus extension dependencies of the project are collected (those that are managed by the Quarkus platform BOMs and those that aren&#8217;t but found in the Quarkus extension registries). Then the configured Quarkus extension registries (typically the <code>registry.quarkus.io</code>) will be queried for the latest recommended/supported Quarkus platform versions and non-platform Quarkus extensions compatible with them. The algorithm will then select the latest compatible combination of all the extensions found in the project, assuming such a combination actually exists. Otherwise, no updates will be suggested.</p>
+</div>
+<div class="paragraph">
+<p>Assuming we have a project including Kogito, Camel and core Quarkus extensions available in the Quarkus platform based on Quarkus <code>2.7.1.Final</code>, the output of the <code>quarkus:update</code> would look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[aloubyansky@localhost code-with-quarkus]$ mvn quarkus:update
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------&lt; org.acme:code-with-quarkus &gt;---------------------
+[INFO] Building code-with-quarkus 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- quarkus-maven-plugin:999-SNAPSHOT:update (default-cli) @ code-with-quarkus ---
+[WARNING] quarkus:update goal is experimental, its options and output might change in future versions
+[INFO]
+[INFO] Recommended Quarkus platform BOM updates: <i class="conum" data-value="1"></i><b>(1)</b>
+[INFO] Update: io.quarkus.platform:quarkus-bom:pom:2.7.1.Final -&gt; 999-SNAPSHOT
+[INFO] Update: io.quarkus.platform:quarkus-kogito-bom:pom:2.7.1.Final -&gt; 999-SNAPSHOT
+[INFO] Update: io.quarkus.platform:quarkus-camel-bom:pom:2.7.1.Final -&gt; 999-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A list of currently recommended Quarkus platform BOM updates</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Typically, a single project property will be used to manage all the Quarkus platform BOMs but the implementation isn&#8217;t currently smart enough to point that out and will report updates for each BOM individually.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If we modify the project to remove all the Kogito extensions from the project, change the version of the <code>quarkus-resteasy-reactive</code> extension to <code>2.6.3.Final</code> and downgrade <code>quarkus-prettytime</code> which is not included in the Quarkus platform BOMs to <code>0.2.0</code>, <code>quarkus:update</code> will report something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[INFO] Recommended Quarkus platform BOM updates: <i class="conum" data-value="1"></i><b>(1)</b>
+[INFO] Update: io.quarkus.platform:quarkus-bom:pom:2.7.1.Final -&gt; 999-SNAPSHOT
+[INFO] Update: io.quarkus.platform:quarkus-camel-bom:pom:2.7.1.Final -&gt; 999-SNAPSHOT
+[INFO] Remove: io.quarkus.platform:quarkus-kogito-bom:pom:2.7.1.Final <i class="conum" data-value="2"></i><b>(2)</b>
+[INFO]
+[INFO] Extensions from io.quarkus.platform:quarkus-bom:
+[INFO] Update: io.quarkus:quarkus-resteasy-reactive:2.6.3.Final -&gt; remove version (managed) <i class="conum" data-value="3"></i><b>(3)</b>
+[INFO]
+[INFO] Extensions from registry.quarkus.io:
+[INFO] Update: io.quarkiverse.prettytime:quarkus-prettytime:0.2.0 -&gt; 0.2.1 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A list of the currently recommended Quarkus platform BOM updates for the project</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Given that the project does not include any Kogito extensions, the BOM import is recommended to be removed</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>An outdated version of the <code>quarkus-resteasy-reactive</code> is recommended to be removed in favor of the one managed by the <code>quarkus-bom</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The latest compatible version of the <code>quarkus-prettytime</code> extension</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="quarkus-project-rectify"><a class="anchor" href="#quarkus-project-rectify"></a>Quarkus project rectify</h3>
+<div class="paragraph">
+<p>As was mentioned above, <code>quarkus:info</code>, besides reporting Quarkus platform and extension versions, performs a quick version alignment check, to make sure the extension versions used in the project are compatible with the imported Quarkus platform BOMs. If misalignments are detected, the following warning message will be logged:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-text" data-lang="text">[WARNING] Non-recommended Quarkus platform BOM and/or extension versions were found. For more details, please, execute 'mvn quarkus:update -Drectify'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>rectify</code> option is enabled, <code>quarkus:update</code>, instead of suggesting the latest recommended Quarkus version updates, will log update instructions to simply align the extension dependency versions found in the project with the currently imported Quarkus platform BOMs.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-03-17 11:27:40 +0800
+</div>
+</div>
+</body>
+</html>

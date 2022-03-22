@@ -1,0 +1,4458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Qute Reference Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/config.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/asciidoc-tabs.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+<script src="javascript/config.js"></script>
+<script src="javascript/asciidoc-tabs.js"></script>
+
+<style>
+    .book {
+        font-size: 14px;
+    }
+
+    .admonitionblock td.content>.title, .audioblock>.title, .exampleblock>.title, .imageblock>.title,
+    .listingblock>.title, .literalblock>.title, .stemblock>.title, .openblock>.title, .paragraph>.title,
+    .quoteblock>.title, table.tableblock>.title, .verseblock>.title, .videoblock>.title, .dlist>.title,
+    .olist>.title, .ulist>.title, .qlist>.title, .hdlist>.title {
+        font-size: 1.6rem;
+    }
+
+    p, blockquote, dt, td.content, span.alt, .quoteblock blockquote, .quoteblock blockquote p {
+        font-size: 1.6rem;
+    }
+
+    pre code {
+        font-size: 1.5rem;
+    }
+
+    #preamble>.sectionbody>[class="paragraph"]:first-of-type p {
+        font-size: 1.6rem;
+    }
+
+    #header, #content, #footer, #footnotes {
+        max-width: 72em;
+    }
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Qute Reference Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Qute is a templating engine designed specifically to meet the Quarkus needs.
+The usage of reflection is minimized to reduce the size of native images.
+The API combines both the imperative and the non-blocking reactive style of coding.
+In the development mode, all files located in the <code>src/main/resources/templates</code> folder are watched for changes and modifications are immediately visible in your application.
+Furthermore, Qute attempts to detect most of the template problems at build time and fail fast.</p>
+</div>
+<div class="paragraph">
+<p>In this guide, you will find an <a href="#hello_world_example">introductory example</a>, the description of the <a href="#core_features">core features</a> and <a href="#quarkus_integration">Quarkus integration</a> details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Qute is primarily designed as a Quarkus extension. It is possible to use it as a "standalone" library too. However, in such case some of the features are not available. In general, any feature mentioned under the <a href="#quarkus_integration">Quarkus Integration</a> section is missing. You can find more information about the limitations and possibilities in the <a href="#standalone">Qute Used as a Standalone Library</a> section.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_simplest_example"><a class="anchor" href="#the_simplest_example"></a>1. The Simplest Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The easiest way to try Qute is to use the convenient <code>io.quarkus.qute.Qute</code> class and call one of its <code>fmt()</code> static methods that can be used to format simple messages:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import io.quarkus.qute.Qute;
+
+Qute.fmt("Hello {}!", "Lucy"); <i class="conum" data-value="1"></i><b>(1)</b>
+// =&gt; Hello Lucy!
+
+Qute.fmt("Hello {name} {surname ?: 'Default'}!", Map.of("name", "Andy")); <i class="conum" data-value="2"></i><b>(2)</b>
+// =&gt; Hello Andy Default!
+
+Qute.fmt("&lt;html&gt;{header}&lt;/html&gt;").contentType("text/html").data("header", "&lt;h1&gt;My header&lt;/h1&gt;").render(); <i class="conum" data-value="3"></i><b>(3)</b>
+// &lt;html&gt;&amp;lt;h1&amp;gt;Header&amp;lt;/h1&amp;gt;&lt;/html&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+
+Qute.fmt("I am {#if ok}happy{#else}sad{/if}!", Map.of("ok", true)); <i class="conum" data-value="5"></i><b>(5)</b>
+// =&gt; I am happy!</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The empty expression <code>{}</code> is a placeholder that is replaced with an index-based array accessor, i.e. <code>{data[0]}</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>You can provide a data map instead.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A builder-like API is available for more complex formatting requirements.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Note that for a "text/html" template the special chars are replaced with html entities by default.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>You can use any <a href="#basic-building-blocks">building block</a> in the template. In this case, the <a href="#if_section">If Section</a> is used to render the appropriate part of the message based on the input data.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In <a href="#quarkus_integration">Quarkus</a>, the engine used to format the messages is the same as the one injected by <code>@Inject Engine</code>. Therefore, you can make use of any Quarkus-specific integration feature such as <a href="#template_extension_methods">Template Extension Methods</a>, <a href="#injecting-beans-directly-in-templates">Injecting Beans Directly In Templates</a> or even <a href="#type-safe-message-bundles">Type-safe Message Bundles</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The format object returned by the <code>Qute.fmt(String)</code> method can be evaluated lazily and used e.g. as a log message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">LOG.info(Qute.fmt("Hello {name}!").data("name", "Foo"));
+// =&gt; Hello Foo! and the message template is only evaluated if the log level INFO is used for the specific logger</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Please read the javadoc of the <code>io.quarkus.qute.Qute</code> class for more details.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hello_world_example"><a class="anchor" href="#hello_world_example"></a>2. Hello World Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this example, we would like to demonstrate the <em>basic workflow</em> when working with Qute templates.
+Let&#8217;s start with a simple "hello world" example.
+We will always need some <strong>template contents</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="title">hello.html</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+  &lt;p&gt;Hello {name}! <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>{name}</code> is a value expression that is evaluated when the template is rendered.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then, we will need to parse the contents into a <strong>template definition</strong> Java object.
+A template definition is an instance of <code>io.quarkus.qute.Template</code>.</p>
+</div>
+<div class="paragraph">
+<p>If using Qute "standalone" you&#8217;ll need to create an instance of <code>io.quarkus.qute.Engine</code> first.
+The <code>Engine</code> represents a central point for template management with dedicated configuration.
+Let&#8217;s use the convenient builder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Engine engine = Engine.builder().addDefaults().build();</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, there is a preconfigured <code>Engine</code> available for injection - see <a href="#quarkus_integration">Quarkus Integration</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once we have an <code>Engine</code> instance we could parse the template contents:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Template hello = engine.parse(helloHtmlContent);</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, you can simply inject the template definition. The template is automatically parsed and cached - see <a href="#quarkus_integration">Quarkus Integration</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Finally, create a <strong>template instance</strong>, set the data and render the output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">// Renders &lt;html&gt;&lt;p&gt;Hello Jim!&lt;/p&gt;&lt;/html&gt;
+hello.data("name", "Jim").render(); <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>Template.data(String, Object)</code> is a convenient method that creates a template instance and sets the data in one step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>TemplateInstance.render()</code> triggers a synchronous rendering, i.e. the current thread is blocked until the rendering is finished. However, there are also asynchronous ways to trigger the rendering and consume the results. For example there is the <code>TemplateInstance.renderAsync()</code> method that returns <code>CompletionStage&lt;String&gt;</code> or <code>TemplateInstance.createMulti()</code> that returns Mutiny&#8217;s <code>Multi&lt;String&gt;</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So the workflow is simple:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the template contents (<code>hello.html</code>),</p>
+</li>
+<li>
+<p>Parse the template definition (<code>io.quarkus.qute.Template</code>),</p>
+</li>
+<li>
+<p>Create a template instance (<code>io.quarkus.qute.TemplateInstance</code>),</p>
+</li>
+<li>
+<p>Render the output.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>Engine</code> is able to cache the template definitions so that it&#8217;s not necessary to parse the contents again and again. In Quarkus, the caching is done automatically.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="core_features"><a class="anchor" href="#core_features"></a>3. Core Features</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="basic-building-blocks"><a class="anchor" href="#basic-building-blocks"></a>3.1. Basic Building Blocks</h3>
+<div class="paragraph">
+<p>The dynamic parts of a template include comments, expressions, sections and unparsed character data.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Comments</dt>
+<dd>
+<p>A comment starts with the sequence <code>{!</code> and ends with the sequence <code>!}</code>, e.g. <code>{! This is a comment !}</code>.
+Can be multiline and may contain expressions and sections: <code>{! {#if true} !}</code>.
+The content of a comment is completely ignored when rendering the output.</p>
+</dd>
+<dt class="hdlist1">Expressions</dt>
+<dd>
+<p>An <a href="#expressions">expression</a> outputs an evaluated value.
+It consists of one or more parts.
+A part may represent simple properties: <code>{foo}</code>, <code>{item.name}</code>, and virtual methods: <code>{item.get(name)}</code>, <code>{name ?: 'John'}</code>.
+An expression may also start with a namespace: <code>{inject:colors}</code>.</p>
+</dd>
+<dt class="hdlist1">Sections</dt>
+<dd>
+<p>A <a href="#sections">section</a> may contain static text, expressions and nested sections: <code>{#if foo.active}{foo.name}{/if}</code>.
+The name in the closing tag is optional: <code>{#if active}ACTIVE!{/}</code>.
+A section can be empty: <code>{#myTag image=true /}</code>.
+A section may also declare nested section blocks: <code>{#if item.valid} Valid. {#else} Invalid. {/if}</code> and decide which block to render.</p>
+</dd>
+<dt class="hdlist1">Unparsed Character Data</dt>
+<dd>
+<p>It is used to mark the content that should be rendered but <em>not parsed</em>.
+It starts with the sequence <code>{|</code>  and ends with the sequence <code>|}</code>: <code>{| &lt;script&gt;if(true){alert('Qute is cute!')};&lt;/script&gt; |}</code>, and could be multi-line.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Previously, unparsed character data had to start with <code>{[</code> and end with <code>]}</code>. This syntax is still supported but we encourage users to switch to the new syntax to avoid some common collisions with constructs from other languages.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identifiers"><a class="anchor" href="#identifiers"></a>3.2. Identifiers and Tags</h3>
+<div class="paragraph">
+<p>Identifiers are used in expressions and section tags.
+A valid identifier is a sequence of non-whitespace characters.
+However, users are encouraged to only use valid Java identifiers in expressions.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can use bracket notation if you need to specify an identifier that contains a dot, e.g. <code>{map['my.key']}</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When parsing a template document the parser identifies all <em>tags</em>.
+A tag starts and ends with a curly bracket, e.g. <code>{foo}</code>.
+The content of a tag must start with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a digit, or</p>
+</li>
+<li>
+<p>an alphabet character, or</p>
+</li>
+<li>
+<p>underscore, or</p>
+</li>
+<li>
+<p>a built-in command: <code>#</code>, <code>!</code>, <code>@</code>, <code>/</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If it does not start with any of the above it is ignored by the parser.</p>
+</div>
+<div class="listingblock">
+<div class="title">Tag Examples</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+   &lt;body&gt;
+   {_foo.bar}   <i class="conum" data-value="1"></i><b>(1)</b>
+   {! comment !}<i class="conum" data-value="2"></i><b>(2)</b>
+   {  foo}      <i class="conum" data-value="3"></i><b>(3)</b>
+   {{foo}}      <i class="conum" data-value="4"></i><b>(4)</b>
+   {"foo":true} <i class="conum" data-value="5"></i><b>(5)</b>
+   &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Parsed: an expression that starts with underscore.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Parsed: a comment</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Ignored: starts with whitespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Ignored: starts with <code>{</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Ignored: starts with <code>"</code>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is also possible to use escape sequences <code>\{</code> and <code>\}</code> to insert delimiters in the text. In fact, an escape sequence is usually only needed for the start delimiter, ie. <code>\{foo}</code> will be rendered as <code>{foo}</code> (no parsing/evaluation will happen).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-standalone-lines-from-the-template"><a class="anchor" href="#removing-standalone-lines-from-the-template"></a>3.3. Removing Standalone Lines From the Template</h3>
+<div class="paragraph">
+<p>By default, the parser removes standalone lines from the template output.
+A <strong>standalone line</strong> is a line that contains at least one section tag (e.g. <code>{#each}</code> and <code>{/each}</code>), parameter declaration (e.g. <code>{@org.acme.Foo foo}</code>) or comment but no expression and no non-whitespace character.
+In other words, a line that contains no section tag or a parameter declaration is <strong>not</strong> a standalone line.
+Likewise, a line that contains an <em>expression</em> or a <em>non-whitespace character</em> is <strong>not</strong> a standalone line.</p>
+</div>
+<div class="listingblock">
+<div class="title">Template Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+  &lt;body&gt;
+     &lt;ul&gt;
+     {#for item in items} <i class="conum" data-value="1"></i><b>(1)</b>
+       &lt;li&gt;{item.name} {#if item.active}{item.price}{/if}&lt;/li&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+                          <i class="conum" data-value="3"></i><b>(3)</b>
+     {/for}               <i class="conum" data-value="4"></i><b>(4)</b>
+     &lt;/ul&gt;
+   &lt;body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This is a standalone line and will be removed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Not a standalone line - contains an expression and non-whitespace characters</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Not a standalone line - contains no section tag/parameter declaration</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>This is a standalone line.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Default Output</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+  &lt;body&gt;
+     &lt;ul&gt;
+       &lt;li&gt;Foo 100&lt;/li&gt;
+
+     &lt;/ul&gt;
+   &lt;body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, the default behavior can be disabled by setting the property <code>quarkus.qute.remove-standalone-lines</code> to <code>false</code>.
+In this case, all whitespace characters from a standalone line will be printed to the output.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Output with <code>quarkus.qute.remove-standalone-lines=false</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+  &lt;body&gt;
+     &lt;ul&gt;
+
+       &lt;li&gt;Foo 100&lt;/li&gt;
+
+
+     &lt;/ul&gt;
+   &lt;body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expressions"><a class="anchor" href="#expressions"></a>3.4. Expressions</h3>
+<div class="paragraph">
+<p>An expression is evaluated and outputs the value.
+It has one or more parts, where each part represents either a property accessor (aka Field Access Expression) or a virtual method invocation (aka Method Invocation Expression).</p>
+</div>
+<div class="paragraph">
+<p>When accessing the properties you can either use the dot notation or bracket notation.
+In the <code>object.property</code> (dot notation) syntax, the <code>property</code> must be a <a href="#identifiers">valid identifier</a>.
+In the <code>object[property_name]</code> (bracket notation) syntax, the <code>property_name</code> has to be a non-null <a href="#literals">literal</a> value.</p>
+</div>
+<div class="paragraph">
+<p>An expression can start with an optional namespace followed by a colon (<code>:</code>).
+A valid namespace consist of alphanumeric characters and underscores.
+Namespace expressions are resolved differently - see also <a href="#expression_resolution">Resolution</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Property Accessor Examples</div>
+<div class="content">
+<pre class="highlight"><code>{name} <i class="conum" data-value="1"></i><b>(1)</b>
+{item.name} <i class="conum" data-value="2"></i><b>(2)</b>
+{item['name']} <i class="conum" data-value="3"></i><b>(3)</b>
+{global:colors} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>no namespace, one part: <code>name</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>no namespace, two parts: <code>item</code>, <code>name</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>equivalent to <code>{item.name}</code> but using the bracket notation</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>namespace <code>global</code>, one part: <code>colors</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A part of an expression can be a <em>virtual method</em> in which case the name can be followed by a list of comma-separated parameters in parentheses.
+A parameter of a virtual method can be either a nested expression or a <a href="#literals">literal</a> value.
+We call these method <em>"virtual"</em> because they does not have to be backed by a real Java method.
+You can learn more about virtual methods in the <a href="#virtual_methods">following section</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Virtual Method Example</div>
+<div class="content">
+<pre class="highlight"><code>{item.getLabels(1)} <i class="conum" data-value="1"></i><b>(1)</b>
+{name or 'John'} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>no namespace, two parts - <code>item</code>, <code>getLabels(1)</code>, the second part is a virtual method with name <code>getLabels</code> and params <code>1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>infix notation that can be used for virtual methods with single parameter, translated to <code>name.or('John')</code>; no namespace, two parts - <code>name</code>, <code>or('John')</code></td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="literals"><a class="anchor" href="#literals"></a>3.4.1. Supported Literals</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Literal</th>
+<th class="tableblock halign-left valign-top">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code>, <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>null</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>'value'</code>, <code>"string"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code>, <code>-5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1l</code>, <code>-5L</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1D</code>, <code>-5d</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1f</code>, <code>-5F</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="expression_resolution"><a class="anchor" href="#expression_resolution"></a>3.4.2. Resolution</h4>
+<div class="paragraph">
+<p>The first part of the expression is always resolved against the <a href="#current_context_object">current context object</a>.
+If no result is found for the first part it&#8217;s resolved against the parent context object (if available).
+For an expression that starts with a namespace the current context object is found using all the available <code>NamespaceResolver</code>s.
+For an expression that does not start with a namespace the current context object is <strong>derived from the position</strong> of the tag.
+All other parts of an expression are resolved using all <code>ValueResolver</code>s against the result of the previous resolution.</p>
+</div>
+<div class="paragraph">
+<p>For example, expression <code>{name}</code> has no namespace and single part - <code>name</code>.
+The "name" will be resolved using all available value resolvers against the current context object.
+However, the expression <code>{global:colors}</code> has the namespace <code>global</code> and single part - <code>colors</code>.
+First, all available <code>NamespaceResolver</code>s will be used to find the current context object.
+And afterwards value resolvers will be used to resolve "colors" against the context object found.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Data passed to the template instance are always accessible using the <code>data</code> namespace.
+This could be useful to access data for which the key is overridden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+{item.name} <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;ul&gt;
+{#for item in item.derivedItems} <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;li&gt;
+  {item.name} <i class="conum" data-value="3"></i><b>(3)</b>
+  is derived from
+  {data:item.name} <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;/li&gt;
+{/for}
+&lt;/ul&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item</code> is passed to the template instance as a data object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Iterate over the list of derived items.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>item</code> is an alias for the iterated element.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Use the <code>data</code> namespace to access the <code>item</code> data object.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="current_context_object"><a class="anchor" href="#current_context_object"></a>3.4.3. Current Context</h4>
+<div class="paragraph">
+<p>If an expression does not specify a namespace the <em>current context object</em> is derived from the position of the tag.
+By default, the current context object represents the data passed to the template instance.
+However, sections may change the current context object.
+A typical example is the <a href="#let_section"><code>let</code></a> section that can be used to define named local variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#let myParent=order.item.parent myPrice=order.price} <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;h1&gt;{myParent.name}&lt;/h1&gt;
+  &lt;p&gt;Price: {myPrice}&lt;/p&gt;
+{/let}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The current context object inside the section is the map of resolved parameters.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The current context can be accessed via the implicit binding <code>this</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="built-in-resolvers"><a class="anchor" href="#built-in-resolvers"></a>3.4.4. Built-in Resolvers</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elvis Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outputs the default value if the previous part cannot be resolved or resolves to <code>null</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{person.name ?: 'John'}</code>, <code>{person.name or 'John'}</code>, <code>{person.name.or('John')}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">orEmpty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outputs an empty list if the previous part cannot be resolved or resolves to <code>null</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{pets.orEmpty.size}</code> outputs <code>0</code> if <code>pets</code> is not resolvable or <code>null</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ternary Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shorthand for if-then-else statement. Unlike in <a href="#if_section">If Section</a> nested operators are not supported.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{item.isActive ? item.name : 'Inactive item'}</code> outputs the value of <code>item.name</code> if <code>item.isActive</code> resolves to <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical AND Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outputs <code>true</code> if both parts are not <code>falsy</code> as described in the <a href="#if_section">If Section</a>. The parameter is only evaluated if needed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{person.isActive &amp;&amp; person.hasStyle}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical OR Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outputs <code>true</code> if any of the parts is not <code>falsy</code> as described in the <a href="#if_section">If Section</a>. The parameter is only evaluated if needed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{person.isActive || person.hasStyle}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The condition in a ternary operator evaluates to <code>true</code> if the value is not considered <code>falsy</code> as described in the <a href="#if_section">If Section</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In fact, the operators are implemented as "virtual methods" that consume one parameter and can be used with infix notation. For example <code>{person.name or 'John'}</code> is translated to <code>{person.name.or('John')}</code> and <code>{item.isActive ? item.name : 'Inactive item'}</code> is translated to <code>{item.isActive.ifTruthy(item.name).or('Inactive item')}</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="arrays"><a class="anchor" href="#arrays"></a>3.4.5. Arrays</h4>
+<div class="paragraph">
+<p>You can iterate over elements of an array with the <a href="#loop_section">Loop Section</a>.
+Moreover, it&#8217;s also possible to get the length of the specified array and access the elements directly via an index value.
+Additionaly, you can access the first/last <code>n</code> elements via the <code>take(n)/takeLast(n)</code> methods.</p>
+</div>
+<div class="listingblock">
+<div class="title">Array Examples</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1&gt;Array of length: {myArray.length}&lt;/h1&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;ul&gt;
+  &lt;li&gt;First: {myArray.0}&lt;/li&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;li&gt;Second: {myArray[1]}&lt;/li&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;li&gt;Third: {myArray.get(2)}&lt;/li&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+&lt;/ul&gt;
+&lt;ol&gt;
+ {#for element in myArray}
+ &lt;li&gt;{element}&lt;/li&gt;
+ {/for}
+&lt;/ol&gt;
+First two elements: {#each myArray.take(2)}{it}{/each} <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Outputs the length of the array.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Outputs the first element of the array.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Outputs the second element of the array using the bracket notation.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Outputs the third element of the array via the virtual method <code>get()</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Outputs the first two elements of the array.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="character-escapes"><a class="anchor" href="#character-escapes"></a>3.4.6. Character Escapes</h4>
+<div class="paragraph">
+<p>For HTML and XML templates the <code>'</code>, <code>"</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code> characters are escaped by default if a template variant is set.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In Quarkus, a variant is set automatically for templates located in the <code>src/main/resources/templates</code>. By default, the <code>java.net.URLConnection#getFileNameMap()</code> is used to determine the content type of a template file. The additional map of suffixes to content types can be set via <code>quarkus.qute.content-types</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you need to render the unescaped value:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Either use the <code>raw</code> or <code>safe</code> properties implemented as extension methods of the <code>java.lang.Object</code>,</p>
+</li>
+<li>
+<p>Or wrap the <code>String</code> value in a <code>io.quarkus.qute.RawString</code>.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;h1&gt;{title}&lt;/h1&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+{paragraph.raw} <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>title</code> that resolves to <code>Expressions &amp; Escapes</code> will be rendered as <code>Expressions &amp;amp; Escapes</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>paragraph</code> that resolves to <code>&lt;p&gt;My text!&lt;/p&gt;</code> will be rendered as <code>&lt;p&gt;My text!&lt;/p&gt;</code></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, a template with one of the following content types is escaped: <code>text/html</code>, <code>text/xml</code>, <code>application/xml</code> and <code>application/xhtml+xml</code>. However, it&#8217;s possible to extend this list via the <code>quarkus.qute.escape-content-types</code> configuration property.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="virtual_methods"><a class="anchor" href="#virtual_methods"></a>3.4.7. Virtual Methods</h4>
+<div class="paragraph">
+<p>A virtual method is a <strong>part of an expression</strong> that looks like a regular Java method invocation.
+It&#8217;s called "virtual" because it does not have to match the actual method of a Java class.
+In fact, like normal properties a virtual method is also handled by a value resolver.
+The only difference is that for virtual methods a value resolver consumes parameters that are also expressions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Virtual Method Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;h1&gt;{item.buildName(item.name,5)}&lt;/h1&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>buildName(item.name,5)</code> represents a virtual method with name <code>buildName</code> and two parameters: <code>item.name</code> and <code>5</code> . The virtual method could be evaluated by a value resolver generated for the following Java class:
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class Item {
+   String buildName(String name, int age) {
+      return name + ":" + age;
+   }
+}</code></pre>
+</div>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Virtual methods are usually evaluated by value resolvers generated for <a href="#template_extension_methods">@TemplateExtension methods</a>, <a href="#template_data">@TemplateData</a> or classes used in <a href="#typesafe_expressions">parameter declarations</a>. However, a custom value resolver that is not backed by any Java class/method can be registered as well.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A virtual method with single parameter can be called using the infix notation:</p>
+</div>
+<div class="listingblock">
+<div class="title">Infix Notation Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;p&gt;{item.price or 5}&lt;/p&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item.price or 5</code> is translated to <code>item.price.or(5)</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Virtual method parameters can be "nested" virtual method invocations.</p>
+</div>
+<div class="listingblock">
+<div class="title">Nested Virtual Method Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;p&gt;{item.subtractPrice(item.calculateDiscount(10))}&lt;/p&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item.calculateDiscount(10)</code> is evaluated first and then passed as an argument to <code>item.subtractPrice()</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="evaluation-of-completionstage-and-uni-objects"><a class="anchor" href="#evaluation-of-completionstage-and-uni-objects"></a>3.4.8. Evaluation of <code>CompletionStage</code> and <code>Uni</code> Objects</h4>
+<div class="paragraph">
+<p>Objects that implement <code>java.util.concurrent.CompletionStage</code> and <code>io.smallrye.mutiny.Uni</code> are evaluated in a special way.
+If a part of an expression resolves to a <code>CompletionStage</code>, the resolution continues once this stage is completed and the next part of the expression (if any) is evaluated against the result of the completed stage.
+For example, if there is an expression <code>{foo.size}</code> and <code>foo</code> resolves to <code>CompletionStage&lt;List&lt;String&gt;&gt;</code> then <code>size</code> is resolved against the completed result, i.e. <code>List&lt;String&gt;</code>.
+If a part of an expression resolves to a <code>Uni</code>, a <code>CompletionStage</code> is first created from <code>Uni</code> using <code>Uni#subscribeAsCompletionStage()</code> and then evaluated as described above.</p>
+</div>
+<div class="paragraph">
+<p>It can happen that a <code>CompletionStage</code> never completes or a <code>Uni</code> emits no item/failure.
+In this case, the rendering methods (such as <code>TemplateInstance#render()</code> and <code>TemplateInstance#createUni()</code>) fail after a specific timeout.
+The timeout can be specified as a template instance <code>timeout</code> attribute.
+If no <code>timeout</code> attribute is set the global rendering timeout is used.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, the default timeout can be set via the <code>io.quarkus.qute.timeout</code> configuration property. If using Qute standalone then the <code>EngineBuilder#timeout()</code> method can be used.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In previous versions, only the <code>TemplateInstance#render()</code> method honored the timeout attribute. You can use the <code>io.quarkus.qute.useAsyncTimeout=false</code> config property to preserve the old behavior and take care of the timeout yourself, for example <code>templateInstance.createUtni().ifNoItem().after(Duration.ofMillis(500)).fail()</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="how-to-identify-a-problematic-part-of-the-template"><a class="anchor" href="#how-to-identify-a-problematic-part-of-the-template"></a>3.4.8.1. How to Identify a Problematic Part of the Template</h5>
+<div class="paragraph">
+<p>It&#8217;s not easy to find the problematic part of a template when a timeout occurs.
+You can set the <code>TRACE</code> level for the logger <code>io.quarkus.qute.nodeResolve</code> and try analyze the log output afterwards.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>application.properties</code> Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.log.category."io.quarkus.qute.nodeResolve".min-level=TRACE
+quarkus.log.category."io.quarkus.qute.nodeResolve".level=TRACE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following pair of log messages for every expression and section used in a template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>TRACE [io.qua.qut.nodeResolve] Resolve {name} started: Template hello.html at line 8
+TRACE [io.qua.qut.nodeResolve] Resolve {name} completed: Template hello.html at line 8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a <code>completed</code> log message is missing then you have a good candidate to explore.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="missing-properties"><a class="anchor" href="#missing-properties"></a>3.4.9. Missing Properties</h4>
+<div class="paragraph">
+<p>It can happen that an expression may not be evaluated at runtime.
+For example, if there is an expression <code>{person.age}</code> and there is no property <code>age</code> declared on the <code>Person</code> class.
+The behavior differs based on whether the <a href="#strict_rendering">Strict Rendering</a> is enabled or not.</p>
+</div>
+<div class="paragraph">
+<p>If enabled then a missing property will always result in a <code>TemplateException</code> and the rendering is aborted.
+You can use <em>default values</em> and <em>safe expressions</em> in order to suppress the error.</p>
+</div>
+<div class="paragraph">
+<p>If disabled then the special constant <code>NOT_FOUND</code> is written to the output by default.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, it&#8217;s possible to change the default strategy via the <code>quarkus.qute.property-not-found-strategy</code> as described in the <a href="#configuration-reference">Configuration Reference</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Similar errors are detected at build time if <a href="#typesafe_expressions">Type-safe Expressions</a> and <a href="#typesafe_templates">Type-safe Templates</a> are used.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sections"><a class="anchor" href="#sections"></a>3.5. Sections</h3>
+<div class="paragraph">
+<p>A section:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>has a start tag</p>
+<div class="ulist">
+<ul>
+<li>
+<p>starts with <code>#</code>, followed by the name of the section such as <code>{#if}</code> and <code>{#each}</code>,</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>may be empty</p>
+<div class="ulist">
+<ul>
+<li>
+<p>tag ends with <code>/</code>, ie. <code>{#emptySection /}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>may contain other expression, sections, etc.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the end tag starts with <code>/</code> and contains the name of the section (optional): <code>{#if foo}Foo!{/if}</code> or <code>{#if foo}Foo!{/}</code>,</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The start tag can also define parameters.
+The parameters have optional names.
+A section may contain several content <strong>blocks</strong>.
+The "main" block is always present.
+Additional/nested blocks also start with <code>#</code> and can have parameters too - <code>{#else if item.isActive}</code>.
+A section helper that defines the logic of a section can "execute" any of the blocks and evaluate the parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#if item.name is 'sword'}
+  It's a sword!
+{#else if item.name is 'shield'}
+  It's a shield!
+{#else}
+  Item is neither a sword nor a shield.
+{/if}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="loop_section"><a class="anchor" href="#loop_section"></a>3.5.1. Loop Section</h4>
+<div class="paragraph">
+<p>The loop section makes it possible to iterate over an instance of <code>Iterable</code>, <code>Iterator</code>, array, <code>Map</code> (element is a <code>Map.Entry</code>), <code>Stream</code>, <code>Integer</code> and <code>int</code> (primitive value).
+A <code>null</code> parameter value results in a no-op.</p>
+</div>
+<div class="paragraph">
+<p>This section has two flavors.
+The first one is using the name <code>each</code> and <code>it</code> is an implicit alias for the iteration element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#each items}
+  {it.name} <i class="conum" data-value="1"></i><b>(1)</b>
+{/each}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>name</code> is resolved against the current iteration element.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The other form is using the name <code>for</code> and specifies the alias used to reference the iteration element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#for item in items} <i class="conum" data-value="1"></i><b>(1)</b>
+  {item.name}
+{/for}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item</code> is the alias used for the iteration element.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also possible to access the iteration metadata inside the loop via the following keys:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>count</code> - 1-based index</p>
+</li>
+<li>
+<p><code>index</code> - zero-based index</p>
+</li>
+<li>
+<p><code>hasNext</code> - <code>true</code> if the iteration has more elements</p>
+</li>
+<li>
+<p><code>isLast</code> - <code>true</code> if <code>hasNext == false</code></p>
+</li>
+<li>
+<p><code>isFirst</code> - <code>true</code> if <code>count == 1</code></p>
+</li>
+<li>
+<p><code>odd</code> - <code>true</code> if the zero-based index is odd</p>
+</li>
+<li>
+<p><code>even</code> - <code>true</code> if the zero-based index is even</p>
+</li>
+<li>
+<p><code>indexParity</code> - outputs <code>odd</code> or <code>even</code> based on the zero-based index value</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However, the keys cannot be used directly.
+Instead, a prefix is used to avoid possible collisions with variables from the outer scope.
+By default, the alias of an iterated element suffixed with an underscore is used as a prefix.
+For example, the <code>hasNext</code> key must be prefixed with <code>it_</code> inside an <code>{#each}</code> section: <code>{it_hasNext}</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>each</code> Iteration Metadata Example</div>
+<div class="content">
+<pre class="highlight"><code>{#each items}
+  {it_count}. {it.name} <i class="conum" data-value="1"></i><b>(1)</b>
+  {#if it_hasNext}&lt;br&gt;{/if} <i class="conum" data-value="2"></i><b>(2)</b>
+{/each}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>it_count</code> represents one-based index.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>&lt;br&gt;</code> is only rendered if the iteration has more elements.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>And must be used in a form of <code>{item_hasNext}</code> inside a <code>{#for}</code> section with the <code>item</code> element alias.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>for</code> Iteration Metadata Example</div>
+<div class="content">
+<pre class="highlight"><code>{#for item in items}
+  {item_count}. {item.name} <i class="conum" data-value="1"></i><b>(1)</b>
+  {#if item_hasNext}&lt;br&gt;{/if} <i class="conum" data-value="2"></i><b>(2)</b>
+{/each}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item_count</code> represents one-based index.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>&lt;br&gt;</code> is only rendered if the iteration has more elements.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The iteration metadata prefix is configurable either via <code>EngineBuilder.iterationMetadataPrefix()</code> for standalone Qute or via the <code>quarkus.qute.iteration-metadata-prefix</code> configuration property in a Quarkus application. Three special constants can be used:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>&lt;alias_&gt;</code> - the alias of an iterated element suffixed with an underscore is used (default)</p>
+</li>
+<li>
+<p><code>&lt;alias?&gt;</code> - the alias of an iterated element suffixed with a question mark is used</p>
+</li>
+<li>
+<p><code>&lt;none&gt;</code> - no prefix is used</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>for</code> statement also works with integers, starting from 1. In the example below, considering that <code>total = 3</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#for i in total}
+  {i}:
+{/for}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the output will be:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>1:2:3:</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A loop section may also define the <code>{#else}</code> block that is executed when there are no items to iterate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#for item in items}
+  {item.name}
+{#else}
+  No items.
+{/for}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="if_section"><a class="anchor" href="#if_section"></a>3.5.2. If Section</h4>
+<div class="paragraph">
+<p>The <code>if</code> section represents a basic control flow section.
+The simplest possible version accepts a single parameter and renders the content if the condition is evaluated to <code>true</code>.
+A condition without an operator evaluates to <code>true</code> if the value is not considered <code>falsy</code>, i.e. if the value is not <code>null</code>, <code>false</code>, an empty collection, an empty map, an empty array, an empty string/char sequence or a number equal to zero.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#if item.active}
+  This item is active.
+{/if}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also use the following operators in a condition:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Operator</th>
+<th class="tableblock halign-left valign-top">Aliases</th>
+<th class="tableblock halign-left valign-top">Precedence (higher wins)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">logical complement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>!</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater than</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gt</code>, <code>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater than or equal to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ge</code>, <code>&gt;=</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less than</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lt</code>, <code>&lt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less than or equal to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>le</code>, <code>&lt;=</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">equals</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eq</code>, <code>==</code>, <code>is</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not equals</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ne</code>, <code>!=</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">logical AND (short-circuiting)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&amp;&amp;</code>, <code>and</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">logical OR (short-circuiting)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>||</code>, <code>or</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">A simple operator example</div>
+<div class="content">
+<pre class="highlight"><code>{#if item.age &gt; 10}
+  This item is very old.
+{/if}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Multiple conditions are also supported.</p>
+</div>
+<div class="listingblock">
+<div class="title">Multiple conditions example</div>
+<div class="content">
+<pre class="highlight"><code>{#if item.age &gt; 10 &amp;&amp; item.price &gt; 500}
+  This item is very old and expensive.
+{/if}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Precedence rules can be overridden by parentheses.</p>
+</div>
+<div class="listingblock">
+<div class="title">Parentheses example</div>
+<div class="content">
+<pre class="highlight"><code>{#if (item.age &gt; 10 || item.price &gt; 500) &amp;&amp; user.loggedIn}
+  User must be logged in and item age must be &gt; 10 or price must be &gt; 500.
+{/if}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also add any number of <code>else</code> blocks:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#if item.age &gt; 10}
+  This item is very old.
+{#else if item.age &gt; 5}
+  This item is quite old.
+{#else if item.age &gt; 2}
+  This item is old.
+{#else}
+  This item is not old at all!
+{/if}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="when_section"><a class="anchor" href="#when_section"></a>3.5.3. When Section</h4>
+<div class="paragraph">
+<p>This section is similar to Java&#8217;s <code>switch</code> or Kotlin&#8217;s <code>when</code> constructs.
+It matches a <em>tested value</em> against all blocks sequentially until a condition is satisfied.
+The first matching block is executed.
+All other blocks are ignored (this behavior differs to the Java <code>switch</code> where a <code>break</code> statement is necessary).</p>
+</div>
+<div class="listingblock">
+<div class="title">Example using the <code>when</code>/<code>is</code> name aliases</div>
+<div class="content">
+<pre class="highlight"><code>{#when items.size}
+  {#is 1} <i class="conum" data-value="1"></i><b>(1)</b>
+    There is exactly one item!
+  {#is &gt; 10} <i class="conum" data-value="2"></i><b>(2)</b>
+    There are more than 10 items!
+  {#else} <i class="conum" data-value="3"></i><b>(3)</b>
+    There are 2 -10 items!
+{/when}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If there is exactly one parameter it&#8217;s tested for equality.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>It&#8217;s possible to use <a href="#when_operators">an operator</a> to specify the matching logic. Unlike in the <a href="#if_section">If Section</a> nested operators are not supported.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>else</code> is block is executed if no other block matches the value.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example using the <code>switch</code>/<code>case</code> name aliases</div>
+<div class="content">
+<pre class="highlight"><code>{#switch person.name}
+  {#case 'John'} <i class="conum" data-value="1"></i><b>(1)</b>
+    Hey John!
+  {#case 'Mary'}
+    Hey Mary!
+{/switch}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>case</code> is an alias for <code>is</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A tested value that resolves to an enum is handled specifically.
+The parameters of an <code>is</code>/<code>case</code> block are not evaluated as expressions but compared with the result of <code>toString()</code> invocation upon the tested value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#when machine.status}
+  {#is ON}
+    It's running. <i class="conum" data-value="1"></i><b>(1)</b>
+  {#is in OFF BROKEN}
+    It's broken or OFF. <i class="conum" data-value="2"></i><b>(2)</b>
+{/when}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This block is executed if <code>machine.status.toString().equals("ON")</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This block is executed if  <code>machine.status.toString().equals("OFF")</code> or <code>machine.status.toString().equals("BROKEN")</code>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+An enum constant is validated if the tested value has a type information available and resolves to an enum type.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following operators are supported in <code>is</code>/<code>case</code> block conditions:</p>
+</div>
+<table id="when_operators" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Operator</th>
+<th class="tableblock halign-left valign-top">Aliases</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not equal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>!=</code>, <code>not</code>, <code>ne</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#is not 10}</code>,<code>{#case != 10}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater than</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gt</code>, <code>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#case le 10}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater than or equal to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ge</code>, <code>&gt;=</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#is &gt;= 10}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less than</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lt</code>, <code>&lt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#is &lt; 10}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less than or equal to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>le</code>, <code>&lt;=</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#case le 10}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>in</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#is in 'foo' 'bar' 'baz'}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ni</code>,<code>!in</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{#is !in 1 2 3}</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="let_section"><a class="anchor" href="#let_section"></a>3.5.4. Let Section</h4>
+<div class="paragraph">
+<p>This section allows you to define named local variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#let myParent=order.item.parent isActive=false age=10} <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;h1&gt;{myParent.name}&lt;/h1&gt;
+  Is active: {isActive}
+  Age: {age}
+{/let} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The local variable is initialized with an expression that can also represent a <a href="#literals">literal</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Keep in mind that the variable is not available outside the <code>let</code> section that defines it.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The section tag is also registered under the <code>set</code> alias:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#set myParent=item.parent price=item.price}
+  &lt;h1&gt;{myParent.name}&lt;/h1&gt;
+  &lt;p&gt;Price: {price}
+{/set}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="with_section"><a class="anchor" href="#with_section"></a>3.5.5. With Section</h4>
+<div class="paragraph">
+<p>This section can be used to set the current context object.
+This could be useful to simplify the template structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#with item.parent}
+  &lt;h1&gt;{name}&lt;/h1&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;p&gt;{description}&lt;/p&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+{/with}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>name</code> will be resolved against the <code>item.parent</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>description</code> will be also resolved against the <code>item.parent</code>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that the <code>with</code> section should not be used in <a href="#typesafe_templates">Type-safe Templates</a> or templates that define <a href="#typesafe_expressions">Type-safe Expressions</a>.
+The reason is that it prevents Qute from validating the nested expressions.
+If possible it should be replaced with the <code>{#let}</code> section which declares an explicit binding:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#let it=item.parent}
+  &lt;h1&gt;{it.name}&lt;/h1&gt;
+  &lt;p&gt;{it.description}&lt;/p&gt;
+{/let}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This section might also come in handy when we&#8217;d like to avoid multiple expensive invocations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#with item.callExpensiveLogicToGetTheValue(1,'foo',bazinga)}
+  {#if this is "fun"} <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;h1&gt;Yay!&lt;/h1&gt;
+  {#else}
+    &lt;h1&gt;{this} is not fun at all!&lt;/h1&gt;
+  {/if}
+{/with}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>this</code> is the result of <code>item.callExpensiveLogicToGetTheValue(1,'foo',bazinga)</code>. The method is only invoked once even though the result may be used in multiple expressions.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="include_helper"><a class="anchor" href="#include_helper"></a>3.5.6. Include Section</h4>
+<div class="paragraph">
+<p>This section can be used to include another template and possibly override some parts of the template (template inheritance).</p>
+</div>
+<div class="listingblock">
+<div class="title">Simple Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Simple Include&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  {#include foo limit=10 /} <i class="conum" data-value="1"></i><b>(1)</b><i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Include a template with id <code>foo</code>. The included template can reference data from the current context.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>It&#8217;s also possible to define optional parameters that can be used in the included template.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Template inheritance makes it possible to reuse template layouts.</p>
+</div>
+<div class="listingblock">
+<div class="title">Template "base"</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;{#insert title}Default Title{/}&lt;/title&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/head&gt;
+&lt;body&gt;
+  {#insert}No body!{/} <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>insert</code> sections are used to specify parts that could be overridden by a template that includes the given template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>An <code>insert</code> section may define the default content that is rendered if not overridden. If no name parameter is supplied then the main block of the relevant <code>{#include}</code> section is used.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Template "detail"</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#include base} <i class="conum" data-value="1"></i><b>(1)</b>
+  {#title}My Title{/title} <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;div&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+    My body.
+  &lt;/div&gt;
+{/include}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>include</code> section is used to specify the extended template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Nested blocks are used to specify the parts that should be overridden.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The content of the main block is used for an <code>{#insert}</code> section with no name parameter specified.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Section blocks can also define an optional end tag - <code>{/title}</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="eval-section"><a class="anchor" href="#eval-section"></a>3.5.7. Eval Section</h4>
+<div class="paragraph">
+<p>This section can be used to parse and evaluate a template dynamically.
+The behavior is very similar to the <a href="#include_helper">Include Section</a> but:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The template content is passed directly, i.e. not obtained via an <code>io.quarkus.qute.TemplateLocator</code>,</p>
+</li>
+<li>
+<p>It&#8217;s not possible to override parts of the evaluated template.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#eval myData.template name='Mia' /} <i class="conum" data-value="1"></i><b>(1)</b><i class="conum" data-value="2"></i><b>(2)</b><i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The result of <code>myData.template</code> will be used as the template. The template is executed with the <a href="#current_context_object">Current Context</a>, i.e. can reference data from the template it&#8217;s included into.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>It&#8217;s also possible to define optional parameters that can be used in the evaluated template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The content of the section is always ignored.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The evaluated template is parsed and evaluated every time the section is executed. In other words, it&#8217;s not possible to cache the parsed value to conserve resources and optimize the performance.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="user_tags"><a class="anchor" href="#user_tags"></a>3.5.8. User-defined Tags</h4>
+<div class="paragraph">
+<p>User-defined tags can be used to include a tag template and optionally pass some parameters.
+Let&#8217;s suppose we have a tag template called <code>itemDetail.html</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{#if showImage} <i class="conum" data-value="1"></i><b>(1)</b>
+  {it.image} <i class="conum" data-value="2"></i><b>(2)</b>
+  {nested-content} <i class="conum" data-value="3"></i><b>(3)</b>
+{/if}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>showImage</code> is a named parameter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>it</code> is a special key that is replaced with the first unnamed parameter of the tag.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>(optional) <code>nested-content</code> is a special key that will be replaced by the content of the tag.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In Quarkus, all files from the <code>src/main/resources/templates/tags</code> are registered and monitored automatically.
+For Qute standalone, you need to put the parsed template under the name <code>itemDetail.html</code> and register a relevant <code>UserTagSectionHelper</code> to the engine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Engine engine = Engine.builder()
+                   .addSectionHelper(new UserTagSectionHelper.Factory("itemDetail","itemDetail.html"))
+                   .build();
+engine.putTemplate("itemDetail.html", engine.parse("..."));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, we can call the tag like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;ul&gt;
+{#for item in items}
+  &lt;li&gt;
+  {#itemDetail item showImage=true} <i class="conum" data-value="1"></i><b>(1)</b>
+    = &lt;b&gt;{item.name}&lt;/b&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  {/itemDetail}
+  &lt;/li&gt;
+{/for}
+&lt;/ul&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item</code> is resolved to an iteration element and can be referenced using the <code>it</code> key in the tag template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Tag content injected using the <code>nested-content</code> key in the tag template.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, the tag template can reference data from the parent context.
+For example, the tag above could use the following expression <code>{items.size}</code>.
+However, sometimes it might be useful to disable this behavior and execute the tag as an <em>isolated</em> template, i.e. without access to the context of the template that calls the tag.
+In this case, just add <code>_isolated</code> or <code>_isolated=true</code> argument to the call site, e.g. <code>{#itemDetail item showImage=true _isolated /}</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rendering-output"><a class="anchor" href="#rendering-output"></a>3.6. Rendering Output</h3>
+<div class="paragraph">
+<p><code>TemplateInstance</code> provides several ways to trigger the rendering and consume the result.
+The most straightforward approach is represented by <code>TemplateInstance.render()</code>.
+This method triggers a synchronous rendering, i.e. the current thread is blocked until the rendering is finished, and returns the output.
+By contrast, <code>TemplateInstance.renderAsync()</code> returns a <code>CompletionStage&lt;String&gt;</code> which is completed when the rendering is finished.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>TemplateInstance.renderAsync()</code> Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">template.data(foo).renderAsync().whenComplete((result, failure) -&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+   if (failure == null) {
+      // consume the output...
+   } else {
+      // process failure...
+   }
+};</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Register a callback that is executed once the rendering is finished.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There are also two methods that return <a href="https://smallrye.io/smallrye-mutiny/">Mutiny</a> types.
+<code>TemplateInstance.createUni()</code> returns a new <code>Uni&lt;String&gt;</code> object.
+If you call <code>createUni()</code> the template is not rendered right away.
+Instead, every time <code>Uni.subscribe()</code> is called a new rendering of the template is triggered.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>TemplateInstance.createUni()</code> Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">template.data(foo).createUni().subscribe().with(System.out::println);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>TemplateInstance.createMulti()</code> returns a new <code>Multi&lt;String&gt;</code> object.
+Each item represents a part/chunk of the rendered template.
+Again, <code>createMulti()</code> does not trigger rendering.
+Instead, every time a computation is triggered by a subscriber the template is rendered again.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>TemplateInstance.createMulti()</code> Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">template.data(foo).createMulti().subscribe().with(buffer:append,buffer::flush);</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The template rendering is divided in two phases. During the first phase, which is asynchronous, all expressions in the template are resolved and a <em>result tree</em> is built. In the second phase, which is synchronous, the result tree is <em>materialized</em>, i.e. one by one the result nodes emit chunks that are consumed/buffered by the specific consumer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="engine-configuration"><a class="anchor" href="#engine-configuration"></a>3.7. Engine Configuration</h3>
+<div class="sect3">
+<h4 id="value-resolvers"><a class="anchor" href="#value-resolvers"></a>3.7.1. Value Resolvers</h4>
+<div class="paragraph">
+<p>Value resolvers are used when evaluating expressions.
+A custom <code>io.quarkus.qute.ValueResolver</code> can be registered programmatically via <code>EngineBuilder.addValueResolver()</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>ValueResolver</code> Builder Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">engineBuilder.addValueResolver(ValueResolver.builder()
+    .appliesTo(ctx -&gt; ctx.getBase() instanceof Long &amp;&amp; ctx.getName().equals("tenTimes"))
+    .resolveSync(ctx -&gt; (Long) ctx.getBase() * 10)
+    .build());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="template-locator"><a class="anchor" href="#template-locator"></a>3.7.2. Template Locator</h4>
+<div class="paragraph">
+<p>Manual registration is sometimes handy but it&#8217;s also possible to register a template locator using <code>EngineBuilder.addLocator()</code>.
+This locator is used whenever the <code>Engine.getTemplate()</code> method is called and the engine has no template for a given id stored in the cache.
+The locator is responsible to use the correct character encoding when reading the contents of a template.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In Quarkus, all templates from the <code>src/main/resources/templates</code> are located automatically and the encoding set via <code>quarkus.qute.default-charset</code> (UTF-8 by default) is used.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="content-filters"><a class="anchor" href="#content-filters"></a>3.7.3. Content Filters</h4>
+<div class="paragraph">
+<p>Content filters can be used to modify the template contents before parsing.</p>
+</div>
+<div class="listingblock">
+<div class="title">Content Filter Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">engineBuilder.addParserHook(new ParserHook() {
+    @Override
+    public void beforeParsing(ParserHelper parserHelper) {
+        parserHelper.addContentFilter(contents -&gt; contents.replace("${", "$\\{")); <i class="conum" data-value="1"></i><b>(1)</b>
+    }
+});</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Escape all occurences of <code>${</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="strict_rendering"><a class="anchor" href="#strict_rendering"></a>3.7.4. Strict Rendering</h4>
+<div class="paragraph">
+<p>The strict rendering enables the developers to catch insidious errors caused by typos and invalid expressions.
+If enabled then any expression that cannot be resolved, i.e. is evaluated to an instance of <code>io.quarkus.qute.Results.NotFound</code>, will always result in a <code>TemplateException</code> and the rendering is aborted.
+A <code>NotFound</code> value is considered an error because it basically means that no value resolver was able to resolve the expression correctly.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>null</code> is a valid value though. It is considered <code>falsy</code> as described in the <a href="#if_section">If Section</a> and does not produce any output.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Strict rendering is enabled by default.
+However, you can disable this functionality via <code>io.quarkus.qute.EngineBuilder.strictRendering(boolean)</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In Quarkus, a dedicated config property can be used instead: <code>quarkus.qute.strict-rendering</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you really need to use an expression which can potentially lead to a "not found" error, you can use <em>default values</em> and <em>safe expressions</em> in order to suppress the error.
+A default value is used if the previous part of an expression cannot be resolved or resolves to <code>null</code>.
+You can use the elvis operator to output the default value: <code>{foo.bar ?: 'baz'}</code>, which is effectively the same as the following virtual method: <code>{foo.bar.or('baz')}</code>.
+A safe expression ends with the <code>??</code> suffix and results in <code>null</code> if the expression cannot be resolved.
+It can be very useful e.g. in <code>{#if}</code> sections: <code>{#if valueNotFound??}Only rendered if valueNotFound is truthy!{/if}</code>.
+In fact, <code>??</code> is just a shorthand notation for <code>.or(null)</code>, i.e. <code>{#if valueNotFound??}</code> becomes <code>{#if valueNotFound.or(null)}</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quarkus_integration"><a class="anchor" href="#quarkus_integration"></a>4. Quarkus Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to use Qute in your Quarkus application add the following dependency to your project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-qute&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In Quarkus, a preconfigured engine instance is provided and available for injection - a bean with scope <code>@ApplicationScoped</code>, bean type <code>io.quarkus.qute.Engine</code> and qualifier <code>@Default</code> is registered automatically.
+Moreover, all templates located in the <code>src/main/resources/templates</code> directory are validated and can be easily injected.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import io.quarkus.qute.Engine;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.Location;
+
+class MyBean {
+
+    @Inject
+    Template items; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @Location("detail/items2_v1.html") <i class="conum" data-value="2"></i><b>(2)</b>
+    Template items2;
+
+    @Inject
+    Engine engine; <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If there is no <code>Location</code> qualifier provided, the field name is used to locate the template. In this particular case, the container will attempt to locate a template with path <code>src/main/resources/templates/items.html</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>Location</code> qualifier instructs the container to inject a template from a path relative from <code>src/main/resources/templates</code>. In this case, the full path is <code>src/main/resources/templates/detail/items2_v1.html</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Inject the configured <code>Engine</code> instance.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also possible to contribute to the engine configuration via a CDI observer method.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>EngineBuilder</code> Observer Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import io.quarkus.qute.EngineBuilder;
+
+class MyBean {
+
+    void configureEngine(@Observes EngineBuilder builder) {
+       builder.addValueResolver(ValueResolver.builder()
+                .appliesTo(ctx -&gt; ctx.getBase() instanceof Long &amp;&amp; ctx.getName().equals("tenTimes"))
+                .resolveSync(ctx -&gt; (Long) ec.getBase() * 10)
+                .build());
+    }
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="template-variants"><a class="anchor" href="#template-variants"></a>4.1. Template Variants</h3>
+<div class="paragraph">
+<p>Sometimes it&#8217;s useful to render a specific variant of the template based on the content negotiation.
+This can be done by setting a special attribute via <code>TemplateInstance.setAttribute()</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">class MyService {
+
+    @Inject
+    Template items; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @Inject
+    ItemManager manager;
+
+    String renderItems() {
+       return items.data("items",manager.findItems()).setAttribute(TemplateInstance.SELECTED_VARIANT, new Variant(Locale.getDefault(),"text/html","UTF-8")).render();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When using <code>quarkus-resteasy-qute</code> the content negotiation is performed automatically. See <a href="#resteasy_integration">RESTEasy Integration</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="injecting-beans-directly-in-templates"><a class="anchor" href="#injecting-beans-directly-in-templates"></a>4.2. Injecting Beans Directly In Templates</h3>
+<div class="paragraph">
+<p>A CDI bean annotated with <code>@Named</code> can be referenced in any template through <code>cdi</code> and/or <code>inject</code> namespaces:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{cdi:personService.findPerson(10).name} <i class="conum" data-value="1"></i><b>(1)</b>
+{inject:foo.price} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>First, a bean with name <code>personService</code> is found and then used as the base object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>First, a bean with name <code>foo</code> is found and then used as the base object.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>All expressions with <code>cdi</code> and <code>inject</code> namespaces are validated during build.
+For the expression <code>cdi:personService.findPerson(10).name</code> the implementation class of the injected bean must either declare the <code>findPerson</code> method or a matching <a href="#template_extension_methods">template extension method</a> must exist.
+For the expression <code>inject:foo.price</code> the implementation class of the injected bean must either have the <code>price</code> property (e.g. a <code>getPrice()</code> method) or a matching <a href="#template_extension_methods">template extension method</a> must exist.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A <code>ValueResolver</code> is also generated for all beans annotated with <code>@Named</code> so that it&#8217;s possible to access its properties without reflection.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If your application serves <a href="http-reference.html">HTTP requests</a> you can also inject the current <code>io.vertx.core.http.HttpServerRequest</code> via the <code>inject</code> namespace, e.g. <code>{inject:vertxRequest.getParam('foo')}</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="typesafe_expressions"><a class="anchor" href="#typesafe_expressions"></a>4.3. Type-safe Expressions</h3>
+<div class="paragraph">
+<p>Template expressions can be optionally type-safe.
+Which means that an expression is validated against the existing Java types and template extension methods.
+If an invalid/incorrect expression is found then the build fails.</p>
+</div>
+<div class="paragraph">
+<p>For example, if there is an expression <code>item.name</code> where <code>item</code> maps to <code>org.acme.Item</code> then <code>Item</code> must have a property <code>name</code> or a matching template extension method must exist.</p>
+</div>
+<div class="paragraph">
+<p>An optional <em>parameter declaration</em> is used to bind a Java type to expressions whose first part matches the parameter name.
+Parameter declarations are specified directly in a template.</p>
+</div>
+<div class="paragraph">
+<p>A Java type should be always identified with a <em>fully qualified name</em> unless it&#8217;s a JDK type from the <code>java.lang</code> package - in this case, the package name is optional.
+Parameterized types are supported, however wildcards are always ignored - only the upper/lower bound is taken into account.
+For example, the parameter declaration <code>{@java.util.List&lt;? extends org.acme.Foo&gt; list}</code> is recognized as <code>{@java.util.List&lt;org.acme.Foo&gt; list}</code>.
+Type variables are not handled in a special way and should never be used.</p>
+</div>
+<div class="listingblock">
+<div class="title">Parameter Declaration Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{@org.acme.Foo foo} <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Qute Hello&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;{title}&lt;/h1&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  Hello {foo.message.toLowerCase}! <i class="conum" data-value="3"></i><b>(3)</b> <i class="conum" data-value="4"></i><b>(4)</b>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Parameter declaration - maps <code>foo</code> to <code>org.acme.Foo</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Not validated - not matching a param declaration.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>This expression is validated. <code>org.acme.Foo</code> must have a property <code>message</code> or a matching template extension method must exist.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Likewise, the Java type of the object resolved from <code>foo.message</code> must have a property <code>toLowerCase</code> or a matching template extension method must exist.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+A value resolver is automatically generated for all types used in parameter declarations so that it&#8217;s possible to access its properties without reflection.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Method parameters of <a href="#typesafe_templates">type-safe templates</a> are automatically turned into parameter declarations.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that sections can override names that would otherwise match a parameter declaration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{@org.acme.Foo foo}
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Qute Hello&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;{foo.message}&lt;/h1&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  {#for foo in baz.foos}
+    &lt;p&gt;Hello {foo.message}!&lt;/p&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  {/for}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Validated against <code>org.acme.Foo</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Not validated - <code>foo</code> is overridden in the loop section.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">More Parameter Declarations Examples</div>
+<div class="content">
+<pre class="highlight"><code>{@int pages} <i class="conum" data-value="1"></i><b>(1)</b>
+{@java.util.List&lt;String&gt; strings} <i class="conum" data-value="2"></i><b>(2)</b>
+{@java.util.Map&lt;String,? extends Number&gt; numbers} <i class="conum" data-value="3"></i><b>(3)</b>
+{@java.util.Optional&lt;?&gt; param} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A primitive type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>String</code> is replaced with <code>java.lang.String</code>: <code>{@java.util.List&lt;java.lang.String&gt; strings}</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The wildcard is ignored and the upper bound is used instead: <code>{@java.util.Map&lt;String,Number&gt;}</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The wildcard is ignored and the <code>java.lang.Object</code> is used instead: <code>{@java.util.Optional&lt;java.lang.Object&gt;}</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="typesafe_templates"><a class="anchor" href="#typesafe_templates"></a>4.4. Type-safe Templates</h3>
+<div class="paragraph">
+<p>You can also define type-safe templates in your Java code.
+If using <a href="#resteasy_integration">templates in JAX-RS resources</a>, you can rely on the following convention:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Organise your template files in the <code>/src/main/resources/templates</code> directory, by grouping them into one directory per resource class. So, if
+your <code>ItemResource</code> class references two templates <code>hello</code> and <code>goodbye</code>, place them at <code>/src/main/resources/templates/ItemResource/hello.txt</code>
+and <code>/src/main/resources/templates/ItemResource/goodbye.txt</code>. Grouping templates per resource class makes it easier to navigate to them.</p>
+</li>
+<li>
+<p>In each of your resource class, declare a <code>@CheckedTemplate static class Template {}</code> class within your resource class.</p>
+</li>
+<li>
+<p>Declare one <code>public static native TemplateInstance method();</code> per template file for your resource.</p>
+</li>
+<li>
+<p>Use those static methods to build your template instances.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">ItemResource.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.quarkus.sample;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import io.quarkus.qute.TemplateInstance;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.CheckedTemplate;
+
+@Path("item")
+public class ItemResource {
+
+    @CheckedTemplate
+    public static class Templates {
+        public static native TemplateInstance item(Item item); <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance get(@PathParam("id") Integer id) {
+        return Templates.item(service.findItem(id)); <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Declare a method that gives us a <code>TemplateInstance</code> for <code>templates/ItemResource/item.html</code> and declare its <code>Item item</code> parameter so we can validate the template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>item</code> parameter is automatically turned into a <a href="#typesafe_expressions">parameter declaration</a> and so all expressions that reference this name will be validated.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Make the <code>Item</code> object accessible in the template.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, the templates defined in a class annotated with <code>@CheckedTemplate</code> can only contain type-safe expressions, i.e. expressions that can be validated at build time. You can use <code>@CheckedTemplate(requireTypeSafeExpressions = false)</code> to relax this requirement.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can also declare a top-level Java class annotated with <code>@CheckedTemplate</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Top-level checked templates</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.quarkus.sample;
+
+import io.quarkus.qute.TemplateInstance;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.CheckedTemplate;
+
+@CheckedTemplate
+public class Templates {
+    public static native TemplateInstance hello(String name); <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This declares a template with path <code>templates/hello.txt</code>. The <code>name</code> parameter is automatically turned into a  <a href="#typesafe_expressions">parameter declaration</a> and so all expressions that reference this name will be validated.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then declare one <code>public static native TemplateInstance method();</code> per template file.
+Use those static methods to build your template instances:</p>
+</div>
+<div class="listingblock">
+<div class="title">HelloResource.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.quarkus.sample;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+import io.quarkus.qute.TemplateInstance;
+
+@Path("hello")
+public class HelloResource {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public TemplateInstance get(@QueryParam("name") String name) {
+        return Templates.hello(name);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="template_extension_methods"><a class="anchor" href="#template_extension_methods"></a>4.5. Template Extension Methods</h3>
+<div class="paragraph">
+<p>Extension methods can be used to extend the data classes with new functionality (to extend the set of accessible properties and methods) or to resolve expressions for a specific <a href="#namespace_extension_methods">namespace</a>.
+For example, it is possible to add <em>computed properties</em> and <em>virtual methods</em>.</p>
+</div>
+<div class="paragraph">
+<p>A value resolver is automatically generated for a method annotated with <code>@TemplateExtension</code>.
+If a class is annotated with <code>@TemplateExtension</code> then a value resolver is generated for every <em>non-private static method</em> declared on the class.
+Method-level annotations override the behavior defined on the class.
+Methods that do not meet the following requirements are ignored.</p>
+</div>
+<div class="paragraph">
+<p>A template extension method:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>must not be <code>private</code></p>
+</li>
+<li>
+<p>must be static,</p>
+</li>
+<li>
+<p>must not return <code>void</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If there is no namespace defined the class of the first parameter that is not annotated with <code>@TemplateAttribute</code> is used to match the base object. Otherwise the namespace is used to match an expression.</p>
+</div>
+<div class="paragraph">
+<p>The method name is used to match the property name by default.
+However, it is possible to specify the matching name with <code>TemplateExtension#matchName()</code>.
+A special constant - <code>TemplateExtension#ANY</code> - may be used to specify that the extension method matches any name.
+It is also possible to match the name against a regular expression specified in <code>TemplateExtension#matchRegex()</code>.
+In both cases, an additional string method parameter must be used to pass the property name.
+If both <code>matchName()</code> and <code>matchRegex()</code> are set the regular expression is used for matching.</p>
+</div>
+<div class="listingblock">
+<div class="title">Extension Method Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
+
+class Item {
+
+    public final BigDecimal price;
+
+    public Item(BigDecimal price) {
+        this.price = price;
+    }
+}
+
+@TemplateExtension
+class MyExtensions {
+
+    static BigDecimal discountedPrice(Item item) { <i class="conum" data-value="1"></i><b>(1)</b>
+        return item.getPrice().multiply(new BigDecimal("0.9"));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This method matches an expression with base object of the type <code>Item.class</code> and the <code>discountedPrice</code> property name.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This template extension method makes it possible to render the following template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{item.discountedPrice} <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item</code> is resolved to an instance of <code>org.acme.Item</code>.</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="method-parameters"><a class="anchor" href="#method-parameters"></a>4.5.1. Method Parameters</h4>
+<div class="paragraph">
+<p>An extension method may declare parameters.
+If no namespace is specified then the first parameter that is not annotated with <code>@TemplateAttribute</code> is used to pass the base object, i.e. <code>org.acme.Item</code> in the first example.
+If matching any name or using a regular expression then a string method parameter needs to be used to pass the property name.
+Parameters annotated with <code>@TemplateAttribute</code> are obtained via <code>TemplateInstance#getAttribute()</code>.
+All other parameters are resolved when rendering the template and passed to the extension method.</p>
+</div>
+<div class="listingblock">
+<div class="title">Multiple Parameters Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@TemplateExtension
+class BigDecimalExtensions {
+
+    static BigDecimal scale(BigDecimal val, int scale, RoundingMode mode) { <i class="conum" data-value="1"></i><b>(1)</b>
+        return val.setScale(scale, mode);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This method matches an expression with base object of the type <code>BigDecimal.class</code>, with the <code>scale</code> virtual method name and two virtual method parameters.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{item.discountedPrice.scale(2,mode)} <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>item.discountedPrice</code> is resolved to an instance of <code>BigDecimal</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="namespace_extension_methods"><a class="anchor" href="#namespace_extension_methods"></a>4.5.2. Namespace Extension Methods</h4>
+<div class="paragraph">
+<p>If <code>TemplateExtension#namespace()</code> is specified then the extension method is used to resolve expressions with the given <a href="#expressions">namespace</a>.
+Template extension methods that share the same namespace are grouped in one resolver ordered by <code>TemplateExtension#priority()</code>.
+The first matching extension method is used to resolve an expression.</p>
+</div>
+<div class="listingblock">
+<div class="title">Namespace Extension Method Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@TemplateExtension(namespace = "str")
+public class StringExtensions {
+
+   static String format(String fmt, Object... args) {
+      return String.format(fmt, args);
+   }
+
+   static String reverse(String val) {
+      return new StringBuilder(val).reverse().toString();
+   }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These extension methods can be used as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{str:format('%s %s!','Hello', 'world')} <i class="conum" data-value="1"></i><b>(1)</b>
+{str:reverse('hello')} <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The output is <code>Hello world!</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The output is <code>olleh</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="built-in-template-extension"><a class="anchor" href="#built-in-template-extension"></a>4.5.3. Built-in Template Extensions</h4>
+<div class="paragraph">
+<p>Quarkus provides a set of built-in extension methods.</p>
+</div>
+<div class="sect4">
+<h5 id="maps"><a class="anchor" href="#maps"></a>4.5.3.1. Maps</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keys</code> or <code>keySet</code>: Returns a Set view of the keys contained in a map</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#for key in map.keySet}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>values</code>: Returns a Collection view of the values contained in a map</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#for value in map.values}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>size</code>: Returns the number of key-value mappings in a map</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{map.size}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>isEmpty</code>: Returns true if a map contains no key-value mappings</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#if map.isEmpty}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>get(key)</code>: Returns the value to which the specified key is mapped</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{map.get('foo')}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A map value can be also accessed directly: <code>{map.myKey}</code>. Use the bracket notation for keys that are not legal identifiers: <code>{map['my key']}</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="collections"><a class="anchor" href="#collections"></a>4.5.3.2. Collections</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>get(index)</code>: Returns the element at the specified position in a list</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{list.get(0)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>reversed</code>: Returns a reversed iterator over a list</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#for r in recordsList.reversed}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>take</code>: Returns the first <code>n</code> elements from the given list; throws an <code>IndexOutOfBoundsException</code> if <code>n</code> is out of range</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#for r in recordsList.take(3)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>takeLast</code>: Returns the last <code>n</code> elements from the given list; throws an <code>IndexOutOfBoundsException</code> if <code>n</code> is out of range</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#for r in recordsList.takeLast(3)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A list element can be accessed directly: <code>{list.10}</code> or <code>{list[10]}</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="numbers"><a class="anchor" href="#numbers"></a>4.5.3.3. Numbers</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mod</code>: Modulo operation</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{#if counter.mod(5) == 0}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="strings"><a class="anchor" href="#strings"></a>4.5.3.4. Strings</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fmt</code> or <code>format</code>: format the string instance via <code>java.lang.String.format()</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{myStr.fmt("arg1","arg2")}</code></p>
+</li>
+<li>
+<p><code>{myStr.format(locale,arg1)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>str:fmt</code> or <code>str:format</code>: format the supplied string value via <code>java.lang.String.format()</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{str:format("Hello %s!",name)}</code></p>
+</li>
+<li>
+<p><code>{str:fmt(locale,'%tA',now)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="config"><a class="anchor" href="#config"></a>4.5.3.5. Config</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>config:&lt;name&gt;</code> or <code>config:[&lt;name&gt;]</code>: Returns the config value for the given property name</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{config:foo}</code> or <code>{config:['property.with.dot.in.name']}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>config:property(name)</code>: Returns the config value for the given property name; the name can be obtained dynamically by an expression</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{config:property('quarkus.foo')}</code></p>
+</li>
+<li>
+<p><code>{config:property(foo.getPropertyName())}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>config:boolean(name)</code>: Returns the config value for the given property name as a boolean; the name can be obtained dynamically by an expression</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{config:boolean('quarkus.foo.boolean') ?: 'Not Found'}</code></p>
+</li>
+<li>
+<p><code>{config:boolean(foo.getPropertyName()) ?: 'property is false'}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>config:integer(name)</code>: Returns the config value for the given property name as an integer; the name can be obtained dynamically by an expression</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{config:integer('quarkus.foo')}</code></p>
+</li>
+<li>
+<p><code>{config:integer(foo.getPropertyName())}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="time"><a class="anchor" href="#time"></a>4.5.3.6. Time</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>format(pattern)</code>: Formats temporal objects from the <code>java.time</code> package</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{dateTime.format('d MMM uuuu')}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>format(pattern,locale)</code>: Formats temporal objects from the <code>java.time</code> package</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{dateTime.format('d MMM uuuu',myLocale)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>format(pattern,locale,timeZone)</code>: Formats temporal objects from the <code>java.time</code> package</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{dateTime.format('d MMM uuuu',myLocale,myTimeZoneId)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>time:format(dateTime,pattern)</code>: Formats temporal objects from the <code>java.time</code> package, <code>java.util.Date</code>, <code>java.util.Calendar</code> and <code>java.lang.Number</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{time:format(myDate,'d MMM uuuu')}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>time:format(dateTime,pattern,locale)</code>: Formats temporal objects from the <code>java.time</code> package, <code>java.util.Date</code>, <code>java.util.Calendar</code> and <code>java.lang.Number</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{time:format(myDate,'d MMM uuuu', myLocale)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>time:format(dateTime,pattern,locale,timeZone)</code>: Formats temporal objects from the <code>java.time</code> package, <code>java.util.Date</code>, <code>java.util.Calendar</code> and <code>java.lang.Number</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{time:format(myDate,'d MMM uuuu',myLocale,myTimeZoneId)}</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="template_data"><a class="anchor" href="#template_data"></a>4.6. @TemplateData</h3>
+<div class="paragraph">
+<p>A value resolver is automatically generated for a type annotated with <code>@TemplateData</code>.
+This allows Quarkus to avoid using reflection to access the data at runtime.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Non-public members, constructors, static initializers, static, synthetic and void methods are always ignored.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
+
+@TemplateData
+class Item {
+
+    public final BigDecimal price;
+
+    public Item(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getDiscountedPrice() {
+        return price.multiply(new BigDecimal("0.9"));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any instance of <code>Item</code> can be used directly in the template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#each items} <i class="conum" data-value="1"></i><b>(1)</b>
+  {it.price} / {it.discountedPrice}
+{/each}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>items</code> is resolved to a list of <code>org.acme.Item</code> instances.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Furthermore, <code>@TemplateData.properties()</code> and <code>@TemplateData.ignore()</code> can be used to fine-tune the generated resolver.
+Finally, it is also possible to specify the "target" of the annotation - this could be useful for third-party classes not controlled by the application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@TemplateData(target = BigDecimal.class)
+@TemplateData
+class Item {
+
+    public final BigDecimal price;
+
+    public Item(BigDecimal price) {
+        this.price = price;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#each items}
+  {it.price.setScale(2, rounding)} <i class="conum" data-value="1"></i><b>(1)</b>
+{/each}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The generated value resolver knows how to invoke the <code>BigDecimal.setScale()</code> method.</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="accessing-static-fields-and-methods"><a class="anchor" href="#accessing-static-fields-and-methods"></a>4.6.1. Accessing Static Fields and Methods</h4>
+<div class="paragraph">
+<p>If <code>@TemplateData#namespace()</code> is set to a non-empty value then a namespace resolver is automatically generated to access the public static fields and methods of the target class.
+By default, the namespace is the FQCN of the target class where dots and dollar signs are replaced by underscores.
+For example, the namespace for a class with name <code>org.acme.Foo</code> is <code>org_acme_Foo</code>.
+The static field <code>Foo.AGE</code> can be accessed via <code>{org_acme_Foo:AGE}</code>.
+The static method <code>Foo.computeValue(int number)</code> can be accessed via <code>{org_acme_Foo:computeValue(10)}</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A namespace can only consist of alphanumeric characters and underscores.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Class Annotated With <code>@TemplateData</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package model;
+
+@TemplateData <i class="conum" data-value="1"></i><b>(1)</b>
+public class Statuses {
+    public static final String ON = "on";
+    public static final String OFF = "off";
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A name resolver with the namespace <code>model_Status</code> is generated automatically.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Template Accessing Class Constants</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#if machine.status == model_Status:ON}
+  The machine is ON!
+{/if}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="convenient-annotation-for-enums"><a class="anchor" href="#convenient-annotation-for-enums"></a>4.6.2. Convenient Annotation For Enums</h4>
+<div class="paragraph">
+<p>There&#8217;s also a convenient annotation to access enum constants: <code>@io.quarkus.qute.TemplateEnum</code>.
+This annotation is functionally equivalent to <code>@TemplateData(namespace = TemplateData.SIMPLENAME)</code>, i.e. a namespace resolver is automatically generated for the target enum and the simple name of the target enum is used as the namespace.</p>
+</div>
+<div class="listingblock">
+<div class="title">Enum Annotated With <code>@TemplateEnum</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package model;
+
+@TemplateEnum <i class="conum" data-value="1"></i><b>(1)</b>
+public enum Status {
+    ON,
+    OFF
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A name resolver with the namespace <code>Status</code> is generated automatically.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>@TemplateEnum</code> declared on a non-enum class is ignored. Also if an enum also declares the <code>@TemplateData</code> annotation then the <code>@TemplateEnum</code> annotation is ignored.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Template Accessing Enum Constants</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{#if machine.status == Status:ON}
+  The machine is ON!
+{/if}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Quarkus detects possible namespace collisions and fails the build if a specific namespace is defined by multiple <code>@TemplateData</code> and/or <code>@TemplateEnum</code> annotations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="global_variables"><a class="anchor" href="#global_variables"></a>4.7. Global Variables</h3>
+<div class="paragraph">
+<p>The <code>io.quarkus.qute.TemplateGlobal</code> annotation can be used to denote static fields and methods that supply <em>global variables</em> which are accessible in any template.
+Internally, each global variable is added to the data map of any <code>TemplateInstance</code> via the <code>TemplateInstance#data(String, Object)</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="title">Global Variables Definition</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">enum Color { RED, GREEN, BLUE }
+
+@TemplateGlobal <i class="conum" data-value="1"></i><b>(1)</b>
+public class Globals {
+
+    static int age = 40;
+
+    static Color[] myColors() {
+      return new Color[] { Color.RED, Color.BLUE };
+    }
+
+    @TemplateGlobal(name = "currentUser") <i class="conum" data-value="2"></i><b>(2)</b>
+    static String user() {
+       return "Mia";
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If a class is annotated with <code>@TemplateGlobal</code> then every non-void non-private static method that declares no parameters and every non-private static field is considered a global variable. The name is defaulted, i.e. the name of the field/method is used.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Method-level annotations override the class-level annotation. In this particular case, the name is not defaulted but selected explicitly.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">A Template Accessing Global Variables</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">User: {currentUser} <i class="conum" data-value="1"></i><b>(1)</b>
+Age:  {age} <i class="conum" data-value="2"></i><b>(2)</b>
+Colors: {#each myColors}{it}{#if it_hasNext}, {/if}{/each} <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>currentUser</code> resolves to <code>Globals#user()</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>age</code> resolves to <code>Globals#age</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>myColors</code> resolves to <code>Globals#myColors()</code>.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that global variables implicitly add <a href="#typesafe_expressions">parameter declarations</a> to all templates and so any expression that references a global variable is validated during build.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">The Output</div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">User: Mia
+Age:  40
+Colors: RED, BLUE</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resolving-conflicts"><a class="anchor" href="#resolving-conflicts"></a>4.7.1. Resolving Conflicts</h4>
+<div class="paragraph">
+<p>Global variables may conflict with regular data objects.
+<a href="#typesafe_templates">Type-safe templates</a> override the global variables automatically.
+For example, the following definition overrides the global variable supplied by the <code>Globals#user()</code> method:</p>
+</div>
+<div class="listingblock">
+<div class="title">Type-safe Template Definition</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import org.acme.User;
+
+@CheckedTemplate
+public class Templates {
+    static native TemplateInstance hello(User currentUser); <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>currentUser</code> conflicts with the global variable supplied by <code>Globals#user()</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So the corresponding template does not result in a validation error even though the <code>Globals#user()</code> method returns <code>java.lang.String</code> which does not have the <code>name</code> property:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>templates/hello.txt</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">User name: {currentUser.name} <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>org.acme.User</code> has the <code>name</code> property.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For other templates an explicit parameter declaration is needed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">{@org.acme.User currentUser} <i class="conum" data-value="1"></i><b>(1)</b>
+
+User name: {currentUser.name}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This parameter declaration overrides the declaration added by the global variable supplied by the <code>Globals#user()</code> method.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="native_executables"><a class="anchor" href="#native_executables"></a>4.8. Native Executables</h3>
+<div class="paragraph">
+<p>In the JVM mode a reflection-based value resolver may be used to access properties and call methods of the model classes.
+But this does not work for <a href="building-native-image.html">a native executable</a> out of the box.
+As a result, you may encounter template exceptions like <code>Property "name" not found on the base object "org.acme.Foo" in expression {foo.name} in template hello.html</code> even if the <code>Foo</code> class declares a relevant getter method.</p>
+</div>
+<div class="paragraph">
+<p>There are several ways to solve this problem:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make use of <a href="#typesafe_templates">type-safe templates</a> or <a href="#typesafe_expressions">type-safe expressions</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>In this case, an optimized value resolver is generated automatically and used at runtime</p>
+</li>
+<li>
+<p>This is the preferred solution</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Annotate the model class with <a href="#template_data"><code>@TemplateData</code></a> - a specialized value resolver is generated and used at runtime</p>
+</li>
+<li>
+<p>Annotate the model class with <code>@io.quarkus.runtime.annotations.RegisterForReflection</code> to make the reflection-based value resolver work</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resteasy_integration"><a class="anchor" href="#resteasy_integration"></a>4.9. RESTEasy Integration</h3>
+<div class="paragraph">
+<p>If you want to use Qute in your JAX-RS application, then depending on which JAX-RS stack you are using, you&#8217;ll need to register the proper extension first.
+If you are using the traditional <code>quakus-resteasy</code> extension, then in your <code>pom.xml</code> file, add:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-resteasy-qute&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If instead you are using RESTEasy Reactive via the <code>quarkus-resteasy-reactive</code> extension, then in your <code>pom.xml</code> file, add:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-resteasy-reactive-qute&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both of these extensions register a special <code>ContainerResponseFilter</code> implementation which enables resource methods to return a <code>TemplateInstance</code>, thus freeing users of having to take care of all necessary internal steps.</p>
+</div>
+<div class="paragraph">
+<p>The end result is that a using Qute within a JAX-RS resource may look as simple as:</p>
+</div>
+<div class="listingblock">
+<div class="title">HelloResource.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.quarkus.sample;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+
+import io.quarkus.qute.TemplateInstance;
+import io.quarkus.qute.Template;
+
+@Path("hello")
+public class HelloResource {
+
+    @Inject
+    Template hello; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public TemplateInstance get(@QueryParam("name") String name) {
+        return hello.data("name", name); <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If there is no <code>@Location</code> qualifier provided, the field name is used to locate the template. In this particular case, we&#8217;re injecting a template with path <code>templates/hello.txt</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>Template.data()</code> returns a new template instance that can be customized before the actual rendering is triggered. In this case, we put the name value under the key <code>name</code>. The data map is accessible during rendering.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Note that we don&#8217;t trigger the rendering - this is done automatically by a special <code>ContainerResponseFilter</code> implementation.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Users are encouraged to use <a href="#typesafe_templates">Type-safe templates</a> that help to organize the templates for a specific JAX-RS resource and enable <a href="#typesafe_expressions">type-safe expressions</a> automatically.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The content negotiation is performed automatically.
+The resulting output depends on the <code>Accept</code> header received from the client.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Path("/detail")
+class DetailResource {
+
+    @Inject
+    Template item; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @GET
+    @Produces({ MediaType.TEXT_HTML, MediaType.TEXT_PLAIN })
+    public TemplateInstance item() {
+        return item.data("myItem", new Item("Alpha", 1000)); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inject a variant template with base path derived from the injected field - <code>src/main/resources/templates/item</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For <code>text/plain</code> the <code>src/main/resources/templates/item.txt</code> template is used. For <code>text/html</code> the <code>META-INF/resources/templates/item.html</code> template is used.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>RestTemplate</code> util class can be used to obtain a template instance from a body of a JAX-RS resource method:</p>
+</div>
+<div class="listingblock">
+<div class="title">RestTemplate Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Path("/detail")
+class DetailResource {
+
+    @GET
+    @Produces({ MediaType.TEXT_HTML, MediaType.TEXT_PLAIN })
+    public TemplateInstance item() {
+        return RestTemplate.data("myItem", new Item("Alpha", 1000)); <i class="conum" data-value="1"></i><b>(1)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the template is derived from the resource class and method name; <code>DetailResource/item</code> in this particular case.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Unlike with <code>@Inject</code> the templates obtained via <code>RestTemplate</code> are not validated, i.e. the build does not fail if a template does not exist.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="development-mode"><a class="anchor" href="#development-mode"></a>4.10. Development Mode</h3>
+<div class="paragraph">
+<p>In the development mode, all files located in <code>src/main/resources/templates</code> are watched for changes and modifications are immediately visible.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="type-safe-message-bundles"><a class="anchor" href="#type-safe-message-bundles"></a>4.11. Type-safe Message Bundles</h3>
+<div class="sect3">
+<h4 id="basic-concepts"><a class="anchor" href="#basic-concepts"></a>4.11.1. Basic Concepts</h4>
+<div class="paragraph">
+<p>The basic idea is that every message is potentially a very simple template.
+In order to prevent type errors a message is defined as an annotated method of a <strong>message bundle interface</strong>.
+Quarkus generates the <strong>message bundle implementation</strong> at build time.
+Subsequently, the bundles can be used at runtime:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Directly in your code via <code>io.quarkus.qute.i18n.MessageBundles#get()</code>; e.g. <code>MessageBundles.get(AppMessages.class).hello_name("Lucie")</code></p>
+</li>
+<li>
+<p>Injected in your beans via <code>@Inject</code>; e.g. <code>@Inject AppMessages</code></p>
+</li>
+<li>
+<p>Referenced in the templates via the message bundle namespace:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html"> {msg:hello_name('Lucie')} <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+ {msg:message(myKey,'Lu')} <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>msg</code> is the default namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>hello_name</code> is the message key.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><code>Lucie</code> is the parameter of the message bundle interface method.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>It is also possible to obtain a localized message for a key resolved at runtime using a reserved key <code>message</code>. The validation is skipped in this case though.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Message Bundle Interface Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import io.quarkus.qute.i18n.Message;
+import io.quarkus.qute.i18n.MessageBundle;
+
+@MessageBundle <i class="conum" data-value="1"></i><b>(1)</b>
+public interface AppMessages {
+
+    @Message("Hello {name}!") <i class="conum" data-value="2"></i><b>(2)</b>
+    String hello_name(String name); <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Denotes a message bundle interface. The bundle name is defaulted to <code>msg</code> and is used as a namespace in templates expressions, e.g. <code>{msg:hello_name}</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Each method must be annotated with <code>@Message</code>. The value is a qute template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The method parameters can be used in the template.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="bundle-name-and-message-keys"><a class="anchor" href="#bundle-name-and-message-keys"></a>4.11.2. Bundle Name and Message Keys</h4>
+<div class="paragraph">
+<p>Keys are used directly in templates.
+The bundle name is used as a namespace in template expressions.
+The <code>@MessageBundle</code> can be used to define the default strategy used to generate message keys from method names.
+However, the <code>@Message</code> can override this strategy and even define a custom key.
+By default, the annotated element&#8217;s name is used as-is.
+Other possibilities are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>De-camel-cased and hyphenated; e.g. <code>helloName()</code> &#8594; <code>hello-name</code></p>
+</li>
+<li>
+<p>De-camel-cased and parts separated by underscores; e.g. <code>helloName()</code> &#8594; <code>hello_name</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="validation"><a class="anchor" href="#validation"></a>4.11.3. Validation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>All message bundle templates are validated:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>All expressions without a namespace must map to a parameter; e.g. <code>Hello {foo}</code> &#8594; the method must have a param of name <code>foo</code></p>
+</li>
+<li>
+<p>All expressions are validated against the types of the parameters; e.g. <code>Hello {foo.bar}</code> where the parameter <code>foo</code> is of type <code>org.acme.Foo</code> &#8594; <code>org.acme.Foo</code> must have a property of name <code>bar</code></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A warning message is logged for each <em>unused</em> parameter.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Expressions that reference a message bundle method, such as <code>{msg:hello(item.name)}</code>, are validated too.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="localization"><a class="anchor" href="#localization"></a>4.11.4. Localization</h4>
+<div class="paragraph">
+<p>The default locale specified via the <code>quarkus.default-locale</code> config property is used for the <code>@MessageBundle</code> interface by default.
+However, the <code>io.quarkus.qute.i18n.MessageBundle#locale()</code> can be used to specify a custom locale.
+Additionally, there are two ways to define a localized bundle:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an interface that extends the default interface that is annotated with <code>@Localized</code></p>
+</li>
+<li>
+<p>Create an UTF-8 encoded file located in the <code>src/main/resources/messages</code> directory of an application archive; e.g. <code>msg_de.properties</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+While a localized interface enables easy refactoring an external file might be more convenient in many situations.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Localized Interface Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import io.quarkus.qute.i18n.Localized;
+import io.quarkus.qute.i18n.Message;
+
+@Localized("de") <i class="conum" data-value="1"></i><b>(1)</b>
+public interface GermanAppMessages extends AppMessages {
+
+    @Override
+    @Message("Hallo {name}!") <i class="conum" data-value="2"></i><b>(2)</b>
+    String hello_name(String name);
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The value is the locale tag string (IETF).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The value is the localized template.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Message bundle files must be encoded in <em>UTF-8</em>.
+The file name consists of the relevant bundle name (e.g. <code>msg</code>) and underscore followed by the locate tag (IETF).
+The file format is very simple: each line represents either a key/value pair with the equals sign used as a separator or a comment (line starts with <code>#</code>).
+Blank lines are ignored.
+Keys are <em>mapped to method names</em> from the corresponding message bundle interface.
+Values represent the templates normally defined by <code>io.quarkus.qute.i18n.Message#value()</code>.
+A value may be spread out across several adjacent normal lines.
+In such case, the line terminator must be escaped with a backslash character <code>\</code>.
+The behavior is very similar to the behavior of the <code>java.util.Properties.load(Reader)</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="title">Localized File Example - <code>msg_de.properties</code></div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties"># This comment is ignored
+hello_name=Hallo {name}! <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Each line in a localized file represents a key/value pair. The key must correspond to a method declared on the message bundle interface. The value is the message template.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Keys and values are separated by the equals sign.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We use the <code>.properties</code> suffix in our example because most IDEs and text editors support syntax highlighting of <code>.properties</code> files. But in fact, the suffix could be anything - it is just ignored.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+An example properties file is generated into the target directory for each message bundle interface automatically. For example, by default if no name is specified for <code>@MessageBundle</code> the file <code>target/qute-i18n-examples/msg.properties</code> is generated when the application is build via <code>mvn clean package</code>. You can use this file as a base for a specific locale. Just rename the file - e.g. <code>msg_fr.properties</code>, change the message templates and move it in the <code>src/main/resources/messages</code> directory.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Value Spread Out Across Several Adjacent Lines</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">hello=Hello \
+   {name} and \
+   good morning!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the line terminator is escaped with a backslash character <code>\</code> and white space at the start of the following line is ignored. I.e. <code>{msg:hello('Edgar')}</code> would be rendered as <code>Hello Edgar and good morning!</code>.</p>
+</div>
+<div class="paragraph">
+<p>Once we have the localized bundles defined we need a way to <em>select</em> the correct bundle for a specific template instance, i.e. to specify the locale for all message bundle expressions in the template.
+By default, the locale specified via the <code>quarkus.default-locale</code> configuration property is used to select the bundle.
+Alternatively, you can specify the <code>locale</code> attribute of a template instance.</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>locale</code> Attribute Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Singleton
+public class MyBean {
+
+    @Inject
+    Template hello;
+
+    String render() {
+       return hello.instance().setAttribute("locale", Locale.forLanguageTag("cs")).render(); <i class="conum" data-value="1"></i><b>(1)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You can set a <code>Locale</code> instance or a locale tag string (IETF).</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When using <a href="#resteasy_integration">quarkus-resteasy-qute</a> the <code>locale</code> attribute is derived from the the <code>Accept-Language</code> header if not set by a user.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>@Localized</code> qualifier can be used to inject a localized message bundle interface.</p>
+</div>
+<div class="listingblock">
+<div class="title">Injected Localized Message Bundle Example</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Singleton
+public class MyBean {
+
+    @Localized("cs") <i class="conum" data-value="1"></i><b>(1)</b>
+    AppMessages msg;
+
+    String render() {
+       return msg.hello_name("Jachym");
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The annotation value is a locale tag string (IETF).</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-reference"><a class="anchor" href="#configuration-reference"></a>4.12. Configuration Reference</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="standalone"><a class="anchor" href="#standalone"></a>5. Qute Used as a Standalone Library</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Qute is primarily designed as a Quarkus extension.
+However. it is possible to use it as a "standalone" library.
+In this case, some features are not available and some additional configuration is needed.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Engine</dt>
+<dd>
+<p>First of all, no managed <code>Engine</code> instance is available out of the box.
+You&#8217;ll need to configure a new instance via <code>Engine.builder()</code>.</p>
+</dd>
+<dt class="hdlist1">Templates</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>By default, no <a href="#template-locator">template locators</a> are registered, i.e. <code>Engine.getTemplate(String)</code> will not work.</p>
+</li>
+<li>
+<p>You can register a custom template locator or parse a template manually and put the reulst in the cache via <code>Engine.putTemplate(String, Template)</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Value resolvers</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>No <a href="#value-resolvers"><code>ValueResolver</code>s</a> are generated automatically.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#template_extension_methods"><code>@TemplateExtension</code> methods</a> will not work.</p>
+</li>
+<li>
+<p><a href="#template_data"><code>@TemplateData</code></a> annotations are ignored.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>It&#8217;s recommended to register a <code>ReflectionValueResolver</code> instance via <code>Engine.addValueResolver(new ReflectionValueResolver())</code> so that Qute can access object properties and call public methods.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Keep in mind that reflection may not work correctly in some restricted environments or may require additional configuration, e.g. registration in case of a GraalVM native image.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>A custom value resolver can be easily built via <code>ValueResolver.builder()</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Type-safety</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#typesafe_expressions">Type-safe Expressions</a> are not validated.</p>
+</li>
+<li>
+<p><a href="#type-safe-message-bundles">Type-safe message bundles</a> are not supported.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Injection</dt>
+<dd>
+<p>It is not possible to inject a <code>Template</code> instance and vice versa - a template cannot inject a <code>@Named</code> CDI bean via the <code>inject:</code> namespace.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-03-17 11:27:40 +0800
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Packaging And Releasing With JReleaser</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/config.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/asciidoc-tabs.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+<script src="javascript/config.js"></script>
+<script src="javascript/asciidoc-tabs.js"></script>
+
+<style>
+    .book {
+        font-size: 14px;
+    }
+
+    .admonitionblock td.content>.title, .audioblock>.title, .exampleblock>.title, .imageblock>.title,
+    .listingblock>.title, .literalblock>.title, .stemblock>.title, .openblock>.title, .paragraph>.title,
+    .quoteblock>.title, table.tableblock>.title, .verseblock>.title, .videoblock>.title, .dlist>.title,
+    .olist>.title, .ulist>.title, .qlist>.title, .hdlist>.title {
+        font-size: 1.6rem;
+    }
+
+    p, blockquote, dt, td.content, span.alt, .quoteblock blockquote, .quoteblock blockquote p {
+        font-size: 1.6rem;
+    }
+
+    pre code {
+        font-size: 1.5rem;
+    }
+
+    #preamble>.sectionbody>[class="paragraph"]:first-of-type p {
+        font-size: 1.6rem;
+    }
+
+    #header, #content, #footer, #footnotes {
+        max-width: 72em;
+    }
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Packaging And Releasing With JReleaser</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide covers packaging and releasing CLI applications using the <a href="https://jreleaser.org">JReleaser</a> tool.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>1. Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To complete this guide, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Roughly 15 minutes</p>
+</li>
+<li>
+<p>An IDE</p>
+</li>
+<li>
+<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+</li>
+<li>
+<p>Apache Maven 3.8.4</p>
+</li>
+<li>
+<p>Optionally the <a href="cli-tooling.html">Quarkus CLI</a> if you want to use it</p>
+</li>
+<li>
+<p>Optionally Mandrel or GraalVM installed and <a href="building-native-image.html#configuring-graalvm">configured appropriately</a> if you want to build a native executable (or Docker if you use a native container build)</p>
+</li>
+<li>
+<p>a GitHub account and a GitHub Personal Access token</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bootstrapping-the-project"><a class="anchor" href="#bootstrapping-the-project"></a>2. Bootstrapping the project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, we need a project that defines a CLI application. We recommend using the <a href="picocli.html">PicoCLI</a> extension.
+This can be done using the following command:</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus create cli org.acme:app
+cd app</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>--gradle</code> or <code>--gradle-kotlin-dsl</code> option.</p>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling.html">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:999-SNAPSHOT:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=app \
+    -Dextensions="picocli"
+cd app</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>-DbuildTool=gradle</code> or <code>-DbuildTool=gradle-kotlin-dsl</code> option.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This command initializes the file structure and the minimum set of required files in the project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>.
+├── README.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    └── main
+        ├── docker
+        │   ├── Dockerfile.jvm
+        │   ├── Dockerfile.legacy-jar
+        │   └── Dockerfile.native
+        ├── java
+        │   └── org
+        │       └── acme
+        │           └── GreetingCommand.java
+        └── resources
+            └── application.properties</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will also configure the picocli extension in the <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;dependency&gt;
+      &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+      &lt;artifactId&gt;quarkus-picocli&lt;/artifactId&gt;
+    &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-the-project-for-github-releases"><a class="anchor" href="#preparing-the-project-for-github-releases"></a>3. Preparing the project for GitHub releases</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The project must be hosted at a GitHub repository before we continue. This task can be completed by logging into your
+GitHub account, creating a new repository, and adding the newly created sources to said repository. Choose the <code>main</code>
+branch as default to take advantage of conventions and thus configure less in your <code>pom.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p>You also need a GitHub Personal Access token to be able to post a release to the repository you just created. Follow
+the official documentation for
+<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">creating a personal access token</a>.
+Store the newly created token at a safe place for future reference. Next, you have the choice of configuring the token
+as an environment variable named <code>JRELEASER_GITHUB_TOKEN</code> so that the tool can read it. Alternatively you may store
+the token at a secure location of your choosing, using a <code>.yml</code>, <code>.toml</code>, <code>.json</code>, or <code>.properties</code> file. The default
+location is <code>~/.jreleaser/config[format]</code>. For example, using the <code>.yml</code> format this file could look like:</p>
+</div>
+<div class="listingblock">
+<div class="title">~/.jreleaser/config.yml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">JRELEASER_GITHUB_TOKEN: &lt;github-token-value&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alright. Add all sources and create a first commit. You can choose your own conventions for commit messages however you
+can get more bang for your buck when using JReleaser if you follow the
+<a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> specification. Make your first commit with the
+following message "build: Add initial sources".</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="packaging-as-a-native-image-distribution"><a class="anchor" href="#packaging-as-a-native-image-distribution"></a>4. Packaging as a Native Image distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus already knows how to create a native executable using GraalVM Native Image. The default setup will create a
+single executable file following a naming convention. However the JReleaser tool expects a distribution that is, a
+conventional file structure packaged as a Zip or Tar file. The file structure must follow this layout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>.
+├── LICENSE
+├── README
+└── bin
+    └── executable</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure lets you add all kinds of supporting files required by the executable, such as configuration files,
+shell completion scripts, man pages, license, readme, and more.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-distribution"><a class="anchor" href="#creating-the-distribution"></a>5. Creating the distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can leverage the <a href="http://maven.apache.org/plugins/maven-assembly-plugin/">maven-assembly-plugin</a> to create such
+a distribution. We&#8217;ll also make use of the <a href="https://github.com/trustin/os-maven-plugin">os-maven-plugin</a> to properly
+identify the platform on which this executable can run, adding said platform to the distribution&#8217;s filename.</p>
+</div>
+<div class="paragraph">
+<p>First, let&#8217;s add the os-maven-plugin to the <code>pom.xml</code>. This plugin works as a Maven extension and as such must be added
+to the <code>&lt;build&gt;</code> section of the file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">  &lt;build&gt;
+    &lt;extensions&gt;
+      &lt;extension&gt;
+        &lt;groupId&gt;kr.motd.maven&lt;/groupId&gt;
+        &lt;artifactId&gt;os-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
+      &lt;/extension&gt;
+    &lt;/extensions&gt;
+    &lt;!-- ... --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, native executables on Linux and macOS platforms typically do not have a file extension but Windows executables do,
+we need to take care of this when renaming the generated executable. We can also place the generated distributions into
+their own directory to avoid cluttering the <code>target</code> directory. Thus, let&#8217;s add a couple of properties to the existing
+<code>&lt;properties&gt;</code> section in the <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;executable-suffix/&gt;
+&lt;distribution.directory&gt;${project.build.directory}/distributions&lt;/distribution.directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we configure the maven-assembly-plugin to create a Zip and a Tar file containing the executable and any supporting files
+it may need to perform its job. Take special note on the name of the distribution, this is where we make use of the platform
+properties detected by the os-maven-plugin. This plugin is configured in its own profile with the <code>single</code> goal bound to
+the <code>package</code> phase. It&#8217;s done this way to avoid rebuilding the distribution every single time the build is invoked, as we
+only needed when we&#8217;re ready for a release.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;profile&gt;
+      &lt;id&gt;dist&lt;/id&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.3.0&lt;/version&gt;
+            &lt;configuration&gt;
+              &lt;attach&gt;false&lt;/attach&gt;
+              &lt;appendAssemblyId&gt;false&lt;/appendAssemblyId&gt;
+              &lt;finalName&gt;${project.artifactId}-${project.version}-${os.detected.classifier}&lt;/finalName&gt;
+              &lt;outputDirectory&gt;${distribution.directory}&lt;/outputDirectory&gt;
+              &lt;workDirectory&gt;${project.build.directory}/assembly/work&lt;/workDirectory&gt;
+              &lt;descriptors&gt;
+                &lt;descriptor&gt;src/main/assembly/assembly.xml&lt;/descriptor&gt;
+              &lt;/descriptors&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;id&gt;make-distribution&lt;/id&gt;
+                &lt;phase&gt;package&lt;/phase&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;single&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+      &lt;id&gt;dist-windows&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;os&gt;
+          &lt;family&gt;windows&lt;/family&gt;
+        &lt;/os&gt;
+      &lt;/activation&gt;
+      &lt;properties&gt;
+        &lt;executable-suffix&gt;.exe&lt;/executable-suffix&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that two profiles are configured. The <code>dist</code> profile configures the assembly plugin, and it&#8217;s configured in such a way that
+it must be activated explicitly by passing <code>-Pdist</code> as a command flag. On the other hand the <code>dist-windows</code> profile becomes
+active automatically when the build is run on a Windows platform. This second profile takes care of setting the value for the
+<code>executable-suffix</code> property which is required by the assembly descriptor, as shown next:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/main/assembly/assembly.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd"&gt;
+    &lt;id&gt;dist&lt;/id&gt;
+    &lt;formats&gt;
+        &lt;format&gt;tar.gz&lt;/format&gt;
+        &lt;format&gt;zip&lt;/format&gt;
+        &lt;format&gt;dir&lt;/format&gt;
+    &lt;/formats&gt;
+    &lt;files&gt;
+        &lt;file&gt;
+            &lt;source&gt;${project.build.directory}/${project.artifactId}-${project.version}-runner${executable-suffix}&lt;/source&gt;
+            &lt;outputDirectory&gt;./bin&lt;/outputDirectory&gt;
+            &lt;destName&gt;${project.artifactId}${executable-suffix}&lt;/destName&gt;
+        &lt;/file&gt;
+    &lt;/files&gt;
+&lt;/assembly&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These are the files created by the assembly plugin when invoking <code>./mvnw -Pdist package</code> on macOS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ tree target/distributions/
+target/distributions/
+├── app-1.0.0-SNAPSHOT-osx-x86_64
+│   └── app-1.0.0-SNAPSHOT-osx-x86_64
+│       └── bin
+│           └── app
+├── app-1.0.0-SNAPSHOT-osx-x86_64.tar.gz
+└── app-1.0.0-SNAPSHOT-osx-x86_64.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Feel free to update the assembly descriptor to include additional files such as LICENSE, readme, or anything else needed by
+the consumers of the executable. Make another commit right here with "build: Configure distribution assembly".</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re ready to go to the next phase: configuring the release.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-jreleaser"><a class="anchor" href="#adding-jreleaser"></a>6. Adding JReleaser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The JReleaser tool can be invoked in many ways: as a CLI tool, as a Docker image, or as a Maven plugin. The last option is very
+convenient given that we are already working with Maven. Let&#8217;s add yet another profile that contains the release configuration
+as once again we don&#8217;t require this behavior to be active all the time only when we&#8217;re ready to post a release:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;profile&gt;
+      &lt;id&gt;release&lt;/id&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;org.jreleaser&lt;/groupId&gt;
+            &lt;artifactId&gt;jreleaser-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;0.9.1&lt;/version&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are a few goals we can invoke at this point, we can for example ask JReleaser to print out its current configuration by
+invoking the <code>./mvnw -Prelease jreleaser:config</code> command. The tool will output everything that it knows about the project. We
+can also generate the changelog by invoking <code>./mvnw -Prelease jreleaser:changelog</code>. A file containing the changelog will be
+placed at <code>target/jreleaser/release/CHANGELOG.md</code> which at this point should look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">target/jreleaser/release/CHANGELOG.md</div>
+<div class="content">
+<pre class="highlight"><code class="language-markdown" data-lang="markdown">## Changelog
+
+8ef3307 build: Configure distribution assembly
+5215200 build: Add initial sources</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Not very exicting. But we can change this by instructing JReleaser to format the changelog according to our own conventions. You
+can manually specify patterns to categorize commits however if you chose to follow Conventional Commits we can instruct JReleaser
+to do the same. Add the following to the JReleaser plugin configuration section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">            &lt;configuration&gt;
+              &lt;jreleaser&gt;
+                &lt;release&gt;
+                  &lt;github&gt;
+                    &lt;changelog&gt;
+                      &lt;formatted&gt;ALWAYS&lt;/formatted&gt;
+                      &lt;preset&gt;conventional-commits&lt;/preset&gt;
+                    &lt;/changelog&gt;
+                  &lt;/github&gt;
+                &lt;/release&gt;
+              &lt;/jreleaser&gt;
+            &lt;/configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the previous Maven command once again and inspect the generated changelog, it should now look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">target/jreleaser/release/CHANGELOG.md</div>
+<div class="content">
+<pre class="highlight"><code class="language-markdown" data-lang="markdown">## Changelog
+
+## 🛠  Build
+- 8ef3307 Configure distribution assembly (Andres Almiray)
+- 5215200 Add initial sources (Andres Almiray)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+Andres Almiray</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are more formatting options you may apply but for now these will suffice. Let&#8217;s make yet another commit right now, with
+"build: Configure JReleaser plugin" as a commit message. If you want you can generate the changelog once again and see this
+latest commit added to the file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-distributions-to-the-release"><a class="anchor" href="#adding-distributions-to-the-release"></a>7. Adding distributions to the release</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve reached the point where we can configure the binary distributions. If you run the <code>./mvnw -Prelease jreleaser:config</code>
+command you&#8217;ll notice there&#8217;s no mention of any distribution files that we configured in previous steps. This is because
+the tool has no implicit knowledge of them, we must tell JReleaser which files we&#8217;d like to release. This decouples creation
+of distributions from release assets as you might like to add or remove files at your leisure. For this particular case we&#8217;ll
+configure Zip files for both macOS and Windows, and a Tar file for Linux. These files must be added to the JReleaser plugin
+configuration section, like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">            &lt;configuration&gt;
+              &lt;jreleaser&gt;
+                &lt;release&gt;
+                  &lt;github&gt;
+                    &lt;changelog&gt;
+                      &lt;formatted&gt;ALWAYS&lt;/formatted&gt;
+                      &lt;preset&gt;conventional-commits&lt;/preset&gt;
+                    &lt;/changelog&gt;
+                  &lt;/github&gt;
+                &lt;/release&gt;
+                &lt;distributions&gt;
+                  &lt;app&gt;
+                    &lt;type&gt;NATIVE_IMAGE&lt;/type&gt;
+                    &lt;artifacts&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz&lt;/path&gt;
+                        &lt;platform&gt;linux-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;windows-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;osx-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                    &lt;/artifacts&gt;
+                  &lt;/app&gt;
+                &lt;/distributions&gt;
+              &lt;/jreleaser&gt;
+            &lt;/configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can appreciate a distribution named <code>app</code> (same as the project&#8217;s artifactId for convenience) with 3 configured artifacts.
+Note the use of Maven properties and Mustache templates to define the paths. You may use explicit values if you want or rely
+on properties to parameterize the configuration. Maven properties resolve eagerly during build validation while Mustache
+templates resolve lazily during the execution of the JReleaser plugin goals. Each artifact must define a <code>platform</code>
+property that uniquely identifies them. If we run the <code>./mvnw -Prelease jreleaser:config</code> we&#8217;ll quickly get an error as now
+that there&#8217;s a configured distribution the plugin expects more metadata to be provided by the project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>[WARNING]   [validation] project.copyright must not be blank since 0.4.0. This warning will become an error in a future release.
+[ERROR] == JReleaser ==
+[ERROR] project.description must not be blank
+[ERROR] project.website must not be blank
+[ERROR] project.docsUrl must not be blank
+[ERROR] project.license must not be blank
+[ERROR] project.authors must not be blank</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This metadata can be provided in two ways: either as part of the JReleaser plugin&#8217;s configuration or using standard
+POM elements. If you choose the former option then the plugin&#8217;s configuration may look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">            &lt;configuration&gt;
+              &lt;jreleaser&gt;
+                &lt;project&gt;
+                 &lt;description&gt;app -- Sample Quarkus CLI application&lt;/description&gt;
+                 &lt;website&gt;https://github.com/aalmiray/app&lt;/website&gt;
+                 &lt;docsUrl&gt;https://github.com/aalmiray/app&lt;/docsUrl&gt;
+                 &lt;license&gt;APACHE-2.0&lt;/license&gt;
+                 &lt;authors&gt;Andres Almiray&lt;/authors&gt;
+                 &lt;copyright&gt;2021 Kordamp&lt;/copyright&gt;
+                &lt;/project&gt;
+                &lt;!-- ... --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you choose to use standard POM elements then your <code>pom.xml</code> must contain these entries at the very least, of course
+adapting values to your own:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">  &lt;name&gt;app&lt;/name&gt;
+  &lt;description&gt;app -- Sample Quarkus CLI application&lt;/description&gt;
+  &lt;inceptionYear&gt;2021&lt;/inceptionYear&gt;
+  &lt;url&gt;https://github.com/aalmiray/app&lt;/url&gt;
+  &lt;developers&gt;
+    &lt;developer&gt;
+      &lt;id&gt;aalmiray&lt;/id&gt;
+      &lt;name&gt;Andres Almiray&lt;/name&gt;
+    &lt;/developer&gt;
+  &lt;/developers&gt;
+  &lt;licenses&gt;
+    &lt;license&gt;
+      &lt;name&gt;Apache-2.0&lt;/name&gt;
+      &lt;url&gt;http://www.apache.org/licenses/LICENSE-2.0.txt&lt;/url&gt;
+      &lt;distribution&gt;repo&lt;/distribution&gt;
+    &lt;/license&gt;
+  &lt;/licenses&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Yet, we&#8217;re not still out of the woods as invoking the <code>./mvnw -Prelease jreleaser:config</code> once more will still result in
+another error, this time the failure relates to missing artifacts. This is because we did not assemble all required
+artifacts, yet the plugin expects them to be readily available. Here you have the choice to build the required artifacts
+on other nodes then copy them to their expected locations&#8201;&#8212;&#8201;a task that can be performed running a GitHub Actions
+workflow on multiple nodes. Or you can instruct JReleaser to ignore some artifacts and select only those that match your
+current platform. Previously we showed how the distribution would look like when created on macOS, assuming we&#8217;re still on
+that platform we have the correct artifact.</p>
+</div>
+<div class="paragraph">
+<p>We can instruct JReleaser to select only artifacts that match macOS at this point by invoking the <code>jreleaser:config</code> goal
+with an additional flag: <code>./mvnw -Prelease jreleaser:config -Djreleaser.select.current.platform</code>. This time the command
+will succeed and print out the model. Note that only the path for the macOS artifact has been fully resolved, leaving the
+other 2 paths untouched.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s make one more commit here with "build: Configure distribution artifacts" as message. We can create a release right
+now, by invoking a different goal: <code>./mvnw -Prelease jreleaser:release -Djreleaser.select.current.platform</code>. This will
+create a Git release at the chosen repository, which includes tagging the repository, uploading the changelog, all
+distribution artifacts and their checksum as release assets.</p>
+</div>
+<div class="paragraph">
+<p>But before we do that let&#8217;s add one additional feature, let&#8217;s create a Homebrew formula that will make it easy for macOS
+users to consume the binary distribution, shall we?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-homebrew-as-a-packager"><a class="anchor" href="#configuring-homebrew-as-a-packager"></a>8. Configuring Homebrew as a packager</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://brew.sh/">Homebrew</a> is a popular choice among macOS users to install and manage binaries. Homebrew packages
+are at their core a Ruby file (known as a formula) that&#8217;s executed on the target environment to install or upgrade a
+particular binary. JReleaser can create formulae from binary distributions such as the one we already have configured.</p>
+</div>
+<div class="paragraph">
+<p>For this to work we simply have to enable Homebrew in the JReleaser plugin configuration like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">                &lt;distributions&gt;
+                  &lt;app&gt;
+                    &lt;type&gt;NATIVE_IMAGE&lt;/type&gt;
+                    &lt;brew&gt;
+                      &lt;active&gt;ALWAYS&lt;/active&gt;
+                    &lt;/brew&gt;
+                    &lt;artifacts&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz&lt;/path&gt;
+                        &lt;platform&gt;linux-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;windows-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;osx-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                    &lt;/artifacts&gt;
+                  &lt;/app&gt;
+                &lt;/distributions&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>One last thing, it&#8217;s a good practice to publish Homebrew formulae for non-snapshot releases thus change the project&#8217;s version
+from <code>1.0.0-SNAPSHOT</code> to say <code>1.0.0.Alpha1</code> or go directly with <code>1.0.0</code> as you feel like doing. One last commit and we&#8217;re done,
+say "feat: Add Homebrew packager configuration" as commit message. Alright, we&#8217;re finally ready, let&#8217;s post a release!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-release"><a class="anchor" href="#creating-a-release"></a>9. Creating a release</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s been quite the whirlwind tour of adding configuration to the <code>pom.xml</code> but that&#8217;s just for getting the project ready for
+its first release; subsequent release require less tampering with configuration. We can create a git release and the
+Homebrew formula with the <code>jreleaser:full-release</code> goal but if you still have some doubts on how things may play out then
+you can invoke the goal in dry-run mode that is, let JReleaser perform all local operations as needed without affecting
+remote resources such as Git repositories. This is how it would look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># because we changed the project's version
+./mvnw -Pnative,dist package
+./mvnw -Prelease jreleaser:full-release -Djreleaser.select.current.platform -Djreleaser.dryrun
+
+[INFO] --- jreleaser-maven-plugin:0.9.1:full-release (default-cli) @ app ---
+[INFO] JReleaser 0.9.1
+[INFO]   - basedir set to /tmp/app
+[WARNING] Platform selection is in effect
+[WARNING] Artifacts will be filtered by platform matching: [osx-x86_64]
+[INFO] Loading variables from /Users/aalmiray/.jreleaser/config.toml
+[INFO] Validating configuration
+[INFO] Project version set to 1.0.0.Alpha1
+[INFO] Release is not snapshot
+[INFO] Timestamp is 2021-12-16T13:31:12.163687+01:00
+[INFO] HEAD is at a21f3f2
+[INFO] Platform is osx-x86_64
+[INFO] dryrun set to true
+[INFO] Generating changelog: target/jreleaser/release/CHANGELOG.md
+[INFO] Calculating checksums
+[INFO]   [checksum] target/distributions/app-1.0.0.Alpha1-osx-x86_64.zip.sha256
+[INFO] Signing files
+[INFO] Signing is not enabled. Skipping
+[INFO] Uploading is not enabled. Skipping
+[INFO] Releasing to https://github.com/aalmiray/app
+[INFO]  - uploading app-1.0.0.Alpha1-osx-x86_64.zip
+[INFO]  - uploading checksums_sha256.txt
+[INFO] Preparing distributions
+[INFO]   - Preparing app distribution
+[INFO]     [brew] preparing app distribution
+[INFO] Packaging distributions
+[INFO]   - Packaging app distribution
+[INFO]     [brew] packaging app distribution
+[INFO] Publishing distributions
+[INFO]   - Publishing app distribution
+[INFO]     [brew] publishing app distribution
+[INFO]     [brew] setting up repository aalmiray/homebrew-tap
+[INFO] Announcing release
+[INFO] Announcing is not enabled. Skipping
+[INFO] Writing output properties to target/jreleaser/output.properties
+[INFO] JReleaser succeeded after 1.335 s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>JReleaser will perform the following tasks for us:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Generate a changelog based on all commits from the last tag (if any) to the latest commit.</p>
+</li>
+<li>
+<p>Calculate SHA256 (default) checksums for all input files.</p>
+</li>
+<li>
+<p>Sign all files with GPG. In our case we did not configure this step thus it&#8217;s skipped.</p>
+</li>
+<li>
+<p>Upload assets to JFrog Artifactory or AWS S3. We also skip this step as it&#8217;s not configured.</p>
+</li>
+<li>
+<p>Create a Git release at the chosen repository, tagging it.</p>
+</li>
+<li>
+<p>Upload all assets, including checksums.</p>
+</li>
+<li>
+<p>Create a Homebrew formula, publishing to https://gitcom.com/aamiray/homebrew-tap.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Of course no remote repository was affected as we can appreciate the <code>-Djreleaser.dryrun</code> property was in effect. If you&#8217;re
+so inclined inspect the contents of <code>target/jreleaser/package/app/brew/Formula/app.rb</code> which defines the Homebrew formula
+to be published. It should look something like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">app.rb</div>
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class App &lt; Formula
+  desc "app -- Sample Quarkus CLI application"
+  homepage "https://github.com/aalmiray/app"
+  url "https://github.com/aalmiray/app/releases/download/v1.0.0.Alpha1/app-1.0.0.Alpha1-osx-x86_64.zip"
+  version "1.0.0.Alpha1"
+  sha256 "a7e8df6eef3c4c5df7357e678b3c4bc6945b926cec4178a0239660de5dba0fc4"
+  license "Apache-2.0"
+
+
+  def install
+    libexec.install Dir["*"]
+    bin.install_symlink "#{libexec}/bin/app"
+  end
+
+  test do
+    output = shell_output("#{bin}/app --version")
+    assert_match "1.0.0.Alpha1", output
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When ready, create a release for real this time by simply removing the <code>-Djreleaser.dryrun</code> flag from the command line, then
+browse to your repository and look at the freshly created release.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="further-reading"><a class="anchor" href="#further-reading"></a>10. Further reading</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://jreleaser.org/guide/latest/index.html">JReleaser</a> documentation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reference"><a class="anchor" href="#reference"></a>11. Reference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As a reference, these are the full contents of the <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0"?&gt;
+&lt;project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.acme&lt;/groupId&gt;
+  &lt;artifactId&gt;app&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0.Alpha1&lt;/version&gt;
+  &lt;name&gt;app&lt;/name&gt;
+  &lt;description&gt;app -- Sample Quarkus CLI application&lt;/description&gt;
+  &lt;inceptionYear&gt;2021&lt;/inceptionYear&gt;
+  &lt;url&gt;https://github.com/aalmiray/app&lt;/url&gt;
+  &lt;developers&gt;
+    &lt;developer&gt;
+      &lt;id&gt;aalmiray&lt;/id&gt;
+      &lt;name&gt;Andres Almiray&lt;/name&gt;
+    &lt;/developer&gt;
+  &lt;/developers&gt;
+  &lt;licenses&gt;
+    &lt;license&gt;
+      &lt;name&gt;Apache-2.0&lt;/name&gt;
+      &lt;url&gt;http://www.apache.org/licenses/LICENSE-2.0.txt&lt;/url&gt;
+      &lt;distribution&gt;repo&lt;/distribution&gt;
+    &lt;/license&gt;
+  &lt;/licenses&gt;
+  &lt;properties&gt;
+    &lt;executable-suffix/&gt;
+    &lt;distribution.directory&gt;${project.build.directory}/distributions&lt;/distribution.directory&gt;
+    &lt;compiler-plugin.version&gt;3.8.1&lt;/compiler-plugin.version&gt;
+    &lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+    &lt;quarkus.platform.artifact-id&gt;quarkus-bom&lt;/quarkus.platform.artifact-id&gt;
+    &lt;quarkus.platform.group-id&gt;io.quarkus.platform&lt;/quarkus.platform.group-id&gt;
+    &lt;quarkus.platform.version&gt;999-SNAPSHOT&lt;/quarkus.platform.version&gt;
+    &lt;surefire-plugin.version&gt;3.0.0-M5&lt;/surefire-plugin.version&gt;
+    &lt;failsafe.useModulePath&gt;false&lt;/failsafe.useModulePath&gt;
+  &lt;/properties&gt;
+  &lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;${quarkus.platform.artifact-id}&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+      &lt;artifactId&gt;quarkus-picocli&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+      &lt;artifactId&gt;quarkus-arc&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+      &lt;artifactId&gt;quarkus-junit5&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;extensions&gt;
+      &lt;extension&gt;
+        &lt;groupId&gt;kr.motd.maven&lt;/groupId&gt;
+        &lt;artifactId&gt;os-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
+      &lt;/extension&gt;
+    &lt;/extensions&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+        &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;build&lt;/goal&gt;
+              &lt;goal&gt;generate-code&lt;/goal&gt;
+              &lt;goal&gt;generate-code-tests&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${compiler-plugin.version}&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;parameters&gt;${maven.compiler.parameters}&lt;/parameters&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+        &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;systemPropertyVariables&gt;
+            &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
+            &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
+          &lt;/systemPropertyVariables&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;native&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;property&gt;
+          &lt;name&gt;native&lt;/name&gt;
+        &lt;/property&gt;
+      &lt;/activation&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;integration-test&lt;/goal&gt;
+                  &lt;goal&gt;verify&lt;/goal&gt;
+                &lt;/goals&gt;
+                &lt;configuration&gt;
+                  &lt;systemPropertyVariables&gt;
+                    &lt;native.image.path&gt;${project.build.directory}/${project.build.finalName}-runner&lt;/native.image.path&gt;
+                    &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
+                    &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
+                  &lt;/systemPropertyVariables&gt;
+                &lt;/configuration&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+      &lt;properties&gt;
+        &lt;quarkus.package.type&gt;native&lt;/quarkus.package.type&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+      &lt;id&gt;dist&lt;/id&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.3.0&lt;/version&gt;
+            &lt;configuration&gt;
+              &lt;attach&gt;false&lt;/attach&gt;
+              &lt;appendAssemblyId&gt;false&lt;/appendAssemblyId&gt;
+              &lt;finalName&gt;${project.artifactId}-${project.version}-${os.detected.classifier}&lt;/finalName&gt;
+              &lt;outputDirectory&gt;${distribution.directory}&lt;/outputDirectory&gt;
+              &lt;workDirectory&gt;${project.build.directory}/assembly/work&lt;/workDirectory&gt;
+              &lt;descriptors&gt;
+                &lt;descriptor&gt;src/main/assembly/assembly.xml&lt;/descriptor&gt;
+              &lt;/descriptors&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;id&gt;make-distribution&lt;/id&gt;
+                &lt;phase&gt;package&lt;/phase&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;single&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+      &lt;id&gt;dist-windows&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;os&gt;
+          &lt;family&gt;windows&lt;/family&gt;
+        &lt;/os&gt;
+      &lt;/activation&gt;
+      &lt;properties&gt;
+        &lt;executable-suffix&gt;.exe&lt;/executable-suffix&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+      &lt;id&gt;release&lt;/id&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;org.jreleaser&lt;/groupId&gt;
+            &lt;artifactId&gt;jreleaser-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;0.9.1&lt;/version&gt;
+            &lt;configuration&gt;
+              &lt;jreleaser&gt;
+                &lt;!--project&gt;
+                 &lt;description&gt;app - Sample Quarkus CLI application&lt;/description&gt;
+                 &lt;website&gt;https://github.com/aalmiray/app&lt;/website&gt;
+                 &lt;docsUrl&gt;https://github.com/aalmiray/app&lt;/docsUrl&gt;
+                 &lt;license&gt;APACHE-2.0&lt;/license&gt;
+                 &lt;authors&gt;Andres Almiray&lt;/authors&gt;
+                 &lt;copyright&gt;2021 Kordamp&lt;/copyright&gt;
+                &lt;/project--&gt;
+                &lt;release&gt;
+                  &lt;github&gt;
+                    &lt;changelog&gt;
+                      &lt;formatted&gt;ALWAYS&lt;/formatted&gt;
+                      &lt;preset&gt;conventional-commits&lt;/preset&gt;
+                    &lt;/changelog&gt;
+                  &lt;/github&gt;
+                &lt;/release&gt;
+                &lt;distributions&gt;
+                  &lt;app&gt;
+                    &lt;type&gt;NATIVE_IMAGE&lt;/type&gt;
+                    &lt;brew&gt;
+                      &lt;active&gt;ALWAYS&lt;/active&gt;
+                    &lt;/brew&gt;
+                    &lt;artifacts&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-linux-x86_64.tar.gz&lt;/path&gt;
+                        &lt;platform&gt;linux-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-windows-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;windows-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                      &lt;artifact&gt;
+                        &lt;path&gt;${distribution.directory}/{{distributionName}}-{{projectVersion}}-osx-x86_64.zip&lt;/path&gt;
+                        &lt;platform&gt;osx-x86_64&lt;/platform&gt;
+                      &lt;/artifact&gt;
+                    &lt;/artifacts&gt;
+                  &lt;/app&gt;
+                &lt;/distributions&gt;
+              &lt;/jreleaser&gt;
+            &lt;/configuration&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-03-17 11:27:40 +0800
+</div>
+</div>
+</body>
+</html>

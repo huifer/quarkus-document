@@ -1,0 +1,3736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Kubernetes extension</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/config.css">
+<link rel="stylesheet" type="text/css"
+      href="stylesheet/asciidoc-tabs.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+<script src="javascript/config.js"></script>
+<script src="javascript/asciidoc-tabs.js"></script>
+
+<style>
+    .book {
+        font-size: 14px;
+    }
+
+    .admonitionblock td.content>.title, .audioblock>.title, .exampleblock>.title, .imageblock>.title,
+    .listingblock>.title, .literalblock>.title, .stemblock>.title, .openblock>.title, .paragraph>.title,
+    .quoteblock>.title, table.tableblock>.title, .verseblock>.title, .videoblock>.title, .dlist>.title,
+    .olist>.title, .ulist>.title, .qlist>.title, .hdlist>.title {
+        font-size: 1.6rem;
+    }
+
+    p, blockquote, dt, td.content, span.alt, .quoteblock blockquote, .quoteblock blockquote p {
+        font-size: 1.6rem;
+    }
+
+    pre code {
+        font-size: 1.5rem;
+    }
+
+    #preamble>.sectionbody>[class="paragraph"]:first-of-type p {
+        font-size: 1.6rem;
+    }
+
+    #header, #content, #footer, #footnotes {
+        max-width: 72em;
+    }
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Kubernetes extension</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus offers the ability to automatically generate Kubernetes resources based on sane defaults and user-supplied configuration using <a href="https://github.com/dekorateio/dekorate/">dekorate</a>.
+It currently supports generating resources for vanilla <a href="#kubernetes">Kubernetes</a>, <a href="#openshift">OpenShift</a> and <a href="#knative">Knative</a>.
+Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster&#8217;s API Server.
+Finally, when either one of container image extensions is present (see the <a href="container-imag.html">container image guide</a> for more details), Quarkus has the ability to create a container image and push it to a registry <strong>before</strong> deploying the application to the target platform.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To complete this guide, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Roughly 15 minutes</p>
+</li>
+<li>
+<p>An IDE</p>
+</li>
+<li>
+<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+</li>
+<li>
+<p>Apache Maven 3.8.4</p>
+</li>
+<li>
+<p>Optionally the <a href="cli-tooling.html">Quarkus CLI</a> if you want to use it</p>
+</li>
+<li>
+<p>Access to a Kubernetes cluster (Minikube is a viable option)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes"><a class="anchor" href="#kubernetes"></a>Kubernetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s create a new project that contains both the Kubernetes and Jib extensions:</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus create app org.acme:kubernetes-quickstart \
+    --extension=resteasy,kubernetes,jib \
+    --no-code
+cd kubernetes-quickstart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>--gradle</code> or <code>--gradle-kotlin-dsl</code> option.</p>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling.html">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:999-SNAPSHOT:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=kubernetes-quickstart \
+    -Dextensions="resteasy,kubernetes,jib" \
+    -DnoCode
+cd kubernetes-quickstart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>-DbuildTool=gradle</code> or <code>-DbuildTool=gradle-kotlin-dsl</code> option.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This added the following dependencies to the build file:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-resteasy&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-kubernetes&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-container-image-jib&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">implementation("io.quarkus:quarkus-resteasy")
+implementation("io.quarkus:quarkus-kubernetes")
+implementation("io.quarkus:quarkus-container-image-jib")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By adding these dependencies, we enable the generation of Kubernetes manifests each time we perform a build while also enabling the build of a container image using Jib.
+For example, following the execution of:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you will notice amongst the other files that are created, two files named
+<code>kubernetes.json</code> and <code>kubernetes.yml</code> in the <code>target/kubernetes/</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>If you look at either file you will see that it contains both a Kubernetes <code>Deployment</code> and a <code>Service</code>.</p>
+</div>
+<div class="paragraph">
+<p>The full source of the <code>kubernetes.json</code> file looks something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  {
+    "apiVersion" : "apps/v1",
+    "kind" : "Deployment",
+    "metadata" : {
+      "annotations": {
+       "app.quarkus.io/vcs-url" : "&lt;some url&gt;",
+       "app.quarkus.io/commit-id" : "&lt;some git SHA&gt;",
+      },
+      "labels" : {
+        "app.kubernetes.io/name" : "test-quarkus-app",
+        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      },
+      "name" : "test-quarkus-app"
+    },
+    "spec" : {
+      "replicas" : 1,
+      "selector" : {
+        "matchLabels" : {
+          "app.kubernetes.io/name" : "test-quarkus-app",
+          "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+        }
+      },
+      "template" : {
+        "metadata" : {
+          "labels" : {
+            "app.kubernetes.io/name" : "test-quarkus-app",
+            "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+          }
+        },
+        "spec" : {
+          "containers" : [ {
+            "env" : [ {
+              "name" : "KUBERNETES_NAMESPACE",
+              "valueFrom" : {
+                "fieldRef" : {
+                  "fieldPath" : "metadata.namespace"
+                }
+              }
+            } ],
+            "image" : "yourDockerUsername/test-quarkus-app:1.0.0-SNAPSHOT",
+            "imagePullPolicy" : "Always",
+            "name" : "test-quarkus-app"
+          } ]
+        }
+      }
+    }
+  },
+  {
+  "apiVersion" : "v1",
+  "kind" : "Service",
+    "metadata" : {
+      "annotations": {
+       "app.quarkus.io/vcs-url" : "&lt;some url&gt;",
+       "app.quarkus.io/commit-id" : "&lt;some git SHA&gt;",
+      },
+      "labels" : {
+        "app.kubernetes.io/name" : "test-quarkus-app",
+        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      },
+      "name" : "test-quarkus-app"
+    },
+  "spec" : {
+    "ports" : [ {
+      "name" : "http",
+      "port" : 8080,
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app.kubernetes.io/name" : "test-quarkus-app",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "type" : "ClusterIP"
+  }
+ }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beside generating a <code>Deployment</code> resource, you can also choose to get a <code>StatefulSet</code> instead via <code>application.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.deployment-kind=StatefulSet</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated manifest can be applied to the cluster from the project root using <code>kubectl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f target/kubernetes/kubernetes.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An important thing to note about the <code>Deployment</code> (or <code>StatefulSet</code>) is that is uses <code>yourDockerUsername/test-quarkus-app:1.0.0-SNAPSHOT</code> as the container image of the <code>Pod</code>.
+The name of the image is controlled by the Jib extension and can be customized using the usual <code>application.properties</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example with a configuration like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.container-image.group=quarkus #optional, default to the system user name
+quarkus.container-image.name=demo-app #optional, defaults to the application name
+quarkus.container-image.tag=1.0       #optional, defaults to the application version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The image that will be used in the generated manifests will be <code>quarkus/demo-app:1.0</code></p>
+</div>
+<div class="sect2">
+<h3 id="namespace"><a class="anchor" href="#namespace"></a>Namespace</h3>
+<div class="paragraph">
+<p>By default Quarkus omits the namespace in the generated manifests, rather than enforce the <code>default</code> namespace. That means that you can apply the manifest to your chosen namespace when using <code>kubctl</code>, which in the example below is <code>test</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f target/kubernetes/kubernetes.json -n=test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To specify the namespace in your manifest customize with the following property in your <code>application.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.namespace=mynamespace</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-a-docker-registry"><a class="anchor" href="#defining-a-docker-registry"></a>Defining a Docker registry</h3>
+<div class="paragraph">
+<p>The Docker registry can be specified with the following property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.container-image.registry=my.docker-registry.net</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By adding this property along with the rest of the container image properties of the previous section, the generated manifests will use the image <code>my.docker-registry.net/quarkus/demo-app:1.0</code>.
+The image is not the only thing that can be customized in the generated manifests, as will become evident in the following sections.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="labels-and-annotations"><a class="anchor" href="#labels-and-annotations"></a>Labels and Annotations</h3>
+<div class="sect3">
+<h4 id="labels"><a class="anchor" href="#labels"></a>Labels</h4>
+<div class="paragraph">
+<p>The generated manifests use the Kubernetes <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels">recommended labels</a>.
+These labels can be customized using <code>quarkus.kubernetes.name</code>, <code>quarkus.kubernetes.version</code> and <code>quarkus.kubernetes.part-of</code>.
+For example by adding the following configuration to your <code>application.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.part-of=todo-app
+quarkus.kubernetes.name=todo-rest
+quarkus.kubernetes.version=1.0-rc.1</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As is described in detail in the <a href="#openshift">OpenShift</a> section, customizing OpenShift (or Knative) properties is done in the same way, but replacing
+<code>kubernetes</code> with <code>openshift</code> (or <code>knative</code>). The previous example for OpenShift would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.openshift.part-of=todo-app
+quarkus.openshift.name=todo-rest
+quarkus.openshift.version=1.0-rc.1</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The labels in generated resources will look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">  "labels" : {
+    "app.kubernetes.io/part-of" : "todo-app",
+    "app.kubernetes.io/name" : "todo-rest",
+    "app.kubernetes.io/version" : "1.0-rc.1"
+  }</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also remove the <code>app.kubernetes.io/version</code> label by applying the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.add-version-to-label-selectors=false</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="custom-labels"><a class="anchor" href="#custom-labels"></a>Custom Labels</h4>
+<div class="paragraph">
+<p>To add additional custom labels, for example <code>foo=bar</code> just apply the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.labels.foo=bar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When using the <code>quarkus-container-image-jib</code> extension to build a container image, then any label added via the aforementioned property will also be added to the generated container image.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="annotations"><a class="anchor" href="#annotations"></a>Annotations</h4>
+<div class="paragraph">
+<p>Out of the box, the generated resources will be annotated with version control related information that can be used either by tooling, or by the user for troubleshooting purposes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">  "annotations": {
+    "app.quarkus.io/vcs-url" : "&lt;some url&gt;",
+    "app.quarkus.io/commit-id" : "&lt;some git SHA&gt;",
+   }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="custom-annotations"><a class="anchor" href="#custom-annotations"></a>Custom Annotations</h4>
+<div class="paragraph">
+<p>Custom annotations can be added in a way similar to labels.For example to add the annotation <code>foo=bar</code> and <code>app.quarkus/id=42</code> just apply the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.annotations.foo=bar
+quarkus.kubernetes.annotations."app.quarkus/id"=42</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="env-vars"><a class="anchor" href="#env-vars"></a>Environment variables</h4>
+<div class="paragraph">
+<p>Kubernetes provides multiple ways of defining environment variables:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>key/value pairs</p>
+</li>
+<li>
+<p>import all values from a Secret or ConfigMap</p>
+</li>
+<li>
+<p>interpolate a single value identified by a given field in a Secret or ConfigMap</p>
+</li>
+<li>
+<p>interpolate a value from a field within the same resource</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="environment-variables-from-keyvalue-pairs"><a class="anchor" href="#environment-variables-from-keyvalue-pairs"></a>Environment variables from key/value pairs</h5>
+<div class="paragraph">
+<p>To add a key/value pair as an environment variable in the generated resources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.vars.my-env-var=foobar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command above will add <code>MY_ENV_VAR=foobar</code> as an environment variable.
+Please note that the key <code>my-env-var</code> will be converted to uppercase and dashes will be replaced by underscores resulting in <code>MY_ENV_VAR</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="secret-mapping"><a class="anchor" href="#secret-mapping"></a>Environment variables from Secret</h5>
+<div class="paragraph">
+<p>To add all key/value pairs of <code>Secret</code> as environment variables just apply the following configuration, separating each <code>Secret</code>
+to be used as source by a comma (<code>,</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.secrets=my-secret,my-other-secret</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which would generate the following in the container definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">envFrom:
+  - secretRef:
+      name: my-secret
+      optional: false
+  - secretRef:
+      name: my-other-secret
+      optional: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following extracts a value identified by the <code>keyName</code> field from the <code>my-secret</code> Secret into a <code>foo</code> environment variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.mapping.foo.from-secret=my-secret
+quarkus.kubernetes.env.mapping.foo.with-key=keyName</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would generate the following in the <code>env</code> section of your container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- env:
+  - name: FOO
+    valueFrom:
+      secretKeyRef:
+        key: keyName
+        name: my-secret
+        optional: false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="environment-variables-from-configmap"><a class="anchor" href="#environment-variables-from-configmap"></a>Environment variables from ConfigMap</h5>
+<div class="paragraph">
+<p>To add all key/value pairs from <code>ConfigMap</code> as environment variables just apply the following configuration, separating each
+<code>ConfigMap</code> to be used as source by a comma (<code>,</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.configmaps=my-config-map,another-config-map</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which would generate the following in the container definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">envFrom:
+  - configMapRef:
+      name: my-config-map
+      optional: false
+  - configMapRef:
+      name: another-config-map
+      optional: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following extracts a value identified by the <code>keyName</code> field from the <code>my-config-map</code> ConfigMap into a <code>foo</code>
+environment variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.mapping.foo.from-configmap=my-configmap
+quarkus.kubernetes.env.mapping.foo.with-key=keyName</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would generate the following in the <code>env</code> section of your container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">- env:
+  - name: FOO
+    valueFrom:
+      configMapRefKey:
+        key: keyName
+        name: my-configmap
+        optional: false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="environment-variables-from-fields"><a class="anchor" href="#environment-variables-from-fields"></a>Environment variables from fields</h5>
+<div class="paragraph">
+<p>It&#8217;s also possible to use the value from another field to add a new environment variable by specifying the path of the field to be used as a source, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.env.fields.foo=metadata.name</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As is described in detail in the <a href="#openshift">OpenShift</a> section, customizing OpenShift properties is done in the same way, but replacing
+<code>kubernetes</code> with <code>openshift</code>. The previous example for OpenShift would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.openshift.env.fields.foo=metadata.name</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="validation"><a class="anchor" href="#validation"></a>Validation</h5>
+<div class="paragraph">
+<p>A conflict between two definitions, e.g. mistakenly assigning both a value and specifying that a variable is derived from a field, will result in an error being thrown at build time so that you get the opportunity to fix the issue before you deploy your application to your cluster where it might be more difficult to diagnose the source of the issue.</p>
+</div>
+<div class="paragraph">
+<p>Similarly, two redundant definitions, e.g. defining an injection from the same secret twice, will not cause an issue but will indeed report a warning to let you know that you might not have intended to duplicate that definition.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="env-vars-backwards"><a class="anchor" href="#env-vars-backwards"></a>Backwards compatibility</h5>
+<div class="paragraph">
+<p>Previous versions of the Kubernetes extension supported a different syntax to add environment variables.The older syntax is still supported but is deprecated and it&#8217;s advised that you migrate to the new syntax.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Old vs. new syntax</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Old</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plain variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.my-env-var.value=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.vars.my-env-var=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">From field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.my-env-var.field=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.fields.my-env-var=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All from <code>ConfigMap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.xxx.configmap=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.configmaps=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All from <code>Secret</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.xxx.secret=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.secrets=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">From one <code>Secret</code> field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.foo.secret=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.mapping.foo.from-secret=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.foo.value=field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.mapping.foo.with-key=field</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">From one <code>ConfigMap</code> field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.foo.configmap=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.mapping.foo.from-configmap=foobar</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env-vars.foo.value=field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.kubernetes.env.mapping.foo.with-key=field</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you redefine the same variable using the new syntax while keeping the old syntax, <strong>ONLY</strong> the new version will be kept
+and a warning will be issued to alert you of the problem.For example, if you define both
+<code>quarkus.kubernetes.env-vars.my-env-var.value=foobar</code> and <code>quarkus.kubernetes.env.vars.my-env-var=newValue</code>, the extension will
+only generate an environment variable <code>MY_ENV_VAR=newValue</code> and issue a warning.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mounting-volumes"><a class="anchor" href="#mounting-volumes"></a>Mounting volumes</h4>
+<div class="paragraph">
+<p>The Kubernetes extension allows the user to configure both volumes and mounts for the application.
+Any volume can be mounted with a simple configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.mounts.my-volume.path=/where/to/mount</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will add a mount to the pod for volume <code>my-volume</code> to path <code>/where/to/mount</code>.
+The volumes themselves can be configured as shown in the sections below.</p>
+</div>
+<div class="sect4">
+<h5 id="secret-volumes"><a class="anchor" href="#secret-volumes"></a>Secret volumes</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.secret-volumes.my-volume.secret-name=my-secret</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="configmap-volumes"><a class="anchor" href="#configmap-volumes"></a>ConfigMap volumes</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.config-map-volumes.my-volume.config-map-name=my-secret</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="passing-application-configuration"><a class="anchor" href="#passing-application-configuration"></a>Passing application configuration</h4>
+<div class="paragraph">
+<p>Quarkus supports passing configuration from external locations (via Smallrye Config). This usually requires setting an additional environment variable or system propertiy.
+When you need to use a secret or a config map for the purpose of application configuration, you need to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>define a volume</p>
+</li>
+<li>
+<p>mount the volume</p>
+</li>
+<li>
+<p>create an environment variable for <code>SMALLRYE_CONFIG_LOCATIONS</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To simplify things, quarkus provides single step alternative:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.app-secret=&lt;name of the secret containing the configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.app-config-map=&lt;name of the config map containing the configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When these properties are used, the generated manifests will contain everything required.
+The application config volumes will be created using path: <code>/mnt/app-secret</code> and <code>/mnt/app-config-map</code> for secrets and configmaps respectively.</p>
+</div>
+<div class="paragraph">
+<p>Note: Users may use both properties at the same time.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="changing-the-number-of-replicas"><a class="anchor" href="#changing-the-number-of-replicas"></a>Changing the number of replicas:</h3>
+<div class="paragraph">
+<p>To change the number of replicas from 1 to 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.replicas=3</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-readiness-and-liveness-probes"><a class="anchor" href="#add-readiness-and-liveness-probes"></a>Add readiness and liveness probes</h3>
+<div class="paragraph">
+<p>By default, the Kubernetes resources do not contain readiness and liveness probes in the generated <code>Deployment</code>. Adding them however is just a matter of adding the SmallRye Health extension like so:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-smallrye-health&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">implementation("io.quarkus:quarkus-smallrye-health")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The values of the generated probes will be determined by the configured health properties: <code>quarkus.smallrye-health.root-path</code>, <code>quarkus.smallrye-health.liveness-path</code> and <code>quarkus.smallrye-health.readiness-path</code>.
+More information about the health extension can be found in the relevant <a href="microprofile-health.html">guide</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="customizing-the-readiness-probe"><a class="anchor" href="#customizing-the-readiness-probe"></a>Customizing the readiness probe:</h3>
+<div class="paragraph">
+<p>To set the initial delay of the probe to 20 seconds and the period to 45:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.readiness-probe.initial-delay=20s
+quarkus.kubernetes.readiness-probe.period=45s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-hostaliases"><a class="anchor" href="#add-hostaliases"></a>Add hostAliases</h3>
+<div class="paragraph">
+<p>To add entries to a Pod&#8217;s <code>/etc/hosts</code> file (more information can be found in <a href="https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/">Kubernetes documentation</a>), just apply the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.hostaliases."10.0.0.0".hostnames=foo.com,bar.org</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would generate the following <code>hostAliases</code> section in the <code>deployment</code> definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">kind: Deployment
+spec:
+  template:
+    spec:
+      hostAliases:
+      - hostnames:
+        - foo.com
+        - bar.org
+        ip: 10.0.0.0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="container-resources-management"><a class="anchor" href="#container-resources-management"></a>Container Resources Management</h3>
+<div class="paragraph">
+<p>CPU &amp; Memory limits and requests can be applied to a <code>Container</code> (more info in <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Kubernetes documentation</a>) using the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>quarkus.kubernetes.resources.requests.memory=64Mi
+quarkus.kubernetes.resources.requests.cpu=250m
+quarkus.kubernetes.resources.limits.memory=512Mi
+quarkus.kubernetes.resources.limits.cpu=1000m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would generate the following entry in the <code>container</code> section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">containers:
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 64Mi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-kubernetes-client"><a class="anchor" href="#using-the-kubernetes-client"></a>Using the Kubernetes client</h3>
+<div class="paragraph">
+<p>Applications that are deployed to Kubernetes and need to access the API server will usually make use of the <code>kubernetes-client</code> extension:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-kubernetes-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">implementation("io.quarkus:quarkus-kubernetes-client")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To access the API server from within a Kubernetes cluster, some RBAC related resources are required (e.g. a ServiceAccount, a RoleBinding etc.).
+So, when the <code>kubernetes-client</code> extension is present, the <code>kubernetes</code> extension is going to create those resources automatically, so that application will be granted the <code>view</code> role.
+If more roles are required, they will have to be added manually.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-to-minikube"><a class="anchor" href="#deploying-to-minikube"></a>Deploying to Minikube</h3>
+<div class="paragraph">
+<p><a href="https://github.com/kubernetes/minikube">Minikube</a> is quite popular when a Kubernetes cluster is needed for development purposes. To make the deployment to Minikube
+experience as frictionless as possible, Quarkus provides the <code>quarkus-minikube</code> extension. This extension can be added to a project like so:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-minikube&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">implementation("io.quarkus:quarkus-minikube")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The purpose of this extension is to generate Kubernetes manifests (<code>minikube.yaml</code> and <code>minikube.json</code>) that are tailored to Minikube.
+This extension assumes a couple things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Users won&#8217;t be using an image registry and will instead make their container image accessible to the Kubernetes cluster by building it directly
+into Minikube&#8217;s Docker daemon. To use Minikube&#8217;s Docker daemon you must first execute:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">eval $(minikube -p minikube docker-env)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Applications deployed to Kubernetes won&#8217;t be accessed via a Kubernetes <code>Ingress</code>, but rather as a <code>NodePort</code> <code>Service</code>.
+The advantage of doing this is that the URL of an application can be retrieved trivially by executing:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">minikube service list</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To control the <a href="https://kubernetes.io/docs/concepts/services-networking/service/#nodeport">nodePort</a> that is used in this case, users can set <code>quarkus.kubernetes.node-port</code>.
+Note however that this configuration is entirely optional because Quarkus will automatically use a proper (and non-changing) value if none is set.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+It is highly discouraged to use the manifests generated by the Minikube extension when deploying to production as these manifests are intended for development purposes
+only. When deploying to production, consider using the vanilla Kubernetes manifests (or the OpenShift ones when targeting OpenShift).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the assumptions the Minikube extension makes don&#8217;t fit your workflow, nothing prevents you from using the regular Kubernetes extension to generate Kubernetes manifests
+and apply those to your Minikube cluster.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tuning-the-generated-resources-using-application-properties"><a class="anchor" href="#tuning-the-generated-resources-using-application-properties"></a>Tuning the generated resources using application.properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Kubernetes extension allows tuning the generated manifest, using the <code>application.properties</code> file.
+Here are some examples:</p>
+</div>
+<div class="sect2">
+<h3 id="configuration-options"><a class="anchor" href="#configuration-options"></a>Configuration options</h3>
+<div class="paragraph">
+<p>The table below describe all the available configuration options.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Kubernetes</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.name}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.tag}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.deployment-kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.part-of</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.init-containers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.labels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.app-secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.app-config-map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.env-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Env&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.working-dir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.replicas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.service-account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.ports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Port&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.service-type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServiceType</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClusterIP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.pvc-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, PersistentVolumeClaimVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.secret-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, SecretVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.config-map-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, ConfigMapVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.git-repo-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, GitRepoVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.aws-elastic-block-store-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AwsElasticBlockStoreVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.azure-disk-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureDiskVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.azure-file-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureFileVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.mounts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Mount&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.image-pull-policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ImagePullPolicy</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.image-pull-secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.liveness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.readiness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.sidecars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.ingress.expose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.ingress.host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.ingress.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, String&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.headless</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.hostaliases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, HostAlias&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.resources.requests.cpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.resources.requests.memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.resources.limits.cpu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.kubernetes.resources.limits.memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Properties that use non-standard types, can be referenced by expanding the property.
+For example to define a <code>kubernetes-readiness-probe</code> which is of type <code>Probe</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.readiness-probe.initial-delay=20s
+quarkus.kubernetes.readiness-probe.period=45s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example <code>initial-delay</code> and <code>period</code> are fields of the type <code>Probe</code>.
+Below you will find tables describing all available types.</p>
+</div>
+<div class="sect3">
+<h4 id="client-connection-configuration"><a class="anchor" href="#client-connection-configuration"></a>Client Connection Configuration</h4>
+<div class="paragraph">
+<p>You may need to configure the connection to your Kubernetes cluster.
+By default, it automatically uses the active <em>context</em> used by <code>kubectl</code>.</p>
+</div>
+<div class="paragraph">
+<p>For instance, if your cluster API endpoint uses a self-signed SSL Certificate you need to explicitly configure the client to trust it. You can achieve this by defining the following property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes-client.trust-certs=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The full list of the Kuberneters client configuration properties is provided below.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="basic-types"><a class="anchor" href="#basic-types"></a>Basic Types</h4>
+<div class="paragraph">
+<div class="title">ServiceType</div>
+<p>Allowed values: <code>cluster-ip</code>, <code>node-port</code>, <code>load-balancer</code>, <code>external-name</code></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Env</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">configmap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Probe</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">http-action-path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exec-action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tcp-socket-action</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initial-delay</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duration</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">period</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duration</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30s</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duration</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10s</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Port</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">container-port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">host-port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Container</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">env-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Env[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">working-dir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mounts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mount[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">image-pull-policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ImagePullPolicy</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">liveness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">readiness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. HostAlias</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hostnames</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of hostnames</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="mounts-and-volumes"><a class="anchor" href="#mounts-and-volumes"></a>Mounts and Volumes</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Mount</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sub-path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. ConfigMapVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">config-map-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">default-mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. SecretVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secret-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">default-mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. AzureDiskVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disk-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">disk-uri</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Managed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">caching-mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReadWrite</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fs-type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ext4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. AwsElasticBlockStoreVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">volume-id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fs-type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ext4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. GitRepoVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">revision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. PersistentVolumeClaimVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">claim-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. AzureFileVolume</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">share-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secret-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">read-only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openshift"><a class="anchor" href="#openshift"></a>OpenShift</h3>
+<div class="paragraph">
+<p>One way to deploy an application to OpenShift is to use s2i (source to image) to create an image stream from the source and then deploy the image stream:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension remove kubernetes,jib
+quarkus extension add openshift
+
+oc new-project quarkus-project
+quarkus build -Dquarkus.container-image.build=true
+
+oc new-app --name=greeting  quarkus-project/kubernetes-quickstart:1.0.0-SNAPSHOT
+oc expose svc/greeting
+oc get route
+curl &lt;route&gt;/greeting</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:remove-extension -Dextensions="kubernetes, jib"
+./mvnw quarkus:add-extension -Dextensions="openshift"
+
+oc new-project quarkus-project
+./mvnw clean package -Dquarkus.container-image.build=true
+
+oc new-app --name=greeting  quarkus-project/kubernetes-quickstart:1.0.0-SNAPSHOT
+oc expose svc/greeting
+oc get route
+curl &lt;route&gt;/greeting</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew removeExtension --extensions="kubernetes, jib"
+./gradlew addExtension --extensions="openshift"
+
+oc new-project quarkus-project
+./gradlew build -Dquarkus.container-image.build=true
+
+oc new-app --name=greeting  quarkus-project/kubernetes-quickstart:1.0.0-SNAPSHOT
+oc expose svc/greeting
+oc get route
+curl &lt;route&gt;/greeting</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See further information in <a href="deploying-to-openshift.html">Deploying to OpenShift</a>.</p>
+</div>
+<div class="paragraph">
+<p>A description of OpenShift resources and customisable properties is given below alongside Kubernetes resources to show similarities where applicable.   This includes an alternative to  <code>oc new-app &#8230;&#8203;</code> above, i.e. <code>oc apply -f target/kubernetes/openshift.json</code> .</p>
+</div>
+<div class="paragraph">
+<p>To enable the generation of OpenShift resources, you need to include OpenShift in the target platforms:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.deployment-target=openshift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you need to generate resources for both platforms (vanilla Kubernetes and OpenShift), then you need to include both (comma separated).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.deployment-target=kubernetes,openshift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following the execution of <code>./mvnw package -Dquarkus.container-image.build=true</code> you will notice amongst the other files that are created, two files named
+<code>openshift.json</code> and <code>openshift.yml</code> in the <code>target/kubernetes/</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>These manifests can be deployed as is to a running cluster, using <code>kubectl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f target/kubernetes/openshift.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>OpenShift users might want to use <code>oc</code> rather than <code>kubectl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">oc apply -f target/kubernetes/openshift.json</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Quarkus also provides the <a href="deploying-to-openshift.html">OpenShift</a> extension. This extension is basically a wrapper around the Kubernetes extension and
+relieves OpenShift users of the necessity of setting the <code>deployment-target</code> property to <code>openshift</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The OpenShift resources can be customized in a similar approach with Kubernetes.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. OpenShift</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.name}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.tag}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.deployment-kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DeploymentConfig</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.part-of</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.init-containers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.labels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.app-secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.app-config-map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.env-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Env&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.working-dir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.jvm-arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The JVM arguments to pass to the JVM when starting the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-Dquarkus.http.host=0.0.0.0,-Djava.util.logging.manager=org.jboss.logmanager.LogManager</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.jvm-additional-arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional JVM arguments to pass to the JVM when starting the application</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.replicas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.service-account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.ports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Port&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.service-type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServiceType</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClusterIP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.pvc-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, PersistentVolumeClaimVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.secret-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, SecretVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.config-map-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, ConfigMapVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.git-repo-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, GitRepoVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.aws-elastic-block-store-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AwsElasticBlockStoreVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.azure-disk-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureDiskVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.azure-file-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureFileVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.mounts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Mount&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.image-pull-policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ImagePullPolicy</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.image-pull-secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.liveness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.readiness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.sidecars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.route.expose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.route.host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.route.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, String&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.openshift.headless</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="knative"><a class="anchor" href="#knative"></a>Knative</h3>
+<div class="paragraph">
+<p>To enable the generation of Knative resources, you need to include Knative in the target platforms:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes.deployment-target=knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following the execution of <code>./mvnw package</code> you will notice amongst the other files that are created, two files named
+<code>knative.json</code> and <code>knative.yml</code> in the <code>target/kubernetes/</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>If you look at either file you will see that it contains a Knative <code>Service</code>.</p>
+</div>
+<div class="paragraph">
+<p>The full source of the <code>knative.json</code> file looks something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  {
+    "apiVersion" : "serving.quarkus.knative.dev/v1alpha1",
+    "kind" : "Service",
+    "metadata" : {
+      "annotations": {
+       "app.quarkus.io/vcs-url" : "&lt;some url&gt;",
+       "app.quarkus.io/commit-id" : "&lt;some git SHA&gt;"
+      },
+      "labels" : {
+        "app.kubernetes.io/name" : "test-quarkus-app",
+        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+      },
+      "name" : "knative"
+    },
+    "spec" : {
+      "runLatest" : {
+        "configuration" : {
+          "revisionTemplate" : {
+            "spec" : {
+              "container" : {
+                "image" : "dev.local/yourDockerUsername/test-quarkus-app:1.0.0-SNAPSHOT",
+                "imagePullPolicy" : "Always"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated manifest can be deployed as is to a running cluster, using <code>kubectl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">kubectl apply -f target/kubernetes/knative.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated service can be customized using the following properties:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. Knative</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.name}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">${quarkus.container-image.tag}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.part-of</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.init-containers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.labels</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.annotations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.app-secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.app-config-map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.env-vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Env&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.working-dir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.replicas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.service-account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.ports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Port&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.service-type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServiceType</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClusterIP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.pvc-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, PersistentVolumeClaimVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.secret-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, SecretVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.config-map-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, ConfigMapVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.git-repo-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, GitRepoVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.aws-elastic-block-store-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AwsElasticBlockStoreVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.azure-disk-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureDiskVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.azure-file-volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, AzureFileVolume&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.mounts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Mount&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.image-pull-policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ImagePullPolicy</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.image-pull-secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.liveness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.readiness-probe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Probe</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Probe )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.sidecars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map&lt;String, Container&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.revision-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.traffic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Traffic[]</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see Traffic )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.min-scale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://knative.dev/docs/serving/autoscaling/scale-bounds/#lower-bound">link</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.max-scale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://knative.dev/docs/serving/autoscaling/scale-bounds/#upper-bound">link</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.scale-to-zero-enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See <a href="https://knative.dev/docs/serving/autoscaling/scale-to-zero/#enable-scale-to-zero">link</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.revision-auto-scaling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AutoScalingConfig</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see AutoScalingConfig )</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quarkus.knative.global-auto-scaling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GlobalAutoScalingConfig</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">( see GlobalAutoScalingConfig )</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. Traffic</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">revision-name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A specific revision to which to send this portion of traffic</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expose a dedicated url for referncing this target</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">latest-revision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optionally provided to indicate that the latest revision should be used for this traffic target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">percent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the percent of traffic that is be routed to this revision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. AutoScalingConfig</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auto-scaler-class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The auto-scaler class. Possible values: <code>kpa</code> for Knative Pod Autoscaler, <code>hpa</code> for Horizontal Pod Autoscaler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kpa</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metric</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The autoscaling metric to use. Possible values (concurency, rps, cpu)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This value specifies the autoscaling target</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">container-concurrency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact amount of requests allowed to the replica at a time</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target-utilization-percentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This value specifies a percentage of the target to actually be targeted by the autoscaler</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. GlobalAutoScalingConfig</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auto-scaler-class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The auto-scaler class. Possible values: <code>kpa</code> for Knative Pod Autoscaler, <code>hpa</code> for Horizontal Pod Autoscaler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kpa</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">container-concurrency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The exact amount of requests allowed to the replica at a time</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target-utilization-percentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This value specifies a percentage of the target to actually be targeted by the autoscaler</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">requests-per-second</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The requests per second per replica</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="deployment-targets"><a class="anchor" href="#deployment-targets"></a>Deployment targets</h3>
+<div class="paragraph">
+<p>Mentioned in the previous sections was the concept of <code>deployment-target</code>. This concept allows users to control which Kubernetes manifests will be generated
+and deployed to a cluster (if <code>quarkus.kubernetes.deploy</code> has been set to <code>true</code>).</p>
+</div>
+<div class="paragraph">
+<p>By default, when no <code>deployment-target</code> is set, then only vanilla Kubernetes resources are generated and deployed. When multiple values are set (for example
+<code>quarkus.kubernetes.deployment-target=kubernetes,openshift</code>) then the resources for all targets are generated, but only the resources
+that correspond to the <strong>first</strong> target are applied to the cluster (if deployment is enabled).</p>
+</div>
+<div class="paragraph">
+<p>In the case of wrapper extensions like OpenShift and Minikube, when these extensions have been explicitly added to the project, the default <code>deployment-target</code>
+is set by those extensions. For example if <code>quarkus-minikube</code> has been added to a project, then <code>minikube</code> becomes the default deployment target and its
+resources will be applied to the Kubernetes cluster when deployment via <code>quarkus.kubernetes.deploy</code> has been set.
+Users can still override the deployment-targets manually using <code>quarkus.kubernetes.deployment-target</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deprecated-configuration"><a class="anchor" href="#deprecated-configuration"></a>Deprecated configuration</h3>
+<div class="paragraph">
+<p>The following categories of configuration properties have been deprecated.</p>
+</div>
+<div class="sect3">
+<h4 id="properties-without-the-quarkus-prefix"><a class="anchor" href="#properties-without-the-quarkus-prefix"></a>Properties without the quarkus prefix</h4>
+<div class="paragraph">
+<p>In earlier versions of the extension, the <code>quarkus.</code> was missing from those properties. These properties are now deprecated.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="docker-and-s2i-properties"><a class="anchor" href="#docker-and-s2i-properties"></a>Docker and S2i properties</h4>
+<div class="paragraph">
+<p>The properties for configuring <code>docker</code> and <code>s2i</code> are also deprecated in favor of the new container-image extensions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="config-group-arrays"><a class="anchor" href="#config-group-arrays"></a>Config group arrays</h4>
+<div class="paragraph">
+<p>Properties referring to config group arrays (e.g. <code>kubernetes.labels[0]</code>, <code>kubernetes.env-vars[0]</code> etc) have been converted to maps, to align with the rest of the Quarkus ecosystem.</p>
+</div>
+<div class="paragraph">
+<p>The code below demonstrates the change in <code>labels</code> config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties"># Old labels config:
+kubernetes.labels[0].name=foo
+kubernetes.labels[0].value=bar
+
+# New labels
+quarkus.kubernetes.labels.foo=bar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The code below demonstrates the change in <code>env-vars</code> config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties"># Old env-vars config:
+kubernetes.env-vars[0].name=foo
+kubernetes.env-vars[0].configmap=my-configmap
+
+# New env-vars
+quarkus.kubernetes.env-vars.foo.configmap=myconfigmap</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="env-vars-properties"><a class="anchor" href="#env-vars-properties"></a><code>env-vars</code> properties</h4>
+<div class="paragraph">
+<p><code>quarkus.kubernetes.env-vars</code> are deprecated (though still currently supported as of this writing) and the new declaration style should be used instead.
+See <a href="#env-vars">Environment variables</a> and more specifically <a href="#env-vars-backwards">Backwards compatibility</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deployment"><a class="anchor" href="#deployment"></a>Deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To trigger building and deploying a container image you need to enable the <code>quarkus.kubernetes.deploy</code> flag (the flag is disabled by default - furthermore it has no effect during test runs or dev mode).
+This can be easily done with the command line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package -Dquarkus.kubernetes.deploy=true</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="building-a-container-image"><a class="anchor" href="#building-a-container-image"></a>Building a container image</h3>
+<div class="paragraph">
+<p>Building a container image is possible, using any of the 3 available <code>container-image</code> extensions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="container-image.html#docker">Docker</a></p>
+</li>
+<li>
+<p><a href="container-image.html#jib">Jib</a></p>
+</li>
+<li>
+<p><a href="container-image.html#s2i">s2i</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each time deployment is requested, a container image build will be implicitly triggered (no additional properties are required when the Kubernetes deployment has been enabled).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying"><a class="anchor" href="#deploying"></a>Deploying</h3>
+<div class="paragraph">
+<p>When deployment is enabled, the Kubernetes extension will select the resources specified by <code>quarkus.kubernetes.deployment-target</code> and deploy them.
+This assumes that a <code>.kube/config</code> is available in your user directory that points to the target Kubernetes cluster.
+In other words the extension will use whatever cluster <code>kubectl</code> uses. The same applies to credentials.</p>
+</div>
+<div class="paragraph">
+<p>At the moment no additional options are provided for further customization.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-existing-resources"><a class="anchor" href="#using-existing-resources"></a>Using existing resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes it&#8217;s desirable to either provide additional resources (e.g. a ConfigMap, a Secret, a Deployment for a database etc) or provide custom ones that will be used as a <code>base</code> for the generation process.
+Those resources can be added under <code>src/main/kubernetes</code> directory and can be named after the target environment (e.g. kubernetes.json, openshift.json, knative.json, or the yml equivalents). The correlation between provided and generated files is done by file name.
+So, a <code>kubernetes.json</code>/<code>kubernetes.yml</code> file added in <code>src/main/kubernetes</code> will only affect the generated <code>kubernetes.json</code>/<code>kubernetes.yml</code>. An <code>openshift.json</code>/<code>openshift.yml</code> file added in <code>src/main/kubernetes</code> will only affect the generated <code>openshift.json</code>/<code>openshift.yml</code>.
+A <code>knative.json</code>/<code>knative.yml</code> file added in <code>src/main/kubernetes</code> will only affect the generated <code>knative.json</code>/<code>knative.yml</code> and so on. The provided file may be either in json or yaml format and may contain one or more resources. These resources will end up in both generated formats (json and yaml). For example, a secret added in <code>src/main/kubernetes/kubernetes.yml</code> will be added to both the generated <code>kubernetes.yml</code> and <code>kubernetes.json</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note: At the time of writing there is no mechanism in place that allows a one to many relationship between provided and generated files. Minikube is not an exception to the rule above, so if you want to customize the generated minikube manifests, the file placed under <code>src/main/kubernetes</code> will have to be named <code>minikube.json</code> or <code>minikube.yml</code> (naming it <code>kubernetes.yml</code> or <code>kubernetes.json</code> will result in having only the generated <code>kubernetes.yml</code> and <code>kubernetes.json</code> affected).</p>
+</div>
+<div class="paragraph">
+<p>Any resource found will be added in the generated manifests. Global modifications (e.g. labels, annotations etc) will also be applied to those resources.
+If one of the provided resources has the same name as one of the generated ones, then the generated resource will be created on top of the provided resource, respecting existing content when possible (e.g. existing labels, annotations, environment variables, mounts, replicas etc).</p>
+</div>
+<div class="paragraph">
+<p>The name of the resource is determined by the application name and may be overridden by <code>quarkus.kubernetes.name</code>, <code>quarkus.openshift.name</code> and <code>quarkus.knative.name</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, in the <code>kubernetes-quickstart</code> application, we can add a <code>kubernetes.yml</code> file in the <code>src/main/kubernetes</code> that looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-quickstart
+  labels:
+    app: quickstart
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quickstart
+  template:
+    metadata:
+      labels:
+        app: quickstart
+    spec:
+      containers:
+      - name: kubernetes-quickstart
+        image: someimage:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: FOO
+          value: BAR</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated <code>kubernetes.yml</code> will look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  annotations:
+    app.quarkus.io/build-timestamp: "2020-04-10 - 12:54:37 +0000"
+  labels:
+    app: "quickstart"
+  name: "kubernetes-quickstart"
+spec:
+  replicas: 3 <i class="conum" data-value="1"></i><b>(1)</b>
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "kubernetes-quickstart"
+      app.kubernetes.io/version: "1.0.0-SNAPSHOT"
+  template:
+    metadata:
+      annotations:
+        app.quarkus.io/build-timestamp: "2020-04-10 - 12:54:37 +0000"
+      labels:
+        app: "quickstart" <i class="conum" data-value="2"></i><b>(2)</b>
+    spec:
+      containers:
+      - env:
+        - name: "FOO" <i class="conum" data-value="3"></i><b>(3)</b>
+          value: "BAR"
+        image: "&lt;&lt;yourDockerUsername&gt;&gt;/kubernetes-quickstart:1.0.0-SNAPSHOT" <i class="conum" data-value="4"></i><b>(4)</b>
+        imagePullPolicy: "Always"
+        name: "kubernetes-quickstart"
+        ports:
+        - containerPort: 8080 <i class="conum" data-value="5"></i><b>(5)</b>
+          name: "http"
+          protocol: "TCP"
+      serviceAccount: "kubernetes-quickstart"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The provided replicas &lt;1&gt;, labels &lt;2&gt; and environment variables &lt;3&gt;  were retained. However, the image &lt;4&gt; and container port &lt;5&gt; were modified. Moreover, the default annotations have been added.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>When the resource name does not match the application name (or the overridden name) rather than reusing the resource a new one will be added. Same goes for the container.</p>
+</li>
+<li>
+<p>When the name of the container does not match the application name (or the overridden name), container specific configuration will be ignored.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="service_binding"><a class="anchor" href="#service_binding"></a>Service Binding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus supports the <a href="https://github.com/k8s-service-bindings/spec">Service Binding Specification for Kubernetes</a> to bind services to applications.</p>
+</div>
+<div class="paragraph">
+<p>Specifically, Quarkus implements the <a href="https://github.com/k8s-service-bindings/spec#workload-projection">Workload Projection</a> part of the specification, therefore allowing applications to bind to services, such as a Database or a Broker, without the need for user configuration.</p>
+</div>
+<div class="paragraph">
+<p>To enable Service Binding for supported extensions, add the <code>quarkus-kubernetes-service-binding</code> extension to the application dependencies.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The following extensions can be used with Service Binding and are supported for Workload Projection:</p>
+<div class="exampleblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>quarkus-jdbc-mariadb</code></p>
+</li>
+<li>
+<p><code>quarkus-jdbc-mssql</code></p>
+</li>
+<li>
+<p><code>quarkus-jdbc-mysql</code></p>
+</li>
+<li>
+<p><code>quarkus-jdbc-postgresql</code></p>
+</li>
+<li>
+<p><code>quarkus-mongo-client</code></p>
+</li>
+<li>
+<p><code>quarkus-kafka-client</code></p>
+</li>
+<li>
+<p><code>quarkus-smallrye-reactive-messaging-kafka</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="workload-projection"><a class="anchor" href="#workload-projection"></a>Workload Projection</h3>
+<div class="paragraph">
+<p>Workload Projection is a process of obtaining the configuration for services from the Kubernetes cluster. This configuration takes the form of directory structures that follow certain conventions and is attached to an application or to a service as a mounted volume. The <code>kubernetes-service-binding</code> extension uses this directory structure to create configuration sources, which allows you to configure additional modules, such as databases or message brokers.</p>
+</div>
+<div class="paragraph">
+<p>During application development, users can use workload projection to connect their application to a development database, or other locally-run services, without changing the actual application code or configuration.</p>
+</div>
+<div class="paragraph">
+<p>For an example of a workload projection where the directory structure is included in the test resources and passed to integration test, see the <a href="https://github.com/quarkusio/quarkus/tree/e7efe6b3efba91b9c4ae26f9318f8397e23e7505/integration-tests/kubernetes-service-binding-jdbc/src/test/resources/k8s-sb">Kubernetes Service Binding datasource</a> GitHub repository.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>k8s-sb</code> directory is the root of all service bindings. In this example, only one database called <code>fruit-db</code> is intended to be bound. This binding database has the <code>type</code> file, that indicates <code>postgresql</code> as the database type, while the other files in the directory provide the necessary information to establish the connection.</p>
+</li>
+<li>
+<p>After your Quarkus project obtains information from <code>SERVICE_BINDING_ROOT</code> environment variables that are set by OpenShift, you can locate generated configuration files that are present in the file system and use them to map the configuration-file values to properties of certain extensions.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction-to-the-service-binding-operator"><a class="anchor" href="#introduction-to-the-service-binding-operator"></a>Introduction to the Service Binding Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://github.com/redhat-developer/service-binding-operator">Service Binding Operator</a> is an Operator that implements <a href="https://github.com/k8s-service-bindings/spec">Service Binding Specification for Kubernetes</a> and is meant to simplify the binding of services to an application. Containerized applications that support <a href="https://github.com/k8s-service-bindings/spec#workload-projection">Workload Projection</a> obtain service binding information in the form of volume mounts. The Service Binding Operator reads binding service information and mounts it to the application containers that need it.</p>
+</div>
+<div class="paragraph">
+<p>The correlation between application and bound services is expressed through the <code>ServiceBinding</code> resources, which declares the intent of what services are meant to be bound to what application.</p>
+</div>
+<div class="paragraph">
+<p>The Service Binding Operator watches for <code>ServiceBinding</code> resources, which inform the Operator what applications are meant to be bound with what services. When a listed application is deployed, the Service Binding Operator collects all the binding information that must be passed to the application, then upgrades the application container by attaching a volume mount with the binding information.</p>
+</div>
+<div class="paragraph">
+<p>The Service Binding Operator completes the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Observes <code>ServiceBinding</code> resources for workloads intended to be bound to a particular service</p>
+</li>
+<li>
+<p>Applies the binding information to the workload using volume mounts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following chapter describes the automatic and semi-automatic service binding approaches and their use cases. With either approach, the <code>kubernetes-service-binding</code> extension generates a <code>ServiceBinding</code> resource. With the semi-automatic approach, users must provide a configuration for target services manually. With the automatic approach, for a limited set of services generating the <code>ServiceBinding</code> resource, no additional configuration is needed.</p>
+</div>
+<div class="sect2">
+<h3 id="semi-automatic-service-binding"><a class="anchor" href="#semi-automatic-service-binding"></a>Semi-automatic service binding</h3>
+<div class="paragraph">
+<p>A service binding process starts with a user specification of required services that will be bound to a certain application. This expression is summarized in the <code>ServiceBinding</code> resource that is generated by the <code>kubernetes-service-binding</code> extension. The use of the <code>kubernetes-service-binding</code> extensions helps users to generate <code>ServiceBinding</code> resources with minimal configuration, therefore simplifying the process overall.</p>
+</div>
+<div class="paragraph">
+<p>The Service Binding Operator responsible for the binding process then reads the information from the <code>ServiceBinding</code> resource and mounts the required files to a container accordingly.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An example of the <code>ServiceBinding</code> resource:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: binding.operators.coreos.com/v1beta1
+kind: ServiceBinding
+metadata:
+ name: binding-request
+ namespace: service-binding-demo
+spec:
+ application:
+   name: java-app
+   group: apps
+   version: v1
+   resource: deployments
+ services:
+ - group: postgres-operator.crunchydata.com
+   version: v1beta1
+   kind: Database
+   name: db-demo
+   id: postgresDB</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>quarkus-kubernetes-service-binding</code> extension provides a more compact way of expressing the same information. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes-service-binding.services.db-demo.api-version=postgres-operator.crunchydata.com/v1beta1
+quarkus.kubernetes-service-binding.services.db-demo.kind=Database</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After adding the earlier configuration properties inside your <code>application.properties</code>, the <code>quarkus-kubernetes</code>, in combination with the <code>quarkus-kubernetes-service-binding</code> extension, automatically generates the <code>ServiceBinding</code> resource.</p>
+</div>
+<div class="paragraph">
+<p>The earlier mentioned <code>db-demo</code> property-configuration identifier now has a double role and also completes the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Correlates and groups <code>api-version</code> and <code>kind</code> properties together</p>
+</li>
+<li>
+<p>Defines the <code>name</code> property for the custom resource with a possibility for a later edit. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes-service-binding.services.db-demo.api-version=postgres-operator.crunchydata.com/v1beta1
+quarkus.kubernetes-service-binding.services.db-demo.kind=Database
+quarkus.kubernetes-service-binding.services.db-demo.name=my-db</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For a semi-automatic service binding demonstration, see <a href="https://developers.redhat.com/articles/2021/12/22/how-use-quarkus-service-binding-operator#create_the_quarkus_application">How to use Quarkus with the Service Binding Operator</a></p>
+</li>
+<li>
+<p>List of <a href="https://github.com/redhat-developer/service-binding-operator#known-bindable-operators">List of bindable Operators</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="automatic-service-binding"><a class="anchor" href="#automatic-service-binding"></a>Automatic service binding</h3>
+<div class="paragraph">
+<p>The <code>quarkus-kubernetes-service-binding</code> extension can generate the <code>ServiceBinding</code> resource automatically after detecting that an application requires access to the external services that are provided by available bindable Operators.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Automatic service binding can be generated for a limited number of service types. To be consistent with established terminology for Kubernetes and Quarkus services, this chapter refers to these service types as kinds.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stripes-even fit-content">
+<caption class="title">Table 21. Operators that support the service auto-binding</caption>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kind</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postgresql</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://operatorhub.io/operator/postgresql">CrunchyData Postgres</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">postgres-operator.crunchydata.com/v1beta1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PostgresCluster</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mysql</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://operatorhub.io/operator/percona-xtradb-cluster-operator">Percona XtraDB Cluster</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pxc.percona.com/v1-9-0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PerconaXtraDBCluster</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mongo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://operatorhub.io/operator/percona-server-mongodb-operator">Percona Mongo</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">psmdb.percona.com/v1-9-0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PerconaServerMongoDB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="automatic-datasource-binding"><a class="anchor" href="#automatic-datasource-binding"></a>Automatic datasource binding</h3>
+<div class="paragraph">
+<p>For traditional databases, automatic binding is initiated whenever a datasource is configured as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.db-kind=postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The previous configuration, combined with the presence of <code>quarkus-datasource</code>, <code>quarkus-jdbc-postgresql</code>, <code>quarkus-kubernetes</code>, and <code>quarkus-kubernetes-service-binding</code> properties in the application, results in the generation of the <code>ServiceBinding</code> resource for the the <code>postgresql</code> database type.</p>
+</div>
+<div class="paragraph">
+<p>By using the <code>apiVersion</code> and <code>kind</code> properties of the Operator resource, which matches the used <code>postgresql</code> Operator, the generated <code>ServiceBinding</code> resource binds the service or resource to the application.</p>
+</div>
+<div class="paragraph">
+<p>When you do not specify a name for your database service, the the value of the <code>db-kind</code> property is used as the default name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml"> services:
+ - apiVersion: postgres-operator.crunchydata.com/v1beta1
+   kind: PostgresCluster
+   name: postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Specified the name of the datasource as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.fruits-db.db-kind=postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>service</code> in the generated <code>ServiceBinding</code> then displays as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml"> services:
+ - apiVersion: postgres-operator.crunchydata.com/v1beta1
+   kind: PostgresCluster
+   name: fruits-db</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly, if you use <code>mysql</code>, the name of the datasource can be specified as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.fruits-db.db-kind=mysql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated <code>service</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml"> services:
+ - apiVersion: pxc.percona.com/v1-9-0
+   kind: PerconaXtraDBCluster
+   name: fruits-db</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="customizing-automatic-service-binding"><a class="anchor" href="#customizing-automatic-service-binding"></a>Customizing Automatic Service Binding</h4>
+<div class="paragraph">
+<p>Even though automatic binding was developed to eliminate as much manual configuration as possible, there are cases where modifying the generated <code>ServiceBinding</code> resource might still be needed. The generation process exclusively relies on information extracted from the application and the knowledge of the supported Operators, which may not reflect what is deployed in the cluster. The generated resource is based purely on the knowledge of the supported bindable Operators for popular service kinds and a set of conventions that were developed to prevent possible mismatches, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The target resource name does not match the datasource name</p>
+</li>
+<li>
+<p>A specific Operator needs to be used rather than the default Operator for that service kind</p>
+</li>
+<li>
+<p>Version conflicts that occur when a user needs to use any other version than default or latest</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Conventions</div>
+<ul>
+<li>
+<p>The target resource coordinates are determined based on the type of Operator and the kind of service.</p>
+</li>
+<li>
+<p>The target resource name is set by default to match the service kind, such as <code>postgresql</code>, <code>mysql</code>, <code>mongo</code>.</p>
+</li>
+<li>
+<p>For named datasources, the name of the datasource is used.</p>
+</li>
+<li>
+<p>For named <code>mongo</code> clients, the name of the client is used.</p>
+</li>
+</ul>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<div class="title">Example 1 - Name mismatch</div>
+<p>For cases in which you need to modify the generated <code>ServiceBinding</code> to fix a name mismatch, use the <code>quarkus.kubernetes-service-binding.services</code> properties and specify the service&#8217;s name as the service key.</p>
+</div>
+<div class="paragraph">
+<p>The <code>service key</code> is usually the name of the service, for example the name of the datasource, or the name of the <code>mongo</code> client. When this value is not available, the datasource type, such as <code>postgresql</code>, <code>mysql</code>, <code>mongo</code>, is used instead.</p>
+</div>
+<div class="paragraph">
+<p>To avoid naming conflicts between different types of services, prefix the <code>service key</code> with a specific datasource type, such as <code>postgresql-<em>&lt;person&gt;</em></code>.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows how to customize the <code>apiVersion</code> property of the <code>PostgresCluster</code> resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.db-kind=postgresql
+quarkus.kubernetes-service-binding.services.postgresql.api-version=postgres-operator.crunchydata.com/v1beta2</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<div class="title">Example 2: Application of a custom name for a datasource</div>
+<p>In Example 1, the <code>db-kind</code>(<code>postgresql</code>) was used as a service key. In this example, because the datasource is named, according to convention, the datasource name (<code>fruits-db</code>) is used instead.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows that for a named datasource, the datasource name is used as the name of the target resource:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.fruits-db.db-kind=postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This has the same effect as the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.kubernetes-service-binding.services.fruits-db.api-version=postgres-operator.crunchydata.com/v1beta1
+quarkus.kubernetes-service-binding.services.fruits-db.kind=PostgresCluster
+quarkus.kubernetes-service-binding.services.fruits-db.name=fruits-db</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more details about the available properties and how do they work, see the <a href="https://github.com/k8s-service-bindings/spec#workload-projection">Workload Projection</a> part of the Service Binding specification.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-03-17 11:27:40 +0800
+</div>
+</div>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>构建本机可执行文件教程</title>
+<title>构建本机可执行文件</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -484,29 +484,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>构建本机可执行文件教程</h1>
+<h1>构建本机可执行文件</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide covers:</p>
+<p>本教程涵盖：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Compiling the application to a native executable</p>
+<p>将应用程序编译为本机可执行文件</p>
 </li>
 <li>
-<p>Packaging the native executable in a container</p>
+<p>将本机可执行文件打包到容器中</p>
 </li>
 <li>
-<p>Debugging native executable</p>
+<p>调试本机可执行文件</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>This guide takes as input the application developed in the <a href="getting-started.html">Getting Started Guide</a>.</p>
+<p>本教程将以 <a href="getting-started-CN.html">创建第一个应用</a> 中开发的程序作为基本程序。</p>
 </div>
 </div>
 </div>
@@ -514,81 +514,66 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="graalvm"><a class="anchor" href="#graalvm"></a>GraalVM</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Building a native executable requires using a distribution of GraalVM.
-There are three distributions:
-Oracle GraalVM Community Edition (CE), Oracle GraalVM Enterprise Edition (EE) and Mandrel.
-The differences between the Oracle and Mandrel distributions are as follows:</p>
+<p>构建本机可执行文件需要使用 GraalVM 的发行版本。GraalVM 有三个发行版本： Oracle GraalVM Community Edition (CE)、 Oracle GraalVM Enterprise Edition (EE)和 Mandrel。Oracle 和 Mandrel 发行版之间的区别如下。</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Mandrel is a downstream distribution of the Oracle GraalVM CE.
-Mandrel&#8217;s main goal is to provide a way to build native executables specifically designed to support Quarkus.</p>
-</li>
-<li>
-<p>Mandrel releases are built from a code base derived from the upstream Oracle GraalVM CE code base,
-with only minor changes but some significant exclusions that are not necessary for Quarkus native apps.
-They support the same capabilities to build native executables as Oracle GraalVM CE,
-with no significant changes to functionality.
-Notably, they do not include support for polyglot programming.
-The reason for these exclusions is to provide a better level of support for the majority of Quarkus users.
-These exclusions also mean Mandrel offers a considerable reduction in its distribution size
-when compared with Oracle GraalVM CE/EE.</p>
-</li>
-<li>
-<p>Mandrel is built slightly differently to Oracle GraalVM CE, using the standard OpenJDK project.
-This means that it does not profit from a few small enhancements that Oracle have added to the version of OpenJDK used to build their own GraalVM downloads.
-This enhancements are omitted because upstream OpenJDK does not manage them, and cannot vouch for.
-This is particularly important when it comes to conformance and security.</p>
-</li>
-<li>
-<p>Mandrel is recommended for building native executables that target Linux containerized environments.
-This means that Mandrel users are encouraged to use containers to build their native executables.
-If you are building native executables for macOS,
-you should consider using Oracle GraalVM instead,
-because Mandrel does not currently target this platform.
-Building native executables directly on bare metal Linux or Windows is possible,
-with details available in the <a href="https://github.com/graalvm/mandrel/blob/default/README.md">Mandrel README</a>
-and <a href="https://github.com/graalvm/mandrel/releases">Mandrel releases</a>.</p>
+<p>Mandrel 是 Oracle GraalVM CE 的下游发行版。Mandrel 的主要目标是提供一种构建本机可执行文件的方法，该可执行文件专门设计用于支持 Quarkus。</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Mandrel 版本是根据从上游 Oracle GraalVM CE 代码库派生的代码库构建的，只有微小的更改，
+但有一些对 Quarkus 本机应用程序不需要的重要排除项。它们支持与 Oracle GraalVM CE 相同的构建本机可执行文件的功能，而功能没有重大变化。
+值得注意的是，它们不包括对多语言编程的支持。这些排除的原因是为大多数 Quarkus 用户提供更好的支持。与 Oracle GraalVM CE/EE 相比，这些排除项还意味着 Mandrel 的规模显着减小。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mandrel 中使用标准 OpenJDK 与 Oracle GraalVM CE 略有不同。 这意味着它不会从 Oracle 添加 GraalVM 所需的 OpenJDK。这些增强被省略了，因为上游 OpenJDK 不管理它们，也不能保证。这在一致性和安全性方面尤为重要。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>建议使用 Mandrel 构建面向 Linux 容器化环境的本机可执行文件。这意味着鼓励 Mandrel 用户使用容器来构建他们的本地可执行文件。如果您正在为 macOS 构建本机可执行文件，则应考虑改用 Oracle GraalVM，因为 Mandrel 目前不针对此平台。可以直接在 Linux 或 Windows 上构建本机可执行文件，详细信息请查阅 <a href="https://github.com/graalvm/mandrel/blob/default/README.md">Mandrel README</a>和 <a href="https://github.com/graalvm/mandrel/releases">Mandrel 发布信息</a>。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<h2 id="前提"><a class="anchor" href="#前提"></a>前提</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To complete this guide, you need:</p>
+<p>要完成本教程，您需要：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Roughly 15 minutes</p>
+<p>大约 15 分钟</p>
 </li>
 <li>
-<p>An IDE</p>
+<p>一个编辑器</p>
 </li>
 <li>
-<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+<p>JDK11+并且有环境变量中存在 <code>JAVA_HOME</code></p>
 </li>
 <li>
 <p>Apache Maven 3.8.4</p>
 </li>
 <li>
-<p>A working container runtime (Docker or Podman)</p>
+<p>容器运行环境 Docker 或者 Podman</p>
 </li>
 <li>
-<p>Optionally the <a href="cli-tooling.html">Quarkus CLI</a> if you want to use it</p>
+<p>如果想要使用Quarkus CLI请查看 <a href="cli-tooling-CN.html">Quarkus CLI</a></p>
 </li>
 <li>
-<p>Mandrel or GraalVM installed and <a href="building-native-image.html#configuring-graalvm">configured appropriately</a></p>
+<p>安装了 Mandrel 或 GraalVM 相关内容查看 <a href="#configuring-graalvm">GraalVM配置说明</a></p>
 </li>
 <li>
-<p>A <a href="#configuring-c-development">working C development environment</a></p>
+<p>一个 <a href="#configuring-c-development">C 语言开发环境</a></p>
 </li>
 <li>
-<p>The code of the application developed in the <a href="getting-started.html">Getting Started Guide</a>.</p>
+<p>部署程序来自 <a href="getting-started-CN.html">创建第一个应用</a>.</p>
 </li>
 </ul>
 </div>
@@ -599,14 +584,14 @@ and <a href="https://github.com/graalvm/mandrel/releases">Mandrel releases</a>.<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Supporting native compilation in C</div>
+<div class="title">支持C语言原生编译</div>
 <div class="paragraph">
-<p>What does having a working C developer environment mean?</p>
+<p>如何拥有 C 语言开发环境</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>On Linux, you will need GCC, and the glibc and zlib headers. Examples for common distributions:</p>
+<p>在 Linux 中您需要安装 GCC 、glibc 和 zlib ，执行命令如下</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash"># dnf (rpm-based)
@@ -617,7 +602,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </li>
 <li>
-<p>XCode provides the required dependencies on macOS:</p>
+<p>在 macOS 中您需要通过下面代码进行安装：</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">xcode-select --install</code></pre>
@@ -625,7 +610,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </li>
 <li>
-<p>On Windows, you will need to install the <a href="https://aka.ms/vs/15/release/vs_buildtools.exe">Visual Studio 2017 Visual C++ Build Tools</a></p>
+<p>在 Windows 中您需要安装 <a href="https://aka.ms/vs/15/release/vs_buildtools.exe">Visual Studio 2017 Visual C++ Build Tools</a></p>
 </li>
 </ul>
 </div>
@@ -634,7 +619,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="configuring-graalvm"><a class="anchor" href="#configuring-graalvm"></a>Configuring GraalVM</h3>
+<h3 id="configuring-graalvm"><a class="anchor" href="#configuring-graalvm"></a>配置 GraalVM</h3>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -643,39 +628,39 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you cannot install GraalVM, you can use a multi-stage Docker build to run Maven inside a Docker container that embeds GraalVM. There is an explanation of how to do this at the end of this guide.</p>
+<p>如果您无法安装 GraalVM ，可以使用多阶段 Docker 构建，在 Docker 容器中使用Maven构建，此时会使用嵌入式的 GraalVM 。本教程的末尾会介绍如何执行此操作。</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Version 22.0.0.2 is required. Using the community edition is enough.</p>
+<p>需要使用GraalVM的版本是 22.0.0.2 ，本教程中使用社区版本足以。</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install GraalVM if you haven&#8217;t already. You have a few options for this:</p>
+<p>如果您还没有安装 GraalVM ，您有一下几种选择进行安装：</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Download the appropriate archive from <a href="https://github.com/graalvm/mandrel/releases" class="bare">https://github.com/graalvm/mandrel/releases</a> or <a href="https://github.com/graalvm/graalvm-ce-builds/releases" class="bare">https://github.com/graalvm/graalvm-ce-builds/releases</a>, and unpack it like you would any other JDK.</p>
+<p>从 <a href="https://github.com/graalvm/mandrel/releases" class="bare">https://github.com/graalvm/mandrel/releases</a> 或 <a href="https://github.com/graalvm/graalvm-ce-builds/releases" class="bare">https://github.com/graalvm/graalvm-ce-builds/releases</a> 下载发布版本，然后向解压其他JDK一样解压。</p>
 </li>
 <li>
-<p>Use platform-specific install tools like <a href="https://sdkman.io/jdks#Oracle">sdkman</a>, <a href="https://github.com/graalvm/homebrew-tap">homebrew</a>, or <a href="https://github.com/ScoopInstaller/Java">scoop</a>.</p>
+<p>使用特定平台的安装工具，例如 <a href="https://sdkman.io/jdks#Oracle">sdkman</a>, <a href="https://github.com/graalvm/homebrew-tap">homebrew</a> 或者 <a href="https://github.com/ScoopInstaller/Java">scoop</a>。</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Configure the runtime environment. Set <code>GRAALVM_HOME</code> environment variable to the GraalVM installation directory, for example:</p>
+<p>配置运行时环境，需要设置 <code>GRAALVM_HOME</code> 变量为 GraalVM 的安装目录，例如：</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">export GRAALVM_HOME=$HOME/Development/graalvm/</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On macOS (not supported by Mandrel), point the variable to the <code>Home</code> sub-directory:</p>
+<p>在 macOS （不支持 Mandrel 版本），将环境变量指向子目录 <code>Home</code> ,例如：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -683,7 +668,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On Windows, you will have to go through the Control Panel to set your environment variables.</p>
+<p>在 Windows中您需要通过控制面板来配置环境变量。</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -693,7 +678,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Installing via scoop will do this for you.</p>
+<p>如果通过 scoop 安装将为您完成环境变量配置操作。</p>
 </div>
 </td>
 </tr>
@@ -701,26 +686,26 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </li>
 <li>
-<p>(Only for Oracle GraalVM CE/EE) Install the <code>native-image</code> tool using <code>gu install</code>:</p>
+<p>仅适用于 Oracle GraalVM CE/EE，使用以下命令安装 <code>native-image</code> ：</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">${GRAALVM_HOME}/bin/gu install native-image</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Some previous releases of GraalVM included the <code>native-image</code> tool by default.  This is no longer the case; it must be installed as a second step after GraalVM itself is installed. Note: there is an outstanding issue <a href="#graal-and-catalina">using GraalVM with macOS Catalina</a>.</p>
+<p>在早一些的 GraalVM 版本会默认携带 <code>native-image</code> 工具。现在的发行版本中不会携带 <code>native-image</code> 工具，建议在 GraalVM 安装完成后为第二步操作。注意: 在 macOs中使用会遇到问题，具体内容查看 <a href="#graal-and-catalina">在 macOS Catalina 中使用 GraalVM</a>.</p>
 </div>
 </li>
 <li>
-<p>(Optional) Set the <code>JAVA_HOME</code> environment variable to the GraalVM installation directory.</p>
+<p>（可选）将 <code>JAVA_HOME</code> 环境变量设置为 GraalVM 安装目录。</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">export JAVA_HOME=${GRAALVM_HOME}</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>(Optional) Add the GraalVM <code>bin</code> directory to the path</p>
+<div class="paragraph">
+<p>5.（可选）将 GraalVM <code>bin</code> 目录添加到 <code>$PATH</code> 中</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">export PATH=${GRAALVM_HOME}/bin:$PATH</code></pre>
@@ -736,9 +721,9 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Issues using GraalVM with macOS Catalina</div>
+<div class="title">在 macOS Catalina 中使用 GraalVM 的问题</div>
 <div class="paragraph">
-<p>GraalVM binaries are not (yet) notarized for macOS Catalina as reported in this <a href="https://github.com/oracle/graal/issues/1724">GraalVM issue</a>. This means that you may see the following error when using <code>gu</code>:</p>
+<p>如 <a href="https://github.com/oracle/graal/issues/1724">GraalVM 使用问题</a> 描述，GraalVM 二进制文件没有对 macOS Catalina 进行公证，这意味在使用 <code>gu</code> 时可能会看到如下错误</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -746,7 +731,7 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Use the following command to recursively delete the <code>com.apple.quarantine</code> extended attribute on the GraalVM install directory as a workaround:</p>
+<p>如果需要解决上述问题可以使用命令递归删除 <code>com.apple.quarantine</code> 下的内容，命令如下</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -761,30 +746,30 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="solution"><a class="anchor" href="#solution"></a>Solution</h2>
+<h2 id="源码获取"><a class="anchor" href="#源码获取"></a>源码获取</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We recommend that you follow the instructions in the next sections and package the application step by step. However, you can go right to the completed example.</p>
+<p>我们建议您按照本教程的说明一步一步完成应用程序的打包。但是，您可以直接跳转到完整实例：</p>
 </div>
 <div class="paragraph">
-<p>Clone the Git repository: <code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code>, or download an <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">archive</a>.</p>
+<p>克隆 Git 仓库 <code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code>, 或者 下载 <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">archive</a>.</p>
 </div>
 <div class="paragraph">
-<p>The solution is located in the <code>getting-started</code> directory.</p>
+<p>源代码程序位于 <code>getting-started</code> 目录</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="producing-a-native-executable"><a class="anchor" href="#producing-a-native-executable"></a>Producing a native executable</h2>
+<h2 id="生成本机可执行文件"><a class="anchor" href="#生成本机可执行文件"></a>生成本机可执行文件</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The native executable for our application will contain the application code, required libraries, Java APIs, and a reduced version of a VM. The smaller VM base improves the startup time of the application and produces a minimal disk footprint.</p>
+<p>我们生成的本机可执行文件将会包含应用程序代码、依赖库、Java API 和 VM的简化版本。较小的 VM 可以改变应用程序启动时所需的时间以及磁盘占用控件。</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="./images/native-executable-process.png" alt="Creating a native executable"></span></p>
 </div>
 <div class="paragraph">
-<p>If you have generated the application from the previous tutorial, you can find in the <code>pom.xml</code> the following <em>profile</em>:</p>
+<p>如果您从上一个教程中生成应用程序，您会在 <code>pom.xml</code> 中看到如下配置：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -806,26 +791,21 @@ sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can provide custom options for the <code>native-image</code> command using the <code>&lt;quarkus.native.additional-build-args&gt;</code> property.
-Multiple options may be separated by a comma.</p>
+<p>您可以使用 <code>&lt;quarkus.native.additional-build-args&gt;</code> 属性为 <code>native-image</code> 命令提供自定义配置，多个参数使用逗号( <code>,</code> ) 分割。</p>
 </div>
 <div class="paragraph">
-<p>Another possibility is to include the <code>quarkus.native.additional-build-args</code> configuration property in your <code>application.properties</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can find more information about how to configure the native image building process in the <a href="#configuration-reference">Configuring the Native Executable</a> section below.</p>
+<p>另一种可能是通过 <code>application.properties</code> 文件中的 <code>quarkus.native.additional-build-args</code> 属性进行配置。
+您可以通过阅读 <a href="#configuration-reference">配置本机可执行文件</a> 查看更多本地可执行文件构建时所需参数信息。</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>We use a profile because, you will see very soon, packaging the native executable takes a <em>few</em> minutes. You could
-just pass -Dquarkus.package.type=native as a property on the command line, however it is better to use a profile as
-this allows native image tests to also be run.</p>
+<p>我们使用配置文件的原因是，打包本地可执行文件需要话费几分钟的时间。您可以在构建命令上增加 <code>-Dquarkus.package.type=native</code> 作为构建属性进行传递，但最好使用配置文件，因为这样允许本地可执行文件的测试。</p>
 </div>
 <div class="paragraph">
-<p>Create a native executable using:</p>
+<p>您可以使用以下命令创建本机可执行文件：</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
@@ -852,14 +832,12 @@ this allows native image tests to also be run.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Issues with packaging on Windows</div>
+<div class="title">Windows 上的打包问题</div>
 <div class="paragraph">
-<p>The Microsoft Native Tools for Visual Studio must first be initialized before packaging. You can do this by starting
-the <code>x64 Native Tools Command Prompt</code> that was installed with the Visual Studio Build Tools. At
-<code>x64 Native Tools Command Prompt</code> you can navigate to your project folder and run <code>mvnw package -Pnative</code>.</p>
+<p>在 Microsoft Native Tools 中需要先进行 Visual Studio 的初始化。您可以通过启动 <code>x64 Native Tools Command Prompt</code> 与 Visual Studio Build Tools 。<code>x64 Native Tools Command Prompt</code> 工具可以导航到到您的工作目录并执行 <code>mvnw package -Pnative</code>.</p>
 </div>
 <div class="paragraph">
-<p>Another solution is to write a script to do this for you:</p>
+<p>另一种解决方案是编写一个脚本来为您执行此操作：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -871,8 +849,7 @@ the <code>x64 Native Tools Command Prompt</code> that was installed with the Vis
 </table>
 </div>
 <div class="paragraph">
-<p>In addition to the regular files, the build also produces <code>target/getting-started-1.0.0-SNAPSHOT-runner</code>.
-You can run it using: <code>./target/getting-started-1.0.0-SNAPSHOT-runner</code>.</p>
+<p>除了常规文件以外，构建后还会生成 <code>target/getting-started-1.0.0-SNAPSHOT-runner</code> 文件，您可以通过以下命令执行它： <code>./target/getting-started-1.0.0-SNAPSHOT-runner</code>。</p>
 </div>
 <div id="graal-package-preview" class="admonitionblock note">
 <table>
@@ -881,11 +858,9 @@ You can run it using: <code>./target/getting-started-1.0.0-SNAPSHOT-runner</code
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Java preview features</div>
+<div class="title">Java 预览功能</div>
 <div class="paragraph">
-<p>Java code that relies on preview features requires special attention.
-To produce a native executable, this means that the <code>--enable-preview</code> flag needs to be passed to the underlying native image invocation.
-You can do so by prepending the flag with <code>-J</code> and passing it as additional native build argument: <code>-Dquarkus.native.additional-build-args=-J&#8212;&#8203;enable-preview</code>.</p>
+<p>如果您需要依赖Java预览功能，在生成本地可执行文件时需要添加 <code>--enable-preview</code> 配置。您也可以通过在命令前添加 <code>-J</code> 将其作为构建参数，具体示例：<code>-Dquarkus.native.additional-build-args=-J&#8212;&#8203;enable-preview</code>。</p>
 </div>
 </td>
 </tr>
@@ -894,13 +869,13 @@ You can do so by prepending the flag with <code>-J</code> and passing it as addi
 </div>
 </div>
 <div class="sect1">
-<h2 id="testing-the-native-executable"><a class="anchor" href="#testing-the-native-executable"></a>Testing the native executable</h2>
+<h2 id="测试本地可执行文件"><a class="anchor" href="#测试本地可执行文件"></a>测试本地可执行文件</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Producing a native executable can lead to a few issues, and so it&#8217;s also a good idea to run some tests against the application running in the native file.</p>
+<p>生成的本地可执行文件可能会存在一些问题，因此对本地可执行文件中的应用程序进行测试是一个好主意。</p>
 </div>
 <div class="paragraph">
-<p>In the <code>pom.xml</code> file, the <code>native</code> profile contains:</p>
+<p>在 <code>pom.xml</code> 文件中 ，<code>native</code> 配置信息如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -927,10 +902,10 @@ You can do so by prepending the flag with <code>-J</code> and passing it as addi
 </div>
 </div>
 <div class="paragraph">
-<p>This instructs the failsafe-maven-plugin to run integration-test and indicates the location of the produced native executable.</p>
+<p>插件 failsafe-maven-plugin 会在运行时集成测试并将测试结果生成。</p>
 </div>
 <div class="paragraph">
-<p>Then, open the <code>src/test/java/org/acme/quickstart/GreetingResourceIT.java</code>. It contains:</p>
+<p>打开 <code>src/test/java/org/acme/quickstart/GreetingResourceIT.java</code> 文件，内容如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -951,17 +926,14 @@ public class GreetingResourceIT extends GreetingResourceTest { <i class="conum" 
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use another test runner that starts the application from the native file before the tests.
-The executable is retrieved using the <code>native.image.path</code> system property configured in the <em>Failsafe Maven Plugin</em>.</td>
+<td>使用另一个测试运行程序，在测试之前从本机文件启动应用程序。使用 Failsafe Maven Plugin <code>native.image.path</code> 中配置的系统属性检索可执行文件。</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>We extend our previous tests, but you can also implement your tests</td>
+<td>我们扩展了我们之前的测试，您也可以实现你的测试
+要查看 <code>GreetingResourceIT</code> 针对本机可执行文件的运行输出，请使用 <code>./mvnw verify -Pnative</code> :</td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>To see the <code>GreetingResourceIT</code> run against the native executable, use <code>./mvnw verify -Pnative</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -997,9 +969,7 @@ Executing [/data/home/gsmet/git/quarkus-quickstarts/getting-started/target/getti
 </td>
 <td class="content">
 <div class="paragraph">
-<p>By default, Quarkus waits for 60 seconds for the native image to start before automatically failing the native tests. This
-duration can be changed using the <code>quarkus.test.wait-time</code> system property. For example, to increase the duration
-to 300 seconds, use: <code>./mvnw verify -Pnative -Dquarkus.test.wait-time=300</code>.</p>
+<p>默认情况下，Quarkus 会等待60秒以启动本地可执行文件，然后自动使本地测试失败。可以通过 <code>quarkus.test.wait-time</code> 变量改变等待时间，例如需要将等待时间变为300秒，请使用 <code>./mvnw verify -Pnative -Dquarkus.test.wait-time=300</code> 命令。</p>
 </div>
 </td>
 </tr>
@@ -1013,20 +983,14 @@ to 300 seconds, use: <code>./mvnw verify -Pnative -Dquarkus.test.wait-time=300</
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This procedure was formerly accomplished using the <code>@NativeImageTest</code> annotation. <code>@NativeImageTest</code> is considered deprecated in favor of <code>@QuarkusIntegrationTest</code> which provides a superset of the testing
-capabilities of <code>@NativeImageTest</code>. More information about <code>@QuarkusIntegrationTest</code> can be found in the <a href="getting-started-testing.html#quarkus-integration-test">Testing Guide</a>.</p>
+<p>之前的测试是使用 <code>@NativeImageTest</code> 注解完成的，<code>@NativeImageTest</code> 注解在现在已经被认为是一个启用的注解，新的注解是 <code>@QuarkusIntegrationTest</code> ，它代替了 <code>@NativeImageTest</code> 注解。更多关于 <code>@QuarkusIntegrationTest</code> 注解的信息查看 <a href="getting-started-testing-CN.html#quarkus-integration-test">测试教程</a>.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>By default, integration tests runs using the <code>prod</code> profile.
-This can be overridden using the <code>quarkus.test.native-image-profile</code> property.
-For example, in your <code>application.properties</code> file, add: <code>quarkus.test.native-image-profile=test</code>.
-Alternatively, you can run your tests with: <code>./mvnw verify -Pnative -Dquarkus.test.native-image-profile=test</code>.
-However, don&#8217;t forget that when the native executable is built the <code>prod</code> profile is enabled.
-So, the profile you enable this way must be compatible with the produced executable.</p>
+<p>在默认情况下，集成测试使用 <code>prod</code> 配置运行。想要改变配置可以使用 <code>quarkus.test.native-image-profile</code> 属性进行覆盖。例如在您的 <code>application.properties</code> 文件中，添加 <code>quarkus.test.native-image-profile=test</code>。或者，您可以使用以下目录运行测试： <code>./mvnw verify -Pnative -Dquarkus.test.native-image-profile=test</code> 。但是，不要忘记在构建本机可执行文件是启用 <code>prod</code> 配置。因此您以这种方式启用的可执行文件必须与生成的可执行文件兼容。</p>
 </div>
 <div id="graal-test-preview" class="admonitionblock note">
 <table>
@@ -1035,44 +999,36 @@ So, the profile you enable this way must be compatible with the produced executa
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Java preview features</div>
+<div class="title">Java 预览功能</div>
 <div class="paragraph">
-<p>Java code that relies on preview features requires special attention.
-To test a native executable, this means that the <code>--enable-preview</code> flag needs to be passed to the Surefire plugin.
-Adding <code>&lt;argLine&gt;--enable-preview&lt;/argLine&gt;</code> to its <code>configuration</code> section is one way to do so.</p>
+<p>依赖Java预览功能的代码需要特别注意。测试本机可执行文件必须传递 <code>--enable-preview</code> 属性给Surefire插件。也可以通过在 <code>configuration</code> 中添加 <code>&lt;argLine&gt;--enable-preview&lt;/argLine&gt;</code> 属性</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="sect2">
-<h3 id="excluding-tests-when-running-as-a-native-executable"><a class="anchor" href="#excluding-tests-when-running-as-a-native-executable"></a>Excluding tests when running as a native executable</h3>
+<h3 id="本机可执行文件运行时测试"><a class="anchor" href="#本机可执行文件运行时测试"></a>本机可执行文件运行时测试</h3>
 <div class="paragraph">
-<p>When running tests this way, the only things that actually run natively are you application endpoints, which
-you can only test via HTTP calls. Your test code does not actually run natively, so if you are testing code
-that does not call your HTTP endpoints, it&#8217;s probably not a good idea to run them as part of native tests.</p>
+<p>以这类方式运行测试，唯一的价值是在本地运行应用程序端点，您只能通过 HTTP 对其进行调用测试。您的测试代码实际上并没有在本地执行，因此您如果正在测试不调用 HTTP 端点的代码，那么将它们作为本机测试的一部分运行可能不是一个好主意。</p>
 </div>
 <div class="paragraph">
-<p>If you share your test class between JVM and native executions like we advise above, you can mark certain tests
-with the <code>@DisabledOnNativeImage</code> annotation in order to only run them on the JVM.</p>
+<p>如果您像我们上面建议的哪样在JVM和本机执行测试类之间共享您的测试类，您可以使用 <code>@DisabledOnNativeImage</code> 注解标某些测试类或者方法，以便于仅在JVM上运行测试。</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="testing-an-existing-native-executable"><a class="anchor" href="#testing-an-existing-native-executable"></a>Testing an existing native executable</h3>
+<h3 id="测试现有的本机可执行文件"><a class="anchor" href="#测试现有的本机可执行文件"></a>测试现有的本机可执行文件</h3>
 <div class="paragraph">
-<p>It is also possible to re-run the tests against a native executable that has already been built. To do this run
-<code>./mvnw test-compile failsafe:integration-test</code>. This will discover the existing native image and run the tests against it using
-failsafe.</p>
+<p>您还可以针对已经构建完成的本机可执行文件进行测试，通过`./mvnw test-compile failsafe:integration-test` 命令进行，浙江发现现有本地可执行文件的故障。</p>
 </div>
 <div class="paragraph">
-<p>If the process cannot find the native image for some reason, or you want to test a native image that is no longer in the
-target directory you can specify the executable with the <code>-Dnative.image.path=</code> system property.</p>
+<p>如果由于模型原因找不到本地可执行文件，或者您想要自定义本地可执行文件，可以使用 <code>-Dnative.image.path=</code> 属性指定本地可执行文件。</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="container-runtime"><a class="anchor" href="#container-runtime"></a>Creating a Linux executable without GraalVM installed</h2>
+<h2 id="container-runtime"><a class="anchor" href="#container-runtime"></a>在未安装GraalVM的Linux中创建可执行文件</h2>
 <div class="sectionbody">
 <div class="admonitionblock important">
 <table>
@@ -1081,20 +1037,16 @@ target directory you can specify the executable with the <code>-Dnative.image.pa
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Before going further, be sure to have a working container runtime (Docker, podman) environment. If you use Docker
-on Windows you should share your project&#8217;s drive at Docker Desktop file share settings and restart Docker Desktop.
+在继续之前，请确保有一个可以使用的容器（Docker、podman）环境。如果您在Windows上使用Docker，您应该在 Docker Desktop 文件共享设置中共享您的项目驱动器并重启Docker Desktop。
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Quite often one only needs to create a native Linux executable for their Quarkus application (for example in order to run in a containerized environment) and would like to avoid
-the trouble of installing the proper GraalVM version in order to accomplish this task (for example, in CI environments it&#8217;s common practice
-to install as little software as possible).</p>
+<p>大多数时候，我们只需要生成在Linux上的本地可执行程序（例如，为了在容器环境中运行），并且希望避免安装 GraalVM 来完成这项任务（例如，在CI环境中，希望尽可能的安装少的软件）。</p>
 </div>
 <div class="paragraph">
-<p>To this end, Quarkus provides a very convenient way of creating a native Linux executable by leveraging a container runtime such as Docker or podman.
-The easiest way of accomplishing this task is to execute:</p>
+<p>为此，Quarkus 提供了一种非常方便的方法，通过容器运行时来创建Linux下本机可执行文件。完成此任务的最简单命令如下</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
@@ -1122,11 +1074,10 @@ The easiest way of accomplishing this task is to execute:</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>By default Quarkus automatically detects the container runtime.
-If you want to explicitely select the container runtime, you can do it with:</p>
+<p>默认情况下，Quarkus会在启动时检测容器环境，如果您想明确容器，可以进行如下操作：</p>
 </div>
 <div class="paragraph">
-<p>For Docker:</p>
+<p>针对 Docker:</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
@@ -1147,7 +1098,7 @@ If you want to explicitely select the container runtime, you can do it with:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For podman:</p>
+<p>针对 podman:</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
@@ -1168,8 +1119,7 @@ If you want to explicitely select the container runtime, you can do it with:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>These are normal Quarkus config properties, so if you always want to build in a container
-it is recommended you add these to your <code>application.properties</code> in order to avoid specifying them every time.</p>
+<p>上述命令中所使用的Quarkus配置属性都是普通配置，如果您总是想通过容器模式构建本地可执行文件，建议您将这些配置放在 <code>application.properties</code> 文件中，避免每次都指定它们。</p>
 </div>
 </td>
 </tr>
@@ -1183,7 +1133,11 @@ it is recommended you add these to your <code>application.properties</code> in o
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you see the following invalid path error for your application JAR when trying to create a native executable using a container build, even though your JAR was built successfully, you&#8217;re most likely using a remote daemon for your container runtime.</p>
+<p>If you see the following invalid path error for your application JAR when trying to create a native executable using a container build,
+even though your JAR was built successfully, you&#8217;re most likely using a remote daemon for your container runtime.</p>
+</div>
+<div class="paragraph">
+<p>如果您在尝试使用容器构建本地可执行文件时看到 JAR 路径无效，即使您的 JAR 已成功构建，JAR在容器中以远程守护进程运行。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1192,10 +1146,10 @@ Caused by: java.nio.file.NoSuchFileException: /project/getting-started-1.0.0-SNA
 </div>
 </div>
 <div class="paragraph">
-<p>In this case, use the parameter <code>-Dquarkus.native.remote-container-build=true</code> instead of <code>-Dquarkus.native.container-build=true</code>.</p>
+<p>在这种情况下，请使用参数 <code>-Dquarkus.native.remote-container-build=true</code> 而不是 <code>-Dquarkus.native.container-build=true</code> 解决问题。</p>
 </div>
 <div class="paragraph">
-<p>The reason for this is that the local build driver invoked through <code>-Dquarkus.native.container-build=true</code> uses volume mounts to make the JAR available in the build container, but volume mounts do not work with remote daemons. The remote container build driver copies the necessary files instead of mounting them. Note that even though the remote driver also works with local daemons, the local driver should be preferred in the local case because mounting is usually more performant than copying.</p>
+<p>原因是通过 <code>-Dquarkus.native.container-build=true</code> 使用外挂驱动使得JAR在构建容器中可用，但是在挂载驱动中不可用。远程容器构建驱动程序应该复制必要的文件，而不是挂载这些文件。请注意，即使远程驱动程序也可以与本地守护程序一起使用，但是在本地环境下应该首选本地驱动程序，因为挂载通常比赋值具有更高的性能。</p>
 </div>
 </td>
 </tr>
@@ -1209,7 +1163,7 @@ Caused by: java.nio.file.NoSuchFileException: /project/getting-started-1.0.0-SNA
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Building with Mandrel requires a custom builder image parameter to be passed additionally:</p>
+<p>使用 Mandrel 构建需要传递一个自定义参数</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
@@ -1230,12 +1184,7 @@ Caused by: java.nio.file.NoSuchFileException: /project/getting-started-1.0.0-SNA
 </div>
 </div>
 <div class="paragraph">
-<p>Please note that the above command points to a floating tag.
-It is highly recommended to use the floating tag,
-so that your builder image remains up-to-date and secure.
-If you absolutely must, you may hard-code to a specific tag
-(see <a href="https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags">here</a> for available tags),
-but be aware that you won&#8217;t get security updates that way and it&#8217;s unsupported.</p>
+<p>请注意，上述命令指向了一个可变标签。强烈建议使用可变标签，以便您的构建结果保持最新且安全。如果您绝对必须可以使用特定标签，具体可以查看 <a href="https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags">文档</a>，如果使用这种方式需要注意，无法获取最新且安全的镜像。</p>
 </div>
 </td>
 </tr>
@@ -1244,15 +1193,15 @@ but be aware that you won&#8217;t get security updates that way and it&#8217;s u
 </div>
 </div>
 <div class="sect1">
-<h2 id="creating-a-container"><a class="anchor" href="#creating-a-container"></a>Creating a container</h2>
+<h2 id="创建容器"><a class="anchor" href="#创建容器"></a>创建容器</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="using-the-container-image-extensions"><a class="anchor" href="#using-the-container-image-extensions"></a>Using the container-image extensions</h3>
+<h3 id="使用容器镜像拓展"><a class="anchor" href="#使用容器镜像拓展"></a>使用容器镜像拓展</h3>
 <div class="paragraph">
-<p>By far the easiest way to create a container-image from your Quarkus application is to leverage one of the container-image extensions.</p>
+<p>到目前为止，从 Quarkus 应用程序创建容器镜像最简单的方式就是使用拓展程序。</p>
 </div>
 <div class="paragraph">
-<p>If one of those extensions is present, then creating a container image for the native executable is essentially a matter of executing a single command:</p>
+<p>如果存在一个拓展程序，为本机可执行文件创建镜像本质上是执行一个命令，命令示例如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1262,35 +1211,30 @@ but be aware that you won&#8217;t get security updates that way and it&#8217;s u
 <div class="ulist">
 <ul>
 <li>
-<p><code>quarkus.native.container-build=true</code> allows for creating a Linux executable without GraalVM being installed (and is only necessary if you don&#8217;t have GraalVM installed locally or your local operating system is not Linux)</p>
+<p><code>quarkus.native.container-build=true</code> 允许在不安装 GraalVM 的情况下创建Linux下的可执行文件，（仅当您没有在本地安装 GraalVM 或者您的操作系统不是 Linux 时才需要）</p>
 </li>
 <li>
-<p><code>quarkus.container-image.build=true</code> instructs Quarkus to create a container-image using the final application artifact (which is the native executable in this case)</p>
+<p><code>quarkus.container-image.build=true</code> 表示 Quarkus 使用最终应用程序组件（在本例中是本地可执行文件）镜像。</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>See the <a href="container-image.html">Container Image guide</a> for more details.</p>
+<p>跟多关于容器镜像内容查看 <a href="container-image-CN.html">容器镜像教程</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="manually-using-the-micro-base-image"><a class="anchor" href="#manually-using-the-micro-base-image"></a>Manually using the micro base image</h3>
+<h3 id="手动使用镜像"><a class="anchor" href="#手动使用镜像"></a>手动使用镜像</h3>
 <div class="paragraph">
-<p>You can run the application in a container using the JAR produced by the Quarkus Maven Plugin.
-However, in this section we focus on creating a container image using the produced native executable.</p>
+<p>您可以使用 Quarkus Maven 插件生成的 JAR 在容器中运行应用程序。但是，在本节中我们将专注于如何使用本地可执行文件创建容器镜像。</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="./images/containerization-process.png" alt="Containerization Process"></span></p>
 </div>
 <div class="paragraph">
-<p>When using a local GraalVM installation, the native executable targets your local operating system (Linux, macOS, Windows etc).
-However, as a container may not use the same <em>executable</em> format as the one produced by your operating system,
-we will instruct the Maven build to produce an executable by leveraging a container runtime (as described in <a href="#container-runtime">this section</a>):</p>
+<p>使用本地 GraalVM 安装时，本地可执行文件将针对您的操作系统进行变化。但是，由于容器可能不会使用与操作系统相同的可执行文件，我们将使用Maven构建指定可执行文件 具体参考<a href="#container-runtime">前文</a></p>
 </div>
 <div class="paragraph">
-<p>The produced executable will be a 64 bit Linux executable, so depending on your operating system it may no longer be runnable.
-However, it&#8217;s not an issue as we are going to copy it to a container.
-The project generation has provided a <code>Dockerfile.native-micro</code> in the <code>src/main/docker</code> directory with the following content:</p>
+<p>生成的可执行文件是 64位的Linux可执行文件，因此可能子啊您的操作系统中会存在不可用的情况。但是，这不是一个问题，因为我们会将其复制到容器中，项目生成后会在 <code>src/main/docker</code> 目录下提供 <code>Dockerfile.native-micro</code> 文件，内容如下。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1309,19 +1253,17 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Quarkus Micro Image?</div>
+<div class="title">Quarkus最小镜像</div>
 <div class="paragraph">
-<p>The Quarkus Micro Image is a small container image providing the right set of dependencies to run your native application.
-It is based on <a href="https://catalog.redhat.com/software/containers/ubi8-micro/601a84aadd19c7786c47c8ea?container-tabs=overview">UBI Micro</a>.
-This base image has been tailored to work perfectly in containers.</p>
+<p>Quarkus Micro Image 是一个小型的容器镜像，他提供了一组正确的依赖项来运行您的原生程序。它基于 <a href="https://catalog.redhat.com/software/containers/ubi8-micro/601a84aadd19c7786c47c8ea?container-tabs=overview">UBI Micro</a>。此镜像经过定制，可以在容器中完美运行。</p>
 </div>
 <div class="paragraph">
-<p>You can read more about UBI images on:</p>
+<p>您可以在以下文档中查看更多 UBI 镜像信息：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">Introduction to Universal Base Image</a></p>
+<p><a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">Universal Base Image 介绍</a></p>
 </li>
 <li>
 <p><a href="https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56">Red Hat Universal Base Image 8</a></p>
@@ -1329,17 +1271,17 @@ This base image has been tailored to work perfectly in containers.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>UBI images can be used without any limitations.</p>
+<p>UBI 镜像可以不受任何限制的使用</p>
 </div>
 <div class="paragraph">
-<p><a href="quarkus-runtime-base-image.html">This page</a> explains how to extend the <code>quarkus-micro</code> image when your application has specific requirements.</p>
+<p><a href="quarkus-runtime-base-image-CN.html">Quarkus 基础镜像</a> 中介绍如何让 <code>quarkus-micro</code> 拓展。</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Then, if you didn&#8217;t delete the generated native executable, you can build the docker image with:</p>
+<p>接下来，如果您没有删除生成的本地可执行文件，则可以使用如下命令构建 docker 镜像：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1347,7 +1289,7 @@ This base image has been tailored to work perfectly in containers.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>And finally, run it with:</p>
+<p>最后，使用下面命令运行：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1356,9 +1298,9 @@ This base image has been tailored to work perfectly in containers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="manually-using-the-minimal-base-image"><a class="anchor" href="#manually-using-the-minimal-base-image"></a>Manually using the minimal base image</h3>
+<h3 id="手动使用最小基础镜像"><a class="anchor" href="#手动使用最小基础镜像"></a>手动使用最小基础镜像</h3>
 <div class="paragraph">
-<p>The project generation has also provided a <code>Dockerfile.native</code> in the <code>src/main/docker</code> directory with the following content:</p>
+<p>在项目生成的 <code>src/main/docker</code> 目录中提供了 <code>Dockerfile.native</code> 文件，内容如下。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1371,35 +1313,32 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The UBI minimal image is bigger than the micro one mentioned above.
-It contains more utilities such as the <code>microdnf</code> package manager.</p>
+<p>UBI 最小镜像要比上面生成的镜像稍微大一些，它包含更多实用的程序，例如 <code>microdnf</code> 包管理器。</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="multistage-docker"><a class="anchor" href="#multistage-docker"></a>Using a multi-stage Docker build</h3>
+<h3 id="multistage-docker"><a class="anchor" href="#multistage-docker"></a>多阶段 Docker 构建</h3>
 <div class="paragraph">
-<p>The previous section showed you how to build a native executable using Maven or Gradle, but it requires you to have created the native executable first.
-In addition, this native executable must be a Linux 64 bits executable.</p>
+<p>上一节向您演示了如何使用 Maven 或者 Gradle 构建本地可执行文件，但这要求您首先创建一个本地可执行文件。同时，本地可执行文件还要求是 Linux 64位的可执行文件。</p>
 </div>
 <div class="paragraph">
-<p>You may want to build the native executable directly in a container without having a final container containing the build tools.
-That approach is possible with a multi-stage Docker build:</p>
+<p>您可能希望直接在容器中构建本地可执行文件，并且不需要包含构建工具的最终容器。这种方法可以使用多阶段Docker构建实现：</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first stage builds the native executable using Maven or Gradle</p>
+<p>第一阶段使用Maven或Gradle构建本地可执行文件。</p>
 </li>
 <li>
-<p>The second stage is a minimal image copying the produced native executable</p>
+<p>第二阶段是复制可执行文件制作成最小镜像。</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Such a multi-stage build can be achieved as follows:</p>
+<p>这样的多阶段构建可以通过以下操作实现：</p>
 </div>
 <div class="paragraph">
-<p>Sample Dockerfile for building with Maven:</p>
+<p>使用 Maven 构建镜像的Dockerfile示例如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1438,19 +1377,17 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This multi-stage Docker build copies the Maven wrapper from the host machine.
-The Maven wrapper (or the Gradle wrapper) is a convenient way to provide a specific version of Maven/Gradle.
-It avoids having to create a base image with Maven and Gradle.
-To provision the Maven Wrapper in your project, use: <code>mvn -N org.apache.maven.plugins:maven-wrapper-plugin:3.1.0:wrapper</code>.
+这哦多阶段Docker构建从主机复制 Maven Wrapper。Maven Wrapper（或者Gradle Wrapper）是提供特定版本的Maven、Gradle快捷工具。它避免使用Maven和Gradle的基础镜像。您需要在项目中配置 Maven Wrapper，具体命令：<code>mvn -N org.apache.maven.plugins:maven-wrapper-plugin:3.1.0:wrapper</code>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Save this file in <code>src/main/docker/Dockerfile.multistage</code> as it is not included in the getting started quickstart.</p>
+<p>Save this file in <code>src/main/docker/Dockerfile.multistage</code> as it is not included in the getting started quickstart.
+将该文件保存在 <code>src/main/docker/Dockerfile.multistage</code> 文件中，因为入门程序中不包含它。</p>
 </div>
 <div class="paragraph">
-<p>Sample Dockerfile for building with Gradle:</p>
+<p>使用 Gradle 构建镜像的Dockerfile示例如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1476,7 +1413,7 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you are using Gradle in your project, you can use this sample Dockerfile.  Save it in <code>src/main/docker/Dockerfile.multistage</code>.</p>
+<p>如果您在项目中使用 Gradle ，则可以使用此示例中的Dockerfile，将其保存在 <code>src/main/docker/Dockerfile.multistage</code> 文件中。</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1486,7 +1423,7 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Before launching our Docker build, we need to update the default <code>.dockerignore</code> file as it filters everything except the <code>target</code> directory. As we plan to build inside a container, we need to copy the <code>src</code> directory. Thus, edit your <code>.dockerignore</code> and update the content.</p>
+<p>在启动 Docker 构建之前，我们需要更新默认的 <code>.dockerignore</code> 文件，因为它会过滤除 <code>target</code> 目录之外的所有内容。当我们计划在容器内构建时，我们需要复制 <code>src</code> 目录，因此，编辑您的 <code>.dockerignore</code> 内容。</p>
 </div>
 </td>
 </tr>
@@ -1498,7 +1435,7 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>And, finally, run it with:</p>
+<p>最后，运行下面命令启动镜像：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1513,10 +1450,10 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you need SSL support in your native executable, you can easily include the necessary libraries in your Docker image.</p>
+<p>如果宁的本地可执行文件需要SSL支持，您可以轻松地在Docker镜像中添加所需库。</p>
 </div>
 <div class="paragraph">
-<p>Please see <a href="native-and-ssl.html#working-with-containers">our Using SSL With Native Executables guide</a> for more information.</p>
+<p>更多信息请查看 <a href="native-and-ssl-CN.html#working-with-containers">SSL 与本机可执行文件一起使用指南</a></p>
 </div>
 </td>
 </tr>
@@ -1529,15 +1466,14 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-To use Mandrel instead of GraalVM CE, update the <code>FROM</code> clause to: <code>FROM quay.io/quarkus/ubi-quarkus-mandrel:$TAG AS build</code>.
-<code>$TAG</code> can be found on the <a href="https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags">Quarkus Mandrel Images Tags page</a>.
+如果使用 Mandrel 而不是 GraalVM CE ,则需要将 <code>FROM</code> 更新为 <code>FROM quay.io/quarkus/ubi-quarkus-mandrel:$TAG AS build</code>， <code>$TAG</code> 可以在 <a href="https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags">Quarkus Mandrel Images 标签说明</a> 上查看
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-a-distroless-base-image"><a class="anchor" href="#using-a-distroless-base-image"></a>Using a Distroless base image</h3>
+<h3 id="使用-distroless-基础镜像"><a class="anchor" href="#使用-distroless-基础镜像"></a>使用 Distroless 基础镜像</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1545,18 +1481,16 @@ To use Mandrel instead of GraalVM CE, update the <code>FROM</code> clause to: <c
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Distroless image support is experimental.
+支持 Distroless 镜像是一个实验性的功能
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If you are looking for small container images, the <a href="https://github.com/GoogleContainerTools/distroless">distroless</a> approach reduces the size of the base layer.
-The idea behind <em>distroless</em> is the usage of a single and minimal base image containing all the requirements, and sometimes even the application itself.</p>
+<p>如果您在寻找小型容器镜像 <a href="https://github.com/GoogleContainerTools/distroless">distroless</a> 是一个不错的选择。distroless背后的想法是使用一个包含所有的需求的最小镜像，有时候可以是应用程序本身。</p>
 </div>
 <div class="paragraph">
-<p>Quarkus provides a distroless base image that you can use in your <code>Dockerfile</code>.
-You only need to copy your application, and you are done:</p>
+<p>Quarkus 提供了一个无法行版本的基础镜像，您可以查看下面 <code>Dockerfile</code> ，您如果需要将其执行即可获得Quarkus镜像。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1570,28 +1504,24 @@ CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Quarkus provides the <code>quay.io/quarkus/quarkus-distroless-image:1.0</code> image.
-It contains the required packages to run a native executable and is only <strong>9Mb</strong>.
-Just add your application on top of this image, and you will get a tiny container image.</p>
+<p>Quarkus 提供 <code>quay.io/quarkus/quarkus-distroless-image:1.0</code> 镜像。
+它包含允许本地可执行文件所需的包，容量只有 <strong>9Mb</strong>
+只需要将您的应用程序添加在此镜像纸上，您就可以获得一个较小的容器镜像。</p>
 </div>
 <div class="paragraph">
-<p>Distroless images should not be used in production without rigorous testing.</p>
+<p>Distroless镜像没有做严格的测试，不建议在生产环境中使用</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="native-executable-compression"><a class="anchor" href="#native-executable-compression"></a>Native executable compression</h3>
+<h3 id="压缩本地可执行文件"><a class="anchor" href="#压缩本地可执行文件"></a>压缩本地可执行文件</h3>
 <div class="paragraph">
-<p>Quarkus can compress the produced native executable using UPX.
-More details on <a href="./upx.html">UPX Compression documentation</a>.</p>
+<p>Quarkus可以使用 UPX 对本地可执行文件进行压缩，具体内容查看  <a href="./upx.html">UPX 压缩文档</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="separating-java-and-native-image-compilation"><a class="anchor" href="#separating-java-and-native-image-compilation"></a>Separating Java and native image compilation</h3>
+<h3 id="分离-java-和原生镜像编译"><a class="anchor" href="#分离-java-和原生镜像编译"></a>分离 Java 和原生镜像编译</h3>
 <div class="paragraph">
-<p>In certain circumstances, you may want to build the native image in a separate step.
-For example, in a CI/CD pipeline, you may want to have one step to generate the source that will be used for the native image generation and another step to use these sources to actually build the native executable.
-For this use case, you can set the <code>quarkus.package.type=native-sources</code>.
-This will execute the java compilation as if you would have started native compilation (<code>-Pnative</code>), but stops before triggering the actual call to GraalVM&#8217;s <code>native-image</code>.</p>
+<p>在某些情况下，您可能希望单独构建本地可执行文件，例如，在CI/CD中，您可能希望有一个步骤来生成本地可执行文件，而另一步是完成镜像创建。对于此用例您可以设置 <code>quarkus.package.type=native-sources</code> 属性，这样将执行 java 编译，这和镜像编译（<code>Pnative</code>)一样，但会停止 <code>native-image</code> 调用。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1599,7 +1529,7 @@ This will execute the java compilation as if you would have started native compi
 </div>
 </div>
 <div class="paragraph">
-<p>After compilation has finished, you find the build artifact in <code>target/native-sources</code>:</p>
+<p>编译完成后，您可以在 <code>target/native-sources</code> 位置找到构件结果</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1609,9 +1539,7 @@ native-image.args  getting-started-1.0.0-SNAPSHOT-runner.jar lib</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>From the output above one can see that, in addition to the produced jar file and the associated lib directory, a text file named <code>native-image.args</code> was created.
-This file holds all parameters (including the name of the JAR to compile) to pass along to GraalVM&#8217;s <code>native-image</code> command.
-If you have GraalVM installed, you can start the native compilation by executing:</p>
+<p>从上面的输出可以看到，除了生成jar文件和相关的lib目录之外，还创建了名为 <code>native-image.args</code> 的文件。该文件包含所有参数（包括编译Jar的名称）以传递给GraalVM的 <code>native-image</code> 命令。如果您安装了 GraalVM可以通过以下命令开始编译。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1626,10 +1554,7 @@ getting-started-1.0.0-SNAPSHOT-runner.jar</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The process for Gradle is analogous.</p>
-</div>
-<div class="paragraph">
-<p>Running the build process in a container is also possible:</p>
+<p>使用 Gradle 与上述过程类似，也可以在容器中运行构建：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1648,19 +1573,19 @@ docker run \
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Mount the host&#8217;s directory <code>target/native-image</code> to the container&#8217;s <code>/work</code>. Thus, the generated binary will also be written to this directory.</td>
+<td>将 <code>target/native-image</code> 目录挂载到容器的 <code>/work</code> 目录，生成的二进制文件也将写入在该目录</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Switch the working directory to <code>/work</code>, which we have mounted in &lt;1&gt;.</td>
+<td>将工作目录切换到 <code>/work</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Use the <code>quay.io/quarkus/ubi-quarkus-native-image:22.0.0.2-java11</code> docker image introduced in <a href="#multistage-docker">Using a multi-stage Docker build</a> to build the native image.</td>
+<td>使用<a href="#multistage-docker">多阶段 Docker 构建</a> 中介绍的内容进行原生镜像的构建。</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Call <code>native-image</code> with the content of file <code>native-image.args</code> as arguments. We also supply an additional argument to limit the process&#8217;s maximum memory to 4 Gigabytes (this may vary depending on the project being built and the machine building it).</td>
+<td>使用 <code>native-image.args</code> 文件中的参数作为 <code>native-image</code> 命令的参数。我们还提供了一个额外的参数来限制最大使用内存，限制为4GB。</td>
 </tr>
 </table>
 </div>
@@ -1672,15 +1597,14 @@ docker run \
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you are running on a Windows machine, please keep in mind that the binary was created within a Linux docker container.
-Hence, the binary will not be executable on the host Windows machine.</p>
+<p>如果您在Windows机器上运行，请记住二进制文件是在 Linux docker 容器中创建的，因此，该二进制文件无法在Windows机器上运行。</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A high level overview of what the various steps of a CI/CD pipeline would look is the following:</p>
+<p>以下是 CI/DI 中的高级操作</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1696,27 +1620,22 @@ Hence, the binary will not be executable on the host Windows machine.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The environment executing step <code>1</code> only needs Java and Maven (or Gradle) installed, while the environment executing step <code>3</code> only needs a GraalVM installation (including the <code>native-image</code> feature).</p>
+<p>执行步骤 <code>1</code> 只需要安装 Java 和 Maven （或Gradle)，而执行步骤 <code>3</code> 只需要安装 GraalVM （包括 <code>native-image</code> 功能）</p>
 </div>
 <div class="paragraph">
-<p>Depending on what the final desired output of the CI/CD pipeline is, the generated binary might then be used to create a container image.</p>
+<p>根据 CICD 管道的最终期望输出，生成的二进制文件可能会用于创建容器映像。</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="debugging-native-executable"><a class="anchor" href="#debugging-native-executable"></a>Debugging native executable</h2>
+<h2 id="调试本机可执行文件"><a class="anchor" href="#调试本机可执行文件"></a>调试本机可执行文件</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Starting with Oracle GraalVM 20.2 or Mandrel 20.1,
-debug symbols for native executables can be generated for Linux environments
-(Windows support is still under development, macOS is not supported).
-These symbols can be used to debug native executables with tools such as <code>gdb</code>.</p>
+<p>从 Oracle GraalVM 20.2 或 Mandrel 20.1 开始，可以为 Linux 环境生成本机可执行文件的调试符号（Windows 支持仍在开发，不支持macOS）。这些符号可用于 <code>gdb</code> 。</p>
 </div>
 <div class="paragraph">
-<p>To generate debug symbols,
-add <code>-Dquarkus.native.debug.enabled=true</code> flag when generating the native executable.
-You will find the debug symbols for the native executable in a <code>.debug</code> file next to the native executable.</p>
+<p>如果需要生成调试符号，可以使用 <code>-Dquarkus.native.debug.enabled=true</code> 参数配置， <code>.debug</code> 您将在本地可执行文件中找到调试符号。</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1726,8 +1645,7 @@ You will find the debug symbols for the native executable in a <code>.debug</cod
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The generation of the <code>.debug</code> file depends on <code>objcopy</code>.
-On common Linux distributions you will need to install the <code>binutils</code> package:</p>
+<p>文件生成的 <code>.debug</code> 取决于 <code>objcopy</code> 。在Linux发行版上，您需要安装 <code>binutils</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1738,7 +1656,8 @@ sudo apt-get install binutils</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>When <code>objcopy</code> is not available debug symbols are embedded in the executable.</p>
+<p>When <code>objcopy</code> is not available debug symbols are embedded in the executable.
+当 <code>objcopy</code> 不可用时，调试符号将嵌入在可执行文件中。</p>
 </div>
 </td>
 </tr>
@@ -1753,14 +1672,10 @@ to establish the link between the symbols and matching source code.
 It provides a convenient way of making just the necessary sources available to the debugger/IDE when debugging a native executable.</p>
 </div>
 <div class="paragraph">
-<p>Sources for third party jar dependencies, including Quarkus source code,
-are not added to the source cache by default.
-To include those, make sure you invoke <code>mvn dependency:sources</code> first.
-This step is required in order to pull the sources for these dependencies,
-and get them included in the source cache.</p>
+<p>默认情况下，第三方jar依赖（包括Quarkus源码）不会添加到缓存源。通过 <code>mvn dependency:sources</code> 命令将依赖源进行获取</p>
 </div>
 <div class="paragraph">
-<p>The source cache is located in the <code>target/sources</code> folder.</p>
+<p>缓存源文件位于 <code>target/sources</code> 目录</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1770,7 +1685,7 @@ and get them included in the source cache.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If running <code>gdb</code> from a different directory than <code>target</code>, then the sources can be loaded by running:</p>
+<p>如果使用 <code>gdb</code> 从不同目录运行 <code>target</code> 需要通过下面命令添加源</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1778,10 +1693,7 @@ and get them included in the source cache.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>in the <code>gdb</code> prompt.</p>
-</div>
-<div class="paragraph">
-<p>Or start <code>gdb</code> with:</p>
+<p>使用 <code>gdb</code> 启动：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1789,7 +1701,7 @@ and get them included in the source cache.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>e.g.,</p>
+<p>示例：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1801,12 +1713,12 @@ and get them included in the source cache.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>For a more detailed guide about debugging native images please refer to the <a href="native-reference.html">Native Reference Guide</a>.</p>
+<p>有关调试本机可执行文件的内容可以查看 <a href="native-reference-CN.html">原生参考指南</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration-reference"><a class="anchor" href="#configuration-reference"></a>Configuring the Native Executable</h2>
+<h2 id="configuration-reference"><a class="anchor" href="#configuration-reference"></a>配置本机可执行文件</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There are a lot of different configuration options that can affect how the native executable is generated.
@@ -1815,25 +1727,27 @@ These are provided in <code>application.properties</code> the same as any other 
 <div class="paragraph">
 <p>The properties are shown below:</p>
 </div>
+<div class="paragraph">
+<p>有许多不同的配置选项会影响本机可执行文件的生成方式。这些配置可以在 <code>application.properties</code> 文件中与任何其他配置属性一样提供。
+属性如下所示：</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="whats-next"><a class="anchor" href="#whats-next"></a>What&#8217;s next?</h2>
+<h2 id="下一步是什么"><a class="anchor" href="#下一步是什么"></a>下一步是什么？</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide covered the creation of a native (binary) executable for your application.
-It provides an application exhibiting a swift startup time and consuming less memory.
-However, there is much more.</p>
+<p>We recommend continuing the journey with the <a href="deploying-to-kubernetes.html">deployment to Kubernetes and OpenShift</a>.</p>
 </div>
 <div class="paragraph">
-<p>We recommend continuing the journey with the <a href="deploying-to-kubernetes.html">deployment to Kubernetes and OpenShift</a>.</p>
+<p>本教程涵盖了如何为您的应用程序创建本机（二进制）可执行文件。它提供了一种应用程序，该应用程序具有快速启动时间并消耗更少的内存。然而，还有更多。我们建议继续阅读 <a href="deploying-to-kubernetes.html">部署到 Kubernetes 和 OpenShift</a>。</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-22 08:20:43 +0800
+Last updated 2022-03-22 17:14:21 +0800
 </div>
 </div>
 </body>

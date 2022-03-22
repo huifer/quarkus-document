@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>创建第一个应用</title>
+<title>Container Images</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -484,718 +484,217 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>创建第一个应用</h1>
+<h1>Container Images</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>了解如何创建一个 Hello World Quarkus 应用程序，本教程包含如下内容：</p>
+<p>Quarkus provides extensions for building (and pushing) container images. Currently it supports:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>启动一个应用程序</p>
+<p><a href="#jib">Jib</a></p>
 </li>
 <li>
-<p>创建 JAX-RS 端点</p>
+<p><a href="#docker">Docker</a></p>
 </li>
 <li>
-<p>注入 beans</p>
+<p><a href="#s2i">S2I</a></p>
 </li>
 <li>
-<p>功能测试</p>
-</li>
-<li>
-<p>打包程序
-== 前提</p>
+<p><a href="#buildpack">Buildpack</a></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="container-image-extensions"><a class="anchor" href="#container-image-extensions"></a>Container Image extensions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="jib"><a class="anchor" href="#jib"></a>Jib</h3>
+<div class="paragraph">
+<p>The extension <code>quarkus-container-image-jib</code> is powered by <a href="https://github.com/GoogleContainerTools/jib">Jib</a> for performing container image builds.
+The major benefit of using Jib with Quarkus is that all the dependencies (everything found under <code>target/lib</code>) are cached in a different layer than the actual application making rebuilds really fast and small (when it comes to pushing).
+Another important benefit of using this extension is that it provides the ability to create a container image without having to have any dedicated client side tooling (like Docker) or running daemon processes (like the Docker daemon)
+when all that is needed is the ability to push to a container image registry.</p>
 </div>
 <div class="paragraph">
-<p>要完成本教程，您需要：</p>
+<p>To use this feature, add the following extension to your project:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>大约 15 分钟</p>
-</li>
-<li>
-<p>一个编辑器</p>
-</li>
-<li>
-<p>JDK11+并且有环境变量中存在 <code>JAVA_HOME</code></p>
-</li>
-<li>
-<p>Apache Maven 3.8.4</p>
-</li>
-<li>
-<p>如果想要使用Quarkus CLI请查看 <a href="cli-tooling-CN.html">Quarkus CLI</a></p>
-</li>
-</ul>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'container-image-jib'</code></pre>
 </div>
-<div class="admonitionblock tip">
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="container-image-jib"</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew addExtension --extensions="container-image-jib"</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-<div class="title">验证 Maven 是否是希望的 Java</div>
-<div class="paragraph">
-<p>如果您安装了多个 JDK，Maven不一定能够找到您预期的 JDK，从而得到以外的结果，可以通过执行 <code>mvn --version</code> 来验证正在使用的JDK</p>
-</div>
+In situations where all that is needed to build a container image and no push to a registry is necessary (essentially by having set <code>quarkus.container-image.build=true</code> and left <code>quarkus.container-image.push</code> unset - it defaults to <code>false</code>), then this extension creates a container image and registers
+it with the Docker daemon. This means that although Docker isn&#8217;t used to build the image, it is nevertheless necessary. Also note that using this mode, the built container image <strong>will</strong>
+show up when executing <code>docker images</code>.
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="架构"><a class="anchor" href="#架构"></a>1. 架构</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="including-extra-files"><a class="anchor" href="#including-extra-files"></a>Including extra files</h4>
 <div class="paragraph">
-<p>在本教程中，我们创建一个`hello`端点提供服务，为了演示依赖注入，该端点使用一个名为 <code>greeting</code> 的bean</p>
+<p>There are cases when additional files (other than ones produced by the Quarkus build) need to be added to a container image.
+To support these cases, Quarkus copies any file under <code>src/main/jib</code> into the built container image (which is essentially the same
+idea that the Jib Maven and Gradle plugins support).
+For example, the presence of <code>src/main/jib/foo/bar</code> would result in  <code>/foo/bar</code> being added into the container filesystem.</p>
 </div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="./images/getting-started-architecture.png" alt="Architecture">
 </div>
-</div>
+<div class="sect3">
+<h4 id="jvm-debugging"><a class="anchor" href="#jvm-debugging"></a>JVM Debugging</h4>
 <div class="paragraph">
-<p>本教程还包含端点的验证</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="教程源码"><a class="anchor" href="#教程源码"></a>2. 教程源码</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>我们建议您按照<a href="#bootstrapping-the-project">创建Quarkus项目</a>文档的说明一步一步完成应用程序的创建。</p>
+<p>There are cases where the built container image may need to have Java debugging conditionally enabled at runtime.</p>
 </div>
 <div class="paragraph">
-<p>不过，也可以直接使用我们提供的样例工程</p>
+<p>When the base image has not been changed (and therefore <code>ubi8/openjdk-11-runtime</code> or <code>ubi8/openjdk-17-runtime</code> is used), then the <code>quarkus.jib.jvm-additional-arguments</code> configuration property can be used in order to
+make the JVM listen on the debug port at startup.</p>
 </div>
 <div class="paragraph">
-<p>下载或者通过 <code>git clone</code> 命令获取 <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">源代码</a></p>
+<p>The exact configuration is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">git clone https://github.com/quarkusio/quarkus-quickstarts.git</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.jib.jvm-additional-arguments=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=n\\,address=*:5005</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>源代码位于 <code>getting-started</code> <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/main/getting-started">目录</a> 下 .</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="创建程序"><a class="anchor" href="#创建程序"></a>3. 创建程序</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>创建一个 Quarkus 项目，最简单方法是打开终端并运行以下命令：</p>
+<p>Other base images might provide launch scripts that enable debugging when an environment variable is set, in which case you would set than environment variable when launching the container.</p>
 </div>
 <div class="paragraph">
-<p>对与Linux和Mac用户</p>
+<p>Finally, the <code>quarkus.jib.jvm-entrypoint</code> configuration property can be used to completely override the container entry point and can thus be used to either hard code the JVM debug configuration or point to a script that handles the details.</p>
 </div>
-<div class="sidebarblock primary asciidoc-tabs-sync-cli">
-<div class="content">
-<div class="title">CLI</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus create app org.acme:getting-started \
-    --extension=resteasy
-cd getting-started</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>要创建 Gradle 项目，请添加 <code>--gradle</code> 或 <code>--gradle-kotlin-dsl</code> 选项。</p>
-</div>
-<div class="paragraph">
-<p>有关如何安装和使用 Quarkus CLI 的更多信息，请参阅 <a href="cli-tooling.html">Quarkus CLI 教程</a>。</p>
-</div>
-</div>
-</div>
-<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
-<div class="content">
-<div class="title">Maven</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:999-SNAPSHOT:create \
-    -DprojectGroupId=org.acme \
-    -DprojectArtifactId=getting-started \
-    -Dextensions="resteasy"
-cd getting-started</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>要创建 Gradle 项目请添加 <code>-DbuildTool=gradle</code> 或 <code>-DbuildTool=gradle-kotlin-dsl</code> 选项</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>对与Windows用户</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>如果使用CMD，不要使用反斜杠 <code>\</code> 请将内容放在同一行内。</p>
-</li>
-<li>
-<p>如果使用Powershell，请将 <code>-D</code> 的参数信息用双引号将其包裹，例如 <code>"-DprojectArtifactId=getting-started"</code>。</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>项目会生成在 <code>./getting-started</code> 目录中，该项目包含如下内容：</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>一个Maven架构的工程</p>
-</li>
-<li>
-<p>提供 <code>/hello</code> 端点的资源类 <code>org.acme.GreetingResource</code></p>
-</li>
-<li>
-<p>一个与端点相关的单元测试</p>
-</li>
-<li>
-<p>启动应用程序后，在 <code>http:localhost:8080</code> 上访问的登录页面</p>
-</li>
-<li>
-<p>在 <code>src/main/docker</code> 目录下提供进行 <code>native</code> 或者 <code>jvm</code> 部署的 <code>Dockerfile</code> 示例文件</p>
-</li>
-<li>
-<p>应用程序配置文件</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>项目创建完成后查看 <code>pom.xml</code> 文件。
-您会发现导入了 Quarkus BOM 依赖，它允许省略不同Quarkus依赖向上的版本。
-此外，您还可以看到 <code>quarkus-maven-plugin</code> 插件，该插件负责提供打包程序以及开发模式。</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
-            &lt;artifactId&gt;quarkus-bom&lt;/artifactId&gt;
-            &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
-            &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
-            &lt;version&gt;${quarkus-plugin.version}&lt;/version&gt;
-            &lt;extensions&gt;true&lt;/extensions&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;build&lt;/goal&gt;
-                        &lt;goal&gt;generate-code&lt;/goal&gt;
-                        &lt;goal&gt;generate-code-tests&lt;/goal&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>在 Gradle 项目中，您会发现如下设置：</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Quarkus Gradle 插件</p>
-</li>
-<li>
-<p>enforcedPlatform 指令导入Quarkus BOM</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>如果我们专注于依赖部分，您将看到 REST 应用程序的依赖</p>
-</div>
-<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
-<div class="title">pom.xml</div>
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
-    &lt;artifactId&gt;quarkus-resteasy&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-gradle" data-lang="gradle">implementation("io.quarkus:quarkus-resteasy")</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="jax-rs-资源"><a class="anchor" href="#jax-rs-资源"></a>3.1. JAX-RS 资源</h3>
+<h3 id="docker"><a class="anchor" href="#docker"></a>Docker</h3>
 <div class="paragraph">
-<p>在项目创建过程中， <code>src/main/java/org/acme/GreetingResource.java</code> 文件已经被创建，文件内容如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-@Path("/hello")
-public class GreetingResource {
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
-    }
-}</code></pre>
-</div>
+<p>The extension <code>quarkus-container-image-docker</code> is using the Docker binary and the generated Dockerfiles under <code>src/main/docker</code> in order to perform Docker builds.</p>
 </div>
 <div class="paragraph">
-<p>这是一个非常简单的 REST 端点，向 "/hello" 端点发送请求返回"Hello RESTEasy"。</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title">与传统 JAX-RS的区别</div>
-<div class="ulist">
-<ul>
-<li>
-<p>使用 Quarkus 不需要创建 <code>Application</code> 类 ，可以创建，但是没有必要。</p>
-</li>
-<li>
-<p>在多个请求中只会有一个资源实例。</p>
-</li>
-<li>
-<p>您可以通过配置改变只有一个资源实例的现状，通过 <code>*Scoped</code> 注解 (<code>ApplicationScoped</code>, <code>RequestScoped</code> 等) 来进行配置。</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="启动应用"><a class="anchor" href="#启动应用"></a>4. 启动应用</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>现在准备运行我们的应用程序：</p>
+<p>To use this feature, add the following extension to your project.</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'container-image-docker'</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-maven">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="container-image-docker"</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-gradle">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew --console=plain quarkusDev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew addExtension --extensions="container-image-docker"</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">[INFO] --------------------&lt; org.acme:getting-started &gt;---------------------
-[INFO] Building getting-started 1.0.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO]
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ getting-started ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory &lt;path&gt;/getting-started/src/main/resources
-[INFO]
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ getting-started ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 2 source files to &lt;path&gt;/getting-started/target/classes
-[INFO]
-[INFO] --- quarkus-maven-plugin:&lt;version&gt;:dev (default-cli) @ getting-started ---
-Listening for transport dt_socket at address: 5005
-2019-02-28 17:05:22,347 INFO  [io.qua.dep.QuarkusAugmentor] (main) Beginning quarkus augmentation
-2019-02-28 17:05:22,635 INFO  [io.qua.dep.QuarkusAugmentor] (main) Quarkus augmentation completed in 288ms
-2019-02-28 17:05:22,770 INFO  [io.quarkus] (main) Quarkus started in 0.668s. Listening on: http://localhost:8080
-2019-02-28 17:05:22,771 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy]</code></pre>
 </div>
+<div class="sect2">
+<h3 id="s2i"><a class="anchor" href="#s2i"></a>S2I</h3>
+<div class="paragraph">
+<p>The extension <code>quarkus-container-image-s2i</code> is using S2I binary builds in order to perform container builds inside the OpenShift cluster.
+The idea behind the binary build is that you just upload the artifact and its dependencies to the cluster and during the build they will be merged to a builder image (defaults to <code>fabric8/s2i-java</code>).</p>
 </div>
 <div class="paragraph">
-<p>启动完成后，您可以请求提供的端点:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">$ curl -w "\n" http://localhost:8080/hello
-hello</code></pre>
-</div>
+<p>The benefit of this approach, is that it can be combined with OpenShift&#8217;s <code>DeploymentConfig</code> that makes it easy to roll out changes to the cluster.</p>
 </div>
 <div class="paragraph">
-<p>键盘输入 <code>CTRL+C</code> 停止应用程序，或保持运行并享受超快的热重载。</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title">使用 <code>curl -w "\n"</code> 可以自动添加换行符</div>
-<div class="paragraph">
-<p>我们在这个例子中使用 <code>curl -w "\n"</code> 来避免终端打印 '%' 或将结果和下一个命令提示符放在同一行。</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="使用注入"><a class="anchor" href="#使用注入"></a>5. 使用注入</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Quarkus 中的依赖注入基于 ArC，它是为 Quarkus 架构量身定制的基于 CDI 的依赖注入解决方案。</p>
-</div>
-<div class="paragraph">
-<p>如果您不熟悉 CDI，那么我们建议您阅读 <a href="cdi.html">CDI 简介</a> 指南。</p>
-</div>
-<div class="paragraph">
-<p>Quarkus 仅实现了 CDI 功能的一个子集，并附带非标准功能和特定 APIS，您可以在 <a href="cdi-reference-CN.html">上下文和依赖注入指南</a> 中了解更多信息。</p>
-</div>
-<div class="paragraph">
-<p>ArC 是 <code>quarkus-resteasy</code> 的依赖项，在项目创建时已经加入到依赖集合中。</p>
-</div>
-<div class="paragraph">
-<p>让我们修改应用程序并添加一个 bean。</p>
-</div>
-<div class="paragraph">
-<p>创建 <code>src/main/java/org/acme/GreetingService.java</code> 文件，文件内容如下</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
-
-import javax.enterprise.context.ApplicationScoped;
-
-@ApplicationScoped
-public class GreetingService {
-
-    public String greeting(String name) {
-        return "hello " + name;
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>编辑 <code>GreetingResource</code> 类注入 <code>GreetingService</code> 依赖，并使用它创建一个新端点：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
-
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
-
-@Path("/hello")
-public class GreetingResource {
-
-    @Inject
-    GreetingService service;
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/greeting/{name}")
-    public String greeting(@PathParam String name) {
-        return service.greeting(name);
-    }
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "hello";
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>如果您停止了应用程序（请记住，您不必这样做，所有改动将由Quarkus实时重新加载功能自动部署），请使用以下命令重新启动应用程序：</p>
+<p>To use this feature, add the following extension to your project.</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus dev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'container-image-s2i'</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-maven">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:dev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="container-image-s2i"</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-gradle">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew --console=plain quarkusDev</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew addExtension --extensions="container-image-s2i"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>然后检查端点是否按预期返回 <code>hello quarkus</code>：</p>
+<p>S2I builds require creating a <code>BuildConfig</code> and two <code>ImageStream</code> resources, one for the builder image and one for the output image.
+The creation of such objects is being taken care of by the Quarkus Kubernetes extension.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buildpack"><a class="anchor" href="#buildpack"></a>Buildpack</h3>
+<div class="paragraph">
+<p>The extension <code>quarkus-container-image-buildpack</code> is using buildpacks in order to perform container image builds.
+Under the hood buildpacks will use a Docker daemon for the actual build.
+While buildpacks support alternatives to Docker, this extension will only work with Docker.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the user will have to configure which build image to use (no default image is provided). For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">$ curl -w "\n" http://localhost:8080/hello/greeting/quarkus
-hello quarkus</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="开发模式"><a class="anchor" href="#开发模式"></a>6. 开发模式</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>quarkus:dev</code> 命令会在开发模式下启动 Quarkus 应用。它可以后台编译实现并实时重新加载，这意味着当您修改Java文件、资源文件和刷新浏览器，这些更改将会自动生效。这也适用于配置属性文件等资源文件。</p>
-</div>
-<div class="paragraph">
-<p>刷新浏览器将会触发Quarkus对工作空间的扫描，如果检测到任何更改，则重新编译 Java 文件并重新部署应用程序，然后，重新部署的应用程序会为您的请求提供服务。如果编译或部署有任何问题，错误页面会通知您。</p>
-</div>
-<div class="paragraph">
-<p>Quarkus会监听调试端口 <code>5005</code> ，如果您想在运行前连接到该端口可以在命令行中输入 <code>-Dsuspend</code> 参数。如果不想要调试可以使用 <code>-Ddebug=false</code> 命令关闭调试。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="测试"><a class="anchor" href="#测试"></a>7. 测试</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>到目前为止一切都很好，但是以防万一，需要做好单元测试。</p>
-</div>
-<div class="paragraph">
-<p>在生成的项目文件中，您可以看到 2 个测试依赖项：</p>
-</div>
-<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
-<div class="title">pom.xml</div>
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
-    &lt;artifactId&gt;quarkus-junit5&lt;/artifactId&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;io.rest-assured&lt;/groupId&gt;
-    &lt;artifactId&gt;rest-assured&lt;/artifactId&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
-<div class="title">build.gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-gradle" data-lang="gradle">testImplementation("io.quarkus:quarkus-junit5")
-testImplementation("io.rest-assured:rest-assured")</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.buildpack.jvm-builder-image=&lt;jvm builder image&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Quarkus 支持 <a href="https://junit.org/junit5/">JUnit 5</a> 测试。</p>
-</div>
-<div class="paragraph">
-<p>因此，对于 Maven，必须设置 https:maven.apache.orgsurefiremaven-surefire-plugin[Surefire Maven Plugin] 的版本，因为默认版本不支持 JUnit 5：</p>
+<p>or for native:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
-    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-    &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
-    &lt;configuration&gt;
-       &lt;systemPropertyVariables&gt;
-          &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
-          &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
-       &lt;/systemPropertyVariables&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.buildpack.native-builder-image=&lt;native builder image&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>我们还设置了 <code>java.util.logging</code> 系统属性以确保测使用正确的日志管理器和 <code>maven.home</code> 确保配置信息来自 <code>{maven.home}confsettings.xml</code> 文件中的自定义配置（如果有）。</p>
-</div>
-<div class="paragraph">
-<p>生成的项目包含一个简单的测试。
-编辑 <code>srctestjavaorgacmeGreetingResourceTest.java</code> 内容如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme;
-
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-
-@QuarkusTest  <i class="conum" data-value="1"></i><b>(1)</b>
-public class GreetingResourceTest {
-
-    @Test
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)    <i class="conum" data-value="2"></i><b>(2)</b>
-             .body(is("hello"));
-    }
-
-    @Test
-    public void testGreetingEndpoint() {
-        String uuid = UUID.randomUUID().toString();
-        given()
-          .pathParam("name", uuid)
-          .when().get("/hello/greeting/{name}")
-          .then()
-            .statusCode(200)
-            .body(is("hello " + uuid));
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>通过使用 <code>QuarkusTest</code> 注解表示正在使用 Quarkus 单元测试</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>检查HTTP响应状态码和内容</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>这些测试使用 http:rest-assured.io[RestAssured] 库，但请随意使用您最喜欢的库。</p>
-</div>
-<div class="paragraph">
-<p>您可以使用 Maven 命令执行测试：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw test</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>您也可以直接从 IDE 运行测试（确保先停止应用程序）。</p>
-</div>
-<div class="paragraph">
-<p>默认情况下，测试将在端口 8081 上运行，以免与正在运行的应用程序冲突。我们自动配置 RestAssured 以使用此端口。如果您想使用不同的客户端，您应该使用 <code>@TestHTTPResource</code> 注解将被测应用的URL直接注入到测试类的一个字段中。
-该字段的类型可以是 <code>String</code> 、 <code>URL</code> 或 <code>URI</code>。这个注解也可以被赋予一个测试路径的值。</p>
-</div>
-<div class="paragraph">
-<p>例如，如果想测试映射到 <code>myservlet</code> 的 Servlet，我只需将以下内容添加到我的测试中：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@TestHTTPResource("/myservlet")
-URL testUrl;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>测试端口可以通过 <code>quarkus.http.test-port</code> 配置进行控制。 Quarkus 还创建了一个名为 <code>test.url</code> 的属性，在无法使用注入的情况下将其设置为基本测试 URL。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="使用多模块项目或外部模块"><a class="anchor" href="#使用多模块项目或外部模块"></a>8. 使用多模块项目或外部模块</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Quarkus 在构建时大量使用 https:github.comwildflyjandex[Jandex] 来发现各种类或注解。能够立即识别的应用是 CDI bean 。
-因此，如果未正确配置Jandex数据， Quarkus 扩展大多数情况下无法正常运行。</p>
-</div>
-<div class="paragraph">
-<p>由于使用 Maven 和 Gradle 插件，该索引是默认在创建 Quarkus 项目时配置完成。</p>
-</div>
-<div class="paragraph">
-<p>但是，在使用多模块项目时，请务必阅读 <a href="maven-tooling-CN.html#multi-module-maven">Maven</a> 或 <a href="gradle-tooling-CN.html#multi-module-maven">Gradle</a>。</p>
-</div>
-<div class="paragraph">
-<p>如果您计划使用外部模块（例如，一个第三方库），如果您可以修改这些外部依赖，那么可以自增加 Jandex 插件或者通过 <code>application.properties</code> 中的 quarkus.index-dependency` 属性(这个操作在无法修改外部依赖的时候很有用)</p>
-</div>
-<div class="paragraph">
-<p>请务必阅读 CDI 指南的 <a href="cdi-reference-CN.html#bean_discovery">Bean Discovery</a>  部分以获取更多信息。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="打包和运行应用程序"><a class="anchor" href="#打包和运行应用程序"></a>9. 打包和运行应用程序</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>该应用程序使用以下方式打包：</p>
+<p>To use this feature, add the following extension to your project.</p>
 </div>
 <div class="listingblock primary asciidoc-tabs-sync-cli">
 <div class="title">CLI</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus extension add 'container-image-buildpack'</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-maven">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw quarkus:add-extension -Dextensions="container-image-buildpack"</code></pre>
 </div>
 </div>
 <div class="listingblock secondary asciidoc-tabs-sync-gradle">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew addExtension --extensions="container-image-buildpack"</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>打包结果会在 <code>/target</code> 文件夹中：</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>getting-started-1.0.0-SNAPSHOT.jar</code>  仅包含项目的类和资源，它是Maven构建生成的常规文件， 它是不可运行的jar。</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>quarkus-app</code> 文件夹下包含 <code>quarkus-run.jar</code> 文件 ，它是一个可执行的jar ，注意他不是一个完整的jar，因为依赖项会被赋值到 <code>quarkus-app/lib/</code> 文件夹</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>您可以使用一下方式运行应用程序: <code>java -jar target/quarkus-app/quarkus-run.jar</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1204,10 +703,37 @@ URL testUrl;</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-如果您想在某个地方（通常在容器中）部署应用程序，则需要部署整个 <code>quarkus-app</code> 目录。
+When using the buildpack container image extension it is strongly advised to avoid adding <code>quarkus.container-image.build=true</code> in your properties configuration as it might trigger nesting builds within builds. It&#8217;s preferable to pass it as an option to the build command instead.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building"><a class="anchor" href="#building"></a>Building</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To build a container image for your project, <code>quarkus.container-image.build=true</code> needs to be set using any of the ways that Quarkus supports.</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build -Dquarkus.container-image.build=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package -Dquarkus.container-image.build=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build -Dquarkus.container-image.build=true</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1216,7 +742,7 @@ URL testUrl;</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-在运行程序之前，请不要忘记停止热重载模式(键盘输入 <code>CTRL+C</code> )，否则会出现端口冲突。
+If you ever want to build a native container image and already have an existing native image you can set <code>-Dquarkus.native.reuse-existing=true</code> and the native image build will not be re-run.
 </td>
 </tr>
 </table>
@@ -1224,50 +750,121 @@ URL testUrl;</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="banner"><a class="anchor" href="#banner"></a>10. 配置 Banner</h2>
+<h2 id="pushing"><a class="anchor" href="#pushing"></a>Pushing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default when a Quarkus application starts (in regular or dev mode), it will display an ASCII art banner. The banner can be disabled by setting <code>quarkus.banner.enabled=false</code> in <code>application.properties</code>,
-by setting the <code>-Dquarkus.banner.enabled=false</code> Java System Property, or by setting the <code>QUARKUS_BANNER_ENABLED</code> environment variable to <code>false</code>.
-Furthermore, users can supply a custom banner by placing the banner file in <code>src/main/resources</code> and configuring <code>quarkus.banner.path=name-of-file</code> in <code>application.properties</code>.</p>
+<p>To push a container image for your project, <code>quarkus.container-image.push=true</code> needs to be set using any of the ways that Quarkus supports.</p>
 </div>
-<div class="paragraph">
-<p>默认情况下，当Quarkus应用程序启动（在常规或开发模式下）时，它将显示 ASCII 表示的Banner。您可以在 <code>application.properties</code> 配置文件中添加 <code>quarkus.banner.enabled=false</code> 属性或者在启动时配置 <code>-Dquarkus.banner.enabled=false</code> 或者设置系统环境变量 <code>QUARKUS_BANNER_ENABLED</code> 为 <code>false</code> 来禁用 Banner。
-此外，您可以通过将 Banner 文件放在 <code>src/main/resources</code> 路径下，并且在  <code>application.properties</code> 配置文件中添加 <code>quarkus.banner.path=name-of-file</code> 来修改默认的 ASCII Banner。</p>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build -Dquarkus.container-image.push=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package -Dquarkus.container-image.push=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build -Dquarkus.container-image.push=true</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no registry is set (using <code>quarkus.container-image.registry</code>) then <code>docker.io</code> will be used as the default.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="下一步是什么"><a class="anchor" href="#下一步是什么"></a>11. 下一步是什么？</h2>
+<h2 id="selecting-among-multiple-extensions"><a class="anchor" href="#selecting-among-multiple-extensions"></a>Selecting among multiple extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>本教程介绍了如何使用 Quarkus 创建应用程序。然而，还有很多内容没有讲述。建议您继续阅读 <a href="building-native-image-CN.html">构建本机可执行文件教程</a> ，您将在其中了解如何创建本机可执行文件，并将其打包到容器中。如果您对响应式感兴趣，我们推荐您阅读 <a href="getting-started-reactive-CN.html">响应式入门指南</a> ，您可以在其中了解如何使用 Quarkus 实现响应式应用程序。</p>
+<p>It does not make sense to use multiple extension as part of the same build. When multiple container image extensions are present, an error will be raised to inform the user. The user can either remove the unneeded extensions or select one using <code>application.properties</code>.</p>
 </div>
 <div class="paragraph">
-<p>在 <a href="tooling-CN.html">工具指南</a> 中将解释如下内容：</p>
+<p>For example, if both <code>container-image-docker</code> and <code>container-image-s2i</code> are present and the user needs to use <code>container-image-docker</code>:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>在单个命令中搭建项目</p>
-</li>
-<li>
-<p>启用开发模式（热加载）</p>
-</li>
-<li>
-<p>在您喜欢的IDE中导入项目</p>
-</li>
-<li>
-<p>还有更多</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.container-image.builder=docker</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customizing"><a class="anchor" href="#customizing"></a>Customizing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following properties can be used to customize the container image build process.</p>
+</div>
+<div class="sect2">
+<h3 id="container-image-options"><a class="anchor" href="#container-image-options"></a>Container Image Options</h3>
+<div class="sect3">
+<h4 id="using-ci-environments"><a class="anchor" href="#using-ci-environments"></a>Using CI Environments</h4>
+<div class="paragraph">
+<p>Various CI environments provide a ready to use container-image registry which can be combined with the container-image Quarkus extensions in order to
+effortlessly create and push a Quarkus application to said registry.</p>
+</div>
+<div class="paragraph">
+<p>For example, <a href="https://gitlab.com/">GitLab</a> provides such a registry and in the provided CI environment,
+makes available the <code>CI_REGISTRY_IMAGE</code> environment variable
+(see GitLab&#8217;s <a href="https://docs.gitlab.com/ee/ci/variables/">documentation</a>) for more information), which can be used in Quarkus like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.container-image.image=${CI_REGISTRY_IMAGE}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="config.html#combine-property-env-var">this</a> for more information on how to combine properties with environment variables.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jib-options"><a class="anchor" href="#jib-options"></a>Jib Options</h3>
+<div class="paragraph">
+<p>In addition to the generic container image options, the <code>container-image-jib</code> also provides the following options:</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="docker-options"><a class="anchor" href="#docker-options"></a>Docker Options</h3>
+<div class="paragraph">
+<p>In addition to the generic container image options, the <code>container-image-docker</code> also provides the following options:</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="s2i-options"><a class="anchor" href="#s2i-options"></a>S2I  Options</h3>
+<div class="paragraph">
+<p>In addition to the generic container image options, the <code>container-image-s2i</code> also provides the following options:</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-22 10:17:57 +0800
+Last updated 2022-03-17 11:27:40 +0800
 </div>
 </div>
 </body>

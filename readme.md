@@ -3,7 +3,8 @@
 
 
 ## 文档目录
-- 创建第一个Quarkus应用 : [中文](./generated-docs/getting-started-CN.html) [英文](./generated-docs/getting-started.html)
-- Quarkus CLI使用: [中文](./generated-docs/cli-tooling-CN.html) [英文](./generated-docs/cli-tooling.html)
+- 创建第一个Quarkus应用 : [中文](./generated-docs/getting-started-CN.html) , [英文](./generated-docs/getting-started.html)
+- Quarkus CLI使用: [中文](./generated-docs/cli-tooling-CN.html) , [英文](./generated-docs/cli-tooling.html)
+- 构建本机可执行文件: [中文](./generated-docs/building-native-image-CN.html) , [英文](./generated-docs/building-native-image.html)
 ## LICENSE
 本仓库采用 Apache License 2.0 

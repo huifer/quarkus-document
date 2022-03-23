@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>响应式入门指南</title>
+<title>Quarkus Reactive Architecture</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -484,98 +484,138 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>响应式入门指南</h1>
+<h1>Quarkus Reactive Architecture</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Reactive</em> 是一种用于构建强壮、高效和高并发系统的方式。使用 Reactive 使您可以处理比传统方式更多的数据，同时更加高效的使用资源（CPU和内存），同时还能对故障做出优雅的反应。</p>
+<p>Quarkus is reactive.
+It&#8217;s even more than this: Quarkus unifies reactive and imperative programming.
+You don&#8217;t even have to choose: you can implement reactive components and imperative components then combine them inside the very <strong>same</strong> application.
+No need to use different stacks, tooling or APIs; Quarkus bridges both worlds.</p>
 </div>
 <div class="paragraph">
-<p>Quarkus 是一个响应式框架( Reactive 框架)。
-从一开始，响应式一直是 Quarkus 框架的设计原则，它包括许多响应式功能并提供充足的生态系统。</p>
-</div>
-<div class="paragraph">
-<p>本教程不是一片关于什么是响应式以及Quarkus如何启用响应式架构的深入文章。如果您想了解有关这些主题的信息可以查看  <a href="quarkus-reactive-architecture-CN.html">响应式架构指南</a> ，其中介绍了 Quarkus 响应式生态的相关内容。</p>
-</div>
-<div class="paragraph">
-<p>在本教程中，我们将帮助您开始使用 Quarkus 中的响应式功能，我们将实现一个简单的 CRUD 程序 ，本教程与 <a href="hibernate-orm-panache-CN.html">Hibernate 和 Panache 教程</a> 不同，本教程着重在响应式特性的使用教学。</p>
-</div>
-<div class="paragraph">
-<p>本教程包含如下内容：</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>使用 quarkus 编写响应式相关的 CRUD 应用程序。</p>
-</li>
-<li>
-<p>使用 Hibernate Reactive 和 Panache 以响应式的方式进行数据库交互。</p>
-</li>
-<li>
-<p>使用 RESTEasy Reactive 实现 HTTP API 。</p>
-</li>
-<li>
-<p>打包和运行应用程序。</p>
-</li>
-</ul>
+<p>This page will explain what we mean by <em>Reactive</em> and how Quarkus enables it.
+We will also discuss execution and programming models.
+Finally, we will list the Quarkus extensions offering reactive facets.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="前提"><a class="anchor" href="#前提"></a>前提</h2>
+<h2 id="what-is-reactive"><a class="anchor" href="#what-is-reactive"></a>What is <em>Reactive</em>?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>要完成本教程，您需要：</p>
+<p>The <em>Reactive</em> word is overloaded and associated with many concepts such as back-pressure, monads, or event-driven architecture.
+So, let&#8217;s clarify what we mean by <em>Reactive</em>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>大约 15 分钟</p>
-</li>
-<li>
-<p>一个编辑器</p>
-</li>
-<li>
-<p>JDK11+并且有环境变量中存在 <code>JAVA_HOME</code></p>
-</li>
-<li>
-<p>Apache Maven 3.8.4</p>
-</li>
-<li>
-<p>如果想要使用Quarkus CLI请查看 <a href="cli-tooling-CN.html">Quarkus CLI</a></p>
-</li>
-<li>
-<p>可选安装 Mandrel 或者 GraalVM，相关内容可以查看 <a href="building-native-image-CN.html#configuring-graalvm">GraalVM配置说明</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><em>Reactive</em> is a set of principles and guidelines to build responsive distributed systems and applications.
+The <a href="https://www.reactivemanifesto.org/">Reactive Manifesto</a> characterizes <em>Reactive Systems</em> as distributed systems having four characteristics:</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-验证 Maven 使用的是您期望的 Java 版本。如果宁安装了多个JDK，请确保Maven使用的是您期望的那个。您可以通过运行 <code>mvn --version</code> 来查看当前Maven所使用的JDK版本
-</td>
-</tr>
-</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Responsive - they must respond in a timely fashion</p>
+</li>
+<li>
+<p>Elastic - they adapt themselves to the fluctuating load</p>
+</li>
+<li>
+<p>Resilient - they handle failures gracefully</p>
+</li>
+<li>
+<p>Asynchronous message passing - the component of a reactive system interact using messages</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/reactive-systems.png" alt="Reactive Systems Pillars" width="50%">
+</div>
+</div>
+<div class="paragraph">
+<p>In addition to this, the <a href="https://principles.reactive.foundation/">Reactive Principles white paper</a> lists a set of rules and patterns to help the construction of reactive systems.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="命令式对比响应式线程相关"><a class="anchor" href="#命令式对比响应式线程相关"></a>命令式对比响应式：线程相关</h2>
+<h2 id="reactive-systems-and-quarkus"><a class="anchor" href="#reactive-systems-and-quarkus"></a>Reactive Systems and Quarkus</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>如上所述，在本教程中我们将实现一个反应式 CRUD 应用程序。但是您可能想知道响应式与命令式相比有什么区别和好处。</p>
+<p>Reactive System is an architectural style that can be summarized by: distributed systems done right.
+Relying on asynchronous message passing helps enforce the loose coupling (both in terms of space and time) between the different components.
+You send messages to virtual destinations. The receiver can be located anywhere, or even not yet exist at the time of the message dispatch.
+The elasticity pillar allows scaling up and down individual components according to the load.
+Elasticity also provides redundancy, which helps with the resilience pillar.
+Failures are inevitable.
+Components forming a reactive system must handle them gracefully, avoid cascading failures, and self-adapt themselves.</p>
 </div>
 <div class="paragraph">
-<p>为了更好的理解和对比，我们需要解释响应式和命令式执行模型之间区别。</p>
+<p>A responsive system can continue to handle the request while facing failures and under fluctuating load.
+Quarkus has been tailored for that.
+It provides features that will help you design, implement and operate reactive systems.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reactive-applications"><a class="anchor" href="#reactive-applications"></a>Reactive Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus is not only going to help you build reactive systems.
+It&#8217;s also going to make sure that each constituent enforces the reactive principles and is highly efficient.</p>
 </div>
 <div class="paragraph">
-<p>在命令式方法中，框架分配一个线程来处理请求。因此，请求的整个处理工作都在这个线程上执行。这个模型不能很好的扩展。如果需要处理多个并发请求，您将需要多个线程，因此您的应用程序并发性能收到线程数量的限制。 此外，一旦您的代码与远程服务交互，这些线程将会被阻塞，因此它会导致资源的低效使用，因为您需要更多的线程处理，并且每个线程都会映射到OS线程（操作系统线程），因此在内存和CPU方面都会增加成本。</p>
+<p>Efficiency is essential, especially in the Cloud and in containerized environments.
+Resources, such as CPU and memory, are shared among multiple applications.
+Greedy applications that consume lots of memory are inefficient and put penalties on sibling applications.
+You may need to request more memory, CPU, or bigger virtual machines.
+It either increases your monthly Cloud bill or decreases your deployment density.</p>
+</div>
+<div class="paragraph">
+<p>I/O is an essential part of almost any modern system.
+Whether it is to call a remote service, interact with a database, or send messages to a broker, there are all I/O-based operations.
+Efficiently handling them is critical to avoid greedy applications.
+For this reason, Quarkus uses non-blocking I/O, which allows a low number of OS threads to manage many concurrent I/Os.
+As a result, Quarkus applications allow for higher concurrency, use less memory, and improve the deployment density.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-does-quarkus-enable-reactive"><a class="anchor" href="#how-does-quarkus-enable-reactive"></a>How does Quarkus enable Reactive?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Under the hood, Quarkus has a reactive engine.
+This engine, powered by Eclipse Vert.x and Netty, handles the non-blocking I/O interactions.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/quarkus-reactive-core.png" alt="Quarkus Reactive Core" width="50%">
+</div>
+</div>
+<div class="paragraph">
+<p>Quarkus extensions and the application code can use this engine to orchestrate I/O interactions, interact with databases, send and receive messages, and so on.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reactive-execution-model"><a class="anchor" href="#reactive-execution-model"></a>Reactive execution model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>While using non-blocking I/O has tremendous benefits, it does not come for free.
+Indeed, it introduces a new execution model quite different from the one used by classical frameworks.</p>
+</div>
+<div class="paragraph">
+<p>Traditional applications use blocking I/O and an imperative (sequential) execution model.
+So, in an application exposing an HTTP endpoint, each HTTP request is associated with a thread.
+In general, that thread is going to process the whole request and the thread is tied up serving only that request for the duration of that request.
+When the processing requires interacting with a remote service, it uses blocking I/O.
+The thread is blocked, waiting for the result of the I/O.
+While that model is simple to develop with (as everything is sequential), it has a few drawbacks.
+To handle concurrent requests, you need multiple threads, so, you need to introduce a worker thread pool.
+The size of this pool constrains the concurrency of the application.
+In addition, each thread has a cost in terms of memory and CPU.
+Large thread pools result in greedy applications.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -583,392 +623,218 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>响应式模型依赖于非阻塞I/O和不同的执行模型，非阻塞I/O提供了一种处理并发I/O更有效的方法，在响应式模型中会创建一个最少数量的I/O线程，用于处理I/O并发请求。使用这样的模型，请求处理不会委托给工作线程，而是直接使用这些I/O线程。它节省了内存和CPU，因为不需要创建工作线程来处理请求。他还提高了并发性，因为它消除了对线程数量的限制。最后，由于减少了线程切换的次数，它还提高了响应时间。</p>
+<p>As we have seen above, non-blocking I/O avoids that problem.
+A few threads can handle many concurrent I/O.
+If we go back to the HTTP endpoint example, the request processing is executed on one of these I/O threads.
+Because there are only a few of them, you need to use them wisely.
+When the request processing needs to call a remote service, you can&#8217;t block the thread anymore.
+You schedule the I/O and pass a continuation, i.e., the code to execute once the I/O completes.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
 <img src="./images/reactive-thread.png" alt="Reactive Execution Model and I/O Threads" width="50%">
 </div>
 </div>
+<div class="paragraph">
+<p>This model is much more efficient, but we need a way to write code to express these continuations.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="从-sequential-转换到-continuation-风格"><a class="anchor" href="#从-sequential-转换到-continuation-风格"></a>从 sequential 转换到 continuation 风格</h2>
+<h2 id="reactive-programming-models"><a class="anchor" href="#reactive-programming-models"></a>Reactive Programming Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>对于响应式模型，请求是使用 I/O线程处理的，但这不是全部。一个I/O线程可以处理多个并发请求。这是与命令式之间最显著的差别。</p>
-</div>
-<div class="paragraph">
-<p>档处理请求时需要与远程服务（如 HTTP API 或数据库）交互时，它不会阻塞等待。相反它调度 I/O操作并且附加一个延续（continuation）操作，即请求处理剩下的代码。这种延续操作可以作为回调（使用 I/O 结果调用的函数），或使用更高级的构造，例如响应式编程或协程。不管延续操作如何表达，重要的是释放I/O线程，因此该线程可以用于处理另一个请求。当调度的I/O完成时，I/O线程继执行，并且处理挂起的请求。</p>
-</div>
-<div class="paragraph">
-<p>所以，与I/O阻塞执行的命令式不同，响应式设计切换到了延续操作的设计，其中I/O线程被释放，并在I/O操作完成时执行延续操作。因此，I/O线程可以处理多个并发请求，从而提高应用程序的整体并发性。</p>
-</div>
-<div class="paragraph">
-<p>但是有一个问题，我们需要编写一种传递延续操作的代码，有很多方法可以做到这一点，在 Quarkus 中我们建议您使用下面工具</p>
+<p>The Quarkus architecture, based on non-blocking I/O and message passing, allows multiple supporting reactive development models that are all different in how they express continuations.
+The two main ways to write reactive code with Quarkus are:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Mutiny - 一个直观且基于事件驱动的响应式编程库。</p>
+<p>Reactive Programming with <a href="https://smallrye.io/smallrye-mutiny">Mutiny</a>, and</p>
 </li>
 <li>
-<p>Kotlin co-routines - 一种以顺序方式编写延续操作的编程库。</p>
+<p>Coroutines with Kotlin</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>在本教程中将使用 Mutiny ，想要了解更多关于 Mutiny 的信息可以查看  <a href="mutiny-primer-CN.html">Mutiny 文档</a>.</p>
+<p>First, <a href="https://smallrye.io/smallrye-mutiny">Mutiny</a> is an intuitive, event-driven reactive programming library.
+With Mutiny, you write event-driven code.
+Your code is a pipeline receiving events and processing them.
+Each stage in your pipeline can be seen as a continuation, as Mutiny invokes them when the upstream part of the pipeline emits an event.</p>
 </div>
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>The Mutiny API has been tailored to improve the readability and maintenance of the codebase.
+Mutiny provides everything you need to orchestrate asynchronous actions, including concurrent execution.
+It also offers a large set of operators to manipulate individual events and streams of events.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-JDK 将支持 Project Loom ，并提出基于虚拟线程的模型，一旦可用， Quarkus 将准备支持 Project Loom 。
+Find more info about Mutiny and its usage in Quarkus on <a href="mutiny-primer.html">Mutiny support documentation</a>.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Co-routines are a way to write asynchronous code sequentially.
+It suspends the execution of the code during I/O and registers the rest of the code as the continuation.
+Kotlin coroutines are great when developing in Kotlin and only need to express sequential compositions (chain of co-dependent asynchronous tasks).</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="创建-reactive-fruits-应用程序"><a class="anchor" href="#创建-reactive-fruits-应用程序"></a>创建 Reactive Fruits  应用程序</h2>
+<h2 id="unification-of-imperative-and-reactive"><a class="anchor" href="#unification-of-imperative-and-reactive"></a>Unification of Imperative and Reactive</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>接下来将介绍如何使用 Quarkus 开发一个 CRUD 应用程序，它将使用 I/O 线程来处理HTTP请求、处理数据库交互、处理结果。换句话说：使用 Quarkus 开发一个响应式的 CRUD 应用程序。</p>
+<p>Changing your development model is not simple.
+It requires relearning and restructuring code in a non-blocking fashion.
+Fortunately, you don&#8217;t have to do it!</p>
 </div>
 <div class="paragraph">
-<p>虽然我们建议您按照步骤说明一步步进行操作，但是您可以在 <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/main/hibernate-reactive-panache-quickstart" class="bare">https://github.com/quarkusio/quarkus-quickstarts/tree/main/hibernate-reactive-panache-quickstart</a> 上找到源代码。</p>
-</div>
-<div class="paragraph">
-<p>首先，打开 <a href="https://code.quarkus.io">code.quarkus.io</a> 网站，并选择一下扩展：</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>RESTEasy Reactive Jackson</p>
-</li>
-<li>
-<p>Hibernate Reactive with Panache</p>
-</li>
-<li>
-<p>Reactive PostgreSQL client</p>
-</li>
-</ol>
+<p>Quarkus is inherently reactive thanks to its reactive engine.
+But, you, as an application developer, don&#8217;t have to write reactive code.
+Quarkus unifies reactive and imperative.
+It means that you can write traditional blocking applications on Quarkus.
+But how do you avoid blocking the I/O threads?
+Quarkus implements a <a href="https://en.wikipedia.org/wiki/Proactor_pattern">proactor pattern</a> that switches to worker thread when needed.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="./images/reactive-guide-code.png" alt="Extensions to select in https://code.quarkus.io" width="90%">
+<img src="./images/proactor-pattern.png" alt="The proactor pattern in Quarkus" width="50%">
 </div>
 </div>
 <div class="paragraph">
-<p>最后一个扩展式 PostgreSQL 的响应式数据库驱动程序。Hibernate Reactive 使用该驱动程序与数据库进行交互，不会阻塞调用者线程。</p>
+<p>Thanks to hints in your code (such as the <code>@Blocking</code> and <code>@NonBlocking</code> annotations), Quarkus extensions can decide when the application logic is blocking or non-blocking.
+If we go back to the HTTP endpoint example from above, the HTTP request is always received on an I/O thread.
+Then, the extension dispatching that request to your code decides whether to call it on the I/O thread, avoiding thread switches, or on a worker thread.
+This decision depends on the extension.
+For example, the RESTEasy Reactive extension uses the <code>@Blocking</code> annotation to determine if the method needs to be invoked using a worker thread, or if it can be invoked using the I/O thread.</p>
 </div>
 <div class="paragraph">
-<p>选择拓展后，单击 Generate your application 按钮 ，下载 zip 文件，解压缩下载文件并且在您喜欢的 IDE 中打开代码。</p>
+<p>Quarkus is pragmatic and versatile.
+You decide how to develop and execute your application.
+You can use the imperative way, the reactive way, or mix them, using reactive on the parts of the application under high concurrency.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="响应式下的-panache-实体"><a class="anchor" href="#响应式下的-panache-实体"></a>响应式下的 Panache 实体</h2>
+<h2 id="quarkus-extensions-enabling-reactive"><a class="anchor" href="#quarkus-extensions-enabling-reactive"></a>Quarkus Extensions enabling Reactive</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s start with the <code>Fruit</code> entity.Create the <code>src/main/java/org/acme/hibernate/orm/panache/Fruit.java</code> file with the following content:
-让我们从编写实体开始，创建 <code>Fruit</code> 实体，将其放在 <code>src/main/java/org/acme/hibernate/orm/panache/Fruit.java</code> 路径下，文件内容如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.hibernate.orm.panache;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;  <i class="conum" data-value="1"></i><b>(1)</b>
-
-@Entity
-@Cacheable
-public class Fruit extends PanacheEntity {
-
-	 @Column(length = 40, unique = true)
-	 public String name;
-
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>确保导入 <code>PanacheEntity</code> 。</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>这个类代表 <code>Fruits</code> ，它是具有单个字段( <code>name</code> ) 的简单实体，请注意，它继承了 <code>io.quarkus.hibernate.reactive.panache.PanacheEntity</code> 类</p>
-</div>
-<div class="paragraph">
-<p>在进行后续操作钱，打开 <code>src/main/resource/application.properties</code> 文件写入如下内容</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">quarkus.datasource.db-kind=postgresql
-quarkus.hibernate-orm.database.generation=drop-and-create</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>它表示应用程序将使用 PostgreSQL ，处理模式为删除创建。</p>
-</div>
-<div class="paragraph">
-<p>在 <code>`src/main/resource</code> 目录下创建 <code>import.sql</code> 文件，向该文件添加sql语句，避免在开发模式下从一个空数据库开始，文件内容如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-text" data-lang="text">INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Cherry');
-INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Apple');
-INSERT INTO fruit(id, name) VALUES (nextval('hibernate_sequence'), 'Banana');</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>在终端中可以使用 <code>./mvnw quarkus:dev</code> 命令以开发模式启动应用程序，Quarkus 会自动为您连接数据库并创建数据。现在我们只需要实现 HTTP 端点。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="响应式下的资源"><a class="anchor" href="#响应式下的资源"></a>响应式下的资源</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>由于与数据库的交互是非阻塞和异步的，所以我们需要使用异步构造来实现我们的 HTTP 资源，Quarkus 使用 Mutiny 作为响应式编程模型。因此，它支持从 HTTP 端点返回 Mutiny类型（ <code>Mutiny</code> 和 <code>Uni</code> ），在 Fruit Panache 实体对象中提供了相关方法，下面只需要将方法调用即可实现 HTTP 端点。</p>
-</div>
-<div class="paragraph">
-<p>创建 <code>src/main/java/org/acme/hibernate/orm/panache/FruitResource.java</code> 文件，内容如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package org.acme.hibernate.orm.panache;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.Path;
-
-@Path("/fruits")
-@ApplicationScoped
-public class FruitResource {
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>让我们从 <code>getAll</code> 方法开始， <code>getAll</code> 方法将返回存储在数据库 fruits 表中的所有数据，在 <code>FruitResource</code> 添加如下代码。</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@GET
-public Uni&lt;List&lt;Fruit&gt;&gt; get() {
-    return Fruit.listAll(Sort.by("name"));
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>访问 <a href="http://localhost:8080/fruits" class="bare">http://localhost:8080/fruits</a> 调用 <code>get</code> 方法，响应如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">[{"id":2,"name":"Apple"},{"id":3,"name":"Banana"},{"id":1,"name":"Cherry"},{"id":4,"name":"peach"}]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>我们得到了预期的 JSON 数组。 RESTEasy Reactive 会自动将列表映射到 JSON 数组，除非有另外说明。</p>
-</div>
-<div class="paragraph">
-<p>查看返回类型： 它是 ` Uni&lt;List&lt;Fruit&gt;&gt;` , <code>Uni</code> 是一个异步类型，这和Java中的 Future 有点类似。它是一个占位符，稍后将获取其真实数据。当它接收到数据时，您可以添加一些行为。这就是我们所说的延续行为。</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-响应式开发人员可能想知道为什么我们不能直接获取一个流。在与数据库交互时者往往是一个坏主意，因为关系型数据库不能很好的处理流。如果要求数据库以流式的方式传输数据，您需要与数据库保持连接，直到所有行数据都被处理才关闭。
-如果您的消费比较慢，将打破数据库的一个原则：不要保持太久的连接。事实上，链接数量少，让消费者保持他们太久会大大降低程序的并发性。因此，如果可以请使用 <code>Uni&lt;List&lt;T&gt;&gt;</code> ，如果有大量数据请使用分页。
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>继续我们的 HTTP 端点，编写 <code>getSingle</code> 方法代码如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@GET
-@Path("/{id}")
-public Uni&lt;Fruit&gt; getSingle(Long id) {
-    return Fruit.findById(id);
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>在上述代码中使用 <code>Fruit.findById</code> 来获取水果信息，它返回一个 <code>Uni</code> , 它将在数据库检索结束后返回。</p>
-</div>
-<div class="paragraph">
-<p>方法 <code>create</code> 允许向数据库添加新的水果数据，代码如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@POST
-public Uni&lt;Response&gt; create(Fruit fruit) {
-    return Panache.&lt;Fruit&gt;withTransaction(fruit::persist)
-            .onItem().transform(inserted -&gt; Response.created(URI.create("/fruits/" + inserted.id)).build());
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>这段代码涉及的内容较多。如果需要写入数据库，我们需要一个事务，因此我们使用 <code>Panache.withTransaction</code> 获取一个异步事务，并在事务获取后调用 <code>persist</code> 方法，<code>persist</code> 方法返回一个 <code>Uni</code> ，这个 <code>Uni</code> 包含了需要写入数据库的对象。一旦写入完成（这时我们继续），创建 <code>201 CREATED</code> 响应。RESTEasy Reactive 会自动帮我们将请求体中的 JSON 转换为 Fruit 实例并完成写入操作。</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>.onItem().transform(&#8230;&#8203;)</code> 可以替换为 <code>.map(&#8230;&#8203;)</code> , <code>map</code> 是一个快捷方法。
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>如果您的机器上有 <a href="https://curl.se/">curl</a> ，您可以使用以下命令访问端点。</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">&gt; curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"name":"peach"}' \
-  http://localhost:8080/fruits</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="测试与运行"><a class="anchor" href="#测试与运行"></a>测试与运行</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>测试响应式应用程序与测试非响应式应用程序类似，使用 HTTP 端点验证 HTTP 响应。响应式应用程序不会改变测试、运行相关操作。</p>
-</div>
-<div class="paragraph">
-<p>在 <a href="https://github.com/quarkusio/quarkus-quickstarts/blob/main/hibernate-reactive-panache-quickstart/src/test/java/org/acme/hibernate/orm/panache/FruitsEndpointTest.java">FruitsEndpointTest.java</a> 文件中您可以看到相关测试用例。</p>
-</div>
-<div class="paragraph">
-<p>打包和运行应用不会因为它是响应式应用程序而改变，您可以向往常一样使用以下命令：</p>
-</div>
-<div class="listingblock primary asciidoc-tabs-sync-cli">
-<div class="title">CLI</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-sync-maven">
-<div class="title">Maven</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw clean package</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-sync-gradle">
-<div class="title">Gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>或者构建本机可执行文件：</p>
-</div>
-<div class="listingblock primary asciidoc-tabs-sync-cli">
-<div class="title">CLI</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">quarkus build --native</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-sync-maven">
-<div class="title">Maven</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./mvnw package -Dnative</code></pre>
-</div>
-</div>
-<div class="listingblock secondary asciidoc-tabs-sync-gradle">
-<div class="title">Gradle</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./gradlew build -Dquarkus.package.type=native</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>您还可以将应用程序打包在容器中，如果要运行应用程序，请不要忘记启动数据库程序，并且向应用程序提供配置。例如，您可以使用 Docker 来运行您的数据库：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">docker run -it --rm=true \
-    --name postgres-quarkus -e POSTGRES_USER=quarkus \
-    -e POSTGRES_PASSWORD=quarkus -e POSTGRES_DB=fruits \
-    -p 5432:5432 postgres:14.1</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>然后，使用以下命令启动应用程序：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">java \
-   -Dquarkus.datasource.reactive.url=postgresql://localhost/fruits \
-   -Dquarkus.datasource.username=quarkus \
-   -Dquarkus.datasource.password=quarkus \
-   -jar target/quarkus-app/quarkus-run.jar</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>如果您想以本机可执行文件执行，请使用以下命令：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">./target/getting-started-with-reactive-runner \
-  -Dquarkus.datasource.reactive.url=postgresql://localhost/fruits \
-  -Dquarkus.datasource.username=quarkus \
-  -Dquarkus.datasource.password=quarkus</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>传递给应用程序的参数在数据源指南中进行了描述。有关更多的配置信息（例如 env 变量、.env 文件等）可以查看 <a href="config-reference-CN.html#configuration_sources">配置教程</a> 。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="走的更远"><a class="anchor" href="#走的更远"></a>走的更远</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This guide is a brief introduction to some reactive features offered by Quarkus.
-Quarkus is a reactive framework, and so offers a lot of reactive features.</p>
-</div>
-<div class="paragraph">
-<p>本教程简要介绍了 Quarkus 提供的一些响应式功能。Quarkus 是一个响应式框架，因此提供了很多响应式特性。 如果您想继续讨论此主题，请检查：</p>
-</div>
+<p>Quarkus offers a large set of reactive APIs and features.
+This section lists the most important, but it&#8217;s not an exhaustive list.
+Quarkus adds new features in every release, and the <a href="https://github.com/quarkiverse">Quarkiverse</a> proposes many extensions enabling <em>Reactive</em>.</p>
+</div>
+<div class="sect2">
+<h3 id="http"><a class="anchor" href="#http"></a>HTTP</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="quarkus-reactive-architecture-CN.html">Quarkus 响应式架构</a></p>
+<p>RESTEasy Reactive: an implementation of JAX-RS tailored for the Quarkus architecture.
+It follows a reactive-first approach but allows imperative code using the <code>@Blocking</code> annotation.</p>
 </li>
 <li>
-<p><a href="mutiny-primer-CN.html">Mutiny  一个直观的响应式编程库</a></p>
+<p>Reactive Routes: a declarative way to register HTTP routes directly on the Vert.x router used by Quarkus to route HTTP requests to methods.</p>
+</li>
+<li>
+<p>Reactive Rest Client: allows consuming HTTP endpoints.
+Under the hood, it uses the non-blocking I/O features from Quarkus.</p>
+</li>
+<li>
+<p>Qute - the Qute template engine exposes a reactive API to render templates in a non-blocking manner.</p>
 </li>
 </ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="data"><a class="anchor" href="#data"></a>Data</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Hibernate Reactive: a version of Hibernate ORM using asynchronous and non-blocking clients to interact with the database.</p>
+</li>
+<li>
+<p>Hibernate Reactive with Panache: provide active record and repository support on top of Hibernate Reactive.</p>
+</li>
+<li>
+<p>Reactive PostgreSQL client: an asynchronous and non-blocking client interacting with a PostgreSQL database, allowing high concurrency.</p>
+</li>
+<li>
+<p>Reactive MySQL client: an asynchronous and non-blocking client interacting with a MySQL database</p>
+</li>
+<li>
+<p>The MongoDB extension: exposes an imperative and reactive (Mutiny) APIs to interact with MongoDB.</p>
+</li>
+<li>
+<p>Mongo with Panache offers active record support for both the imperative and reactive APIs.</p>
+</li>
+<li>
+<p>The Cassandra extension: exposes an imperative and reactive (Mutiny) APIs to interact with Cassandra</p>
+</li>
+<li>
+<p>The Redis extension: exposes an imperative and reactive (Mutiny) APIs to store and retrieve data from a Redis key-value store.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-driven-architecture"><a class="anchor" href="#event-driven-architecture"></a>Event-Driven Architecture</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Reactive Messaging: allows implementing event-driven applications using reactive and imperative code.</p>
+</li>
+<li>
+<p>Kafka Connector for Reactive Messaging: allows implementing applications consuming and writing Kafka records</p>
+</li>
+<li>
+<p>AMQP 1.0 Connector for Reactive Message: allows implementing applications sending and receiving AMQP messages.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="network-protocols-and-utilities"><a class="anchor" href="#network-protocols-and-utilities"></a>Network Protocols and Utilities</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>gRPC: implement and consume gRPC services.
+Offer reactive and imperative programming interfaces.</p>
+</li>
+<li>
+<p>GraphQL: implement and query (client) data store using GraphQL. Offers Mutiny APIs and subscriptions as event streams.</p>
+</li>
+<li>
+<p>Fault Tolerance: provide retry, fallback, circuit breakers abilities to your application.It can be used with Mutiny types.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="engine"><a class="anchor" href="#engine"></a>Engine</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Vert.x : the underlying reactive engine of Quarkus.
+The extension allows accessing to the managed Vert.x instance, as well as its Mutiny variant (exposing the Vert.x API using Mutiny types)</p>
+</li>
+<li>
+<p>Context Propagation: capture and propagate contextual objects (transaction, principal…) in a reactive pipeline</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-23 14:09:21 +0800
+Last updated 2022-03-17 11:27:40 +0800
 </div>
 </div>
 </body>

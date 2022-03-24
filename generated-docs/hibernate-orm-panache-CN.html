@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<title>Simplified Hibernate ORM with Panache</title>
+<title>Hibernate ORM 和 Panache</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -484,23 +484,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Simplified Hibernate ORM with Panache</h1>
+<h1>Hibernate ORM 和 Panache</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hibernate ORM is the de facto JPA implementation and offers you the full breadth of an Object Relational Mapper.
-It makes complex mappings possible, but it does not make simple and common mappings trivial.
-Hibernate ORM with Panache focuses on making your entities trivial and fun to write in Quarkus.</p>
+<p>Hibernate ORM 是 JPA 的一种实现，它为您提供了对象关系映射。它使复杂的映射关系成为可能。带有 Panache 的 Hibernate ORM 专注于实体在 Quarkus 中的使用。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="first-an-example"><a class="anchor" href="#first-an-example"></a>First: an example</h2>
+<h2 id="首先一个简单的例子"><a class="anchor" href="#首先一个简单的例子"></a>首先一个简单的例子</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>What we&#8217;re doing in Panache is to allow you to write your Hibernate ORM entities like this:</p>
+<p>在 Panache 中允许您这样编写 Hibernate ORM 实体：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -530,8 +528,7 @@ public class Person extends PanacheEntity {
 </div>
 </div>
 <div class="paragraph">
-<p>You have noticed how much more compact and readable the code is?
-Does this look interesting? Read on!</p>
+<p>您是否注意到代码更加紧凑和可读，这看起来有趣吗？请继续阅读。</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -540,7 +537,7 @@ Does this look interesting? Read on!</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-the <code>list()</code> method might be surprising at first. It takes fragments of HQL (JP-QL) queries and contextualizes the rest. That makes for very concise but yet readable code.
+<code>list()</code> 方法起初可能有些令人惊讶，它采用 HQL(JP-QL) 查询片段作为参数将其他内容上下文化，这使得代码非常简洁，但不丢失可读性。
 </td>
 </tr>
 </table>
@@ -552,8 +549,7 @@ the <code>list()</code> method might be surprising at first. It takes fragments 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-what was described above is essentially the <a href="https://www.martinfowler.com/eaaCatalog/activeRecord.html">active record pattern</a>, sometimes just called the entity pattern.
-Hibernate with Panache also allows for the use of the more classical <a href="https://martinfowler.com/eaaCatalog/repository.html">repository pattern</a> via <code>PanacheRepository</code>.
+上面描述的本质是 <a href="https://www.martinfowler.com/eaaCatalog/activeRecord.html">活动记录模式</a> ，有时也称之为实体模式。 Hibernate ORM 和 Panache 也允许  <a href="https://martinfowler.com/eaaCatalog/repository.html">仓库模式</a>
 </td>
 </tr>
 </table>
@@ -561,52 +557,51 @@ Hibernate with Panache also allows for the use of the more classical <a href="ht
 </div>
 </div>
 <div class="sect1">
-<h2 id="solution"><a class="anchor" href="#solution"></a>Solution</h2>
+<h2 id="源码获取"><a class="anchor" href="#源码获取"></a>源码获取</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We recommend that you follow the instructions in the next sections and create the application step by step.
-However, you can go right to the completed example.</p>
+<p>我们建议您按照本教程的说明一步一步完成应用程序的制作。但是，您可以直接跳转到完整实例。</p>
 </div>
 <div class="paragraph">
-<p>Clone the Git repository: <code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code>, or download an <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">archive</a>.</p>
+<p>克隆 git 仓库：<code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code> 或者下载  <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">源码</a>.</p>
 </div>
 <div class="paragraph">
-<p>The solution is located in the <code>hibernate-orm-panache-quickstart</code> <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/main/hibernate-orm-panache-quickstart">directory</a>.</p>
+<p>本教程源码位于 <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/main/hibernate-orm-panache-quickstart">地址</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="setting-up-and-configuring-hibernate-orm-with-panache"><a class="anchor" href="#setting-up-and-configuring-hibernate-orm-with-panache"></a>Setting up and configuring Hibernate ORM with Panache</h2>
+<h2 id="配置-hibernate-orm-和-panache"><a class="anchor" href="#配置-hibernate-orm-和-panache"></a>配置 Hibernate ORM 和 Panache</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get started:</p>
+<p>执行顺序：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>add your settings in <code>application.properties</code></p>
+<p>将您的配置添加到 <code>application.properties</code> 。</p>
 </li>
 <li>
-<p>annotate your entities with <code>@Entity</code></p>
+<p>使用 <code>@Entity</code> 注解标记实体</p>
 </li>
 <li>
-<p>make your entities extend <code>PanacheEntity</code> (optional if you are using the repository pattern)</p>
+<p>让实体继承 <code>PanacheEntity</code> (可选项，如果您想要使用仓库模式)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Follow the <a href="hibernate-orm.html#setting-up-and-configuring-hibernate-orm">Hibernate set-up guide for all configuration</a>.</p>
+<p>按照 <a href="hibernate-orm-CN.html#setting-up-and-configuring-hibernate-orm">Hibernate 配置教程</a></p>
 </div>
 <div class="paragraph">
-<p>In your build file, add the following dependencies:</p>
+<p>在您的项目中依赖项如下：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>the Hibernate ORM with Panache extension</p>
+<p>Hibernate ORM 和 Panache 扩展</p>
 </li>
 <li>
-<p>your JDBC driver extension (<code>quarkus-jdbc-postgresql</code>, <code>quarkus-jdbc-h2</code>, <code>quarkus-jdbc-mariadb</code>, &#8230;&#8203;)</p>
+<p>JDBC 驱动拓展 (<code>quarkus-jdbc-postgresql</code>, <code>quarkus-jdbc-h2</code>, <code>quarkus-jdbc-mariadb</code>, &#8230;&#8203;)</p>
 </li>
 </ul>
 </div>
@@ -637,7 +632,7 @@ implementation("io.quarkus:quarkus-jdbc-postgresql")</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then add the relevant configuration properties in <code>application.properties</code>.</p>
+<p>然后在 <code>application.properties</code> 文件中添加配置信息：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -654,13 +649,12 @@ quarkus.hibernate-orm.database.generation = drop-and-create</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="solution-1-using-the-active-record-pattern"><a class="anchor" href="#solution-1-using-the-active-record-pattern"></a>Solution 1: using the active record pattern</h2>
+<h2 id="方案1-使用活动记录模式"><a class="anchor" href="#方案1-使用活动记录模式"></a>方案1: 使用活动记录模式</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="defining-your-entity"><a class="anchor" href="#defining-your-entity"></a>Defining your entity</h3>
+<h3 id="定义你的实体"><a class="anchor" href="#定义你的实体"></a>定义你的实体</h3>
 <div class="paragraph">
-<p>To define a Panache entity, simply extend <code>PanacheEntity</code>, annotate it with <code>@Entity</code> and add your
-columns as public fields:</p>
+<p>首先需要定义 Panache 实体，这样的实体只需要继承 <code>PanacheEntity</code> , 使用注解 <code>@Entity</code> 标记并且添加属性字段。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -673,8 +667,7 @@ public class Person extends PanacheEntity {
 </div>
 </div>
 <div class="paragraph">
-<p>You can put all your JPA column annotations on the public fields. If you need a field to not be persisted, use the
-<code>@Transient</code> annotation on it. If you need to write accessors, you can:</p>
+<p>您可以将所有 JPA 注解放在字段上。如果宁想要忽略某些字段可以使用 <code>@Transient</code> 注解</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -697,70 +690,68 @@ public class Person extends PanacheEntity {
 </div>
 </div>
 <div class="paragraph">
-<p>And thanks to our field access rewrite, when your users read <code>person.name</code> they will actually call your <code>getName()</code> accessor,
-and similarly for field writes and the setter.
-This allows for proper encapsulation at runtime as all fields calls will be replaced by the corresponding getter/setter calls.</p>
+<p>由于我们对访问字段进行了自定义处理，当您的用户在获取 <code>person.name</code> 属性时会调用 <code>getName</code> ，对于数据字段的写入也进行了重写相关操作都会执行具体的set方法。在 Hibernate ORM 中允许您对 get/set 方法进行适当的封装。</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="most-useful-operations"><a class="anchor" href="#most-useful-operations"></a>Most useful operations</h3>
+<h3 id="有用的操作"><a class="anchor" href="#有用的操作"></a>有用的操作</h3>
 <div class="paragraph">
-<p>Once you have written your entity, here are the most common operations you will be able to perform:</p>
+<p>在编写实体后，您可以执行一下常见操作</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// creating a person
+<pre class="highlight"><code class="language-java" data-lang="java">// 创建 Person 对象
 Person person = new Person();
 person.name = "Stef";
 person.birth = LocalDate.of(1910, Month.FEBRUARY, 1);
 person.status = Status.Alive;
 
-// persist it
+// 持久化
 person.persist();
 
-// note that once persisted, you don't need to explicitly save your entity: all
-// modifications are automatically persisted on transaction commit.
+// 注意，一旦持久化，您无需显式保存实体：所有修改都会在事务提交时自动持久化。
 
-// check if it's persistent
+
+// 检查是否持久化
 if(person.isPersistent()){
-    // delete it
+    // 删除数据
     person.delete();
 }
 
-// getting a list of all Person entities
+// 获取所有 Person
 List&lt;Person&gt; allPersons = Person.listAll();
 
-// finding a specific person by ID
+// 根据id查询 Person
 person = Person.findById(personId);
 
-// finding a specific person by ID via an Optional
+// 进行可能存在的查询，在查询结果不存在时抛出异常
 Optional&lt;Person&gt; optional = Person.findByIdOptional(personId);
 person = optional.orElseThrow(() -&gt; new NotFoundException());
 
-// finding all living persons
+// 查询 status 为 Status.Alive 的 Person
 List&lt;Person&gt; livingPersons = Person.list("status", Status.Alive);
 
-// counting all persons
+// 求 Person 数量
 long countAll = Person.count();
 
-// counting all living persons
+// 统计 status 为 Status.Alive 的数量
 long countAlive = Person.count("status", Status.Alive);
 
-// delete all living persons
+// 删除 status 为 Status.Alive 的数量
 Person.delete("status", Status.Alive);
 
-// delete all persons
+// 删除所有
 Person.deleteAll();
 
-// delete by id
+// 根据 id 删除
 boolean deleted = Person.deleteById(personId);
 
-// set the name of all living persons to 'Mortal'
+// 更新数据
 Person.update("name = 'Mortal' where status = ?1", Status.Alive);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>All <code>list</code> methods have equivalent <code>stream</code> versions.</p>
+<p>所有 <code>list</code> 方法都有等价的 <code>stream</code> 版本的方法</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -779,20 +770,21 @@ Person.update("name = 'Mortal' where status = ?1", Status.Alive);</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>stream</code> methods require a transaction to work.<br>
-As they perform I/O operations, they should be closed via the <code>close()</code> method or via a try-with-resource to close the underlying <code>ResultSet</code>.
-If not, you will see warnings from Agroal that will close the underlying <code>ResultSet</code> for you.
+这些 <code>stream</code> 需要一个事务对象才能够工作。当它执行 I/O 操作时，他们应该通过 <code>close</code> 方法或者通过 try-with-resource 来关闭底层的 <code>ResultSet</code> 对象。如果没有，您将看到来自 Agroal 的经过，该警告将希望您关闭 <code>ResultSet</code> 对象。
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-entity-methods"><a class="anchor" href="#adding-entity-methods"></a>Adding entity methods</h3>
+<h3 id="添加实体方法"><a class="anchor" href="#添加实体方法"></a>添加实体方法</h3>
 <div class="paragraph">
 <p>Add custom queries on your entities inside the entities themselves.
 That way, you and your co-workers can find them easily, and queries are co-located with the object they operate on.
 Adding them as static methods in your entity class is the Panache Active Record way.</p>
+</div>
+<div class="paragraph">
+<p>在实体内部允许添加自定义方法完成自定义查询操作。这样，您和您的同时可以轻松找到他们，并且查询与操作对象位于同一个位置，将它们作为静态方法添加到实体类中这样的方式我们称之为 Panache Active Record。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -820,12 +812,12 @@ public class Person extends PanacheEntity {
 </div>
 </div>
 <div class="sect1">
-<h2 id="solution-2-using-the-repository-pattern"><a class="anchor" href="#solution-2-using-the-repository-pattern"></a>Solution 2: using the repository pattern</h2>
+<h2 id="方案2-使用仓库模式"><a class="anchor" href="#方案2-使用仓库模式"></a>方案2: 使用仓库模式</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="defining-your-entity-2"><a class="anchor" href="#defining-your-entity-2"></a>Defining your entity</h3>
+<h3 id="定义您的实体"><a class="anchor" href="#定义您的实体"></a>定义您的实体</h3>
 <div class="paragraph">
-<p>When using the repository pattern, you can define your entities as regular JPA entities.</p>
+<p>使用仓库模式时，您可以将实体定义为常规的 JPA 实体。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -870,18 +862,16 @@ public class Person {
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-If you don&#8217;t want to bother defining getters/setters for your entities, you can make them extend <code>PanacheEntityBase</code> and
-Quarkus will generate them for you. You can even extend <code>PanacheEntity</code> and take advantage of the default ID it provides.
+如果您不想飞行的为实体定义 getters/setters 您可以继承 <code>PanacheEntityBase</code> ，Quarkus 将为您生成它们，您甚至可以继承 <code>PanacheEntity</code> 使用它来提供默认的ID。
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="defining-your-repository"><a class="anchor" href="#defining-your-repository"></a>Defining your repository</h3>
+<h3 id="定义您的仓库"><a class="anchor" href="#定义您的仓库"></a>定义您的仓库</h3>
 <div class="paragraph">
-<p>When using Repositories, you get the exact same convenient methods as with the active record pattern, injected in your Repository,
-by making them implements <code>PanacheRepository</code>:</p>
+<p>使用 Repositories 时，您可以获得与活动记录模式完全相同的便捷方法，通过实现 <code>PanacheRepository</code> 接口来获取方法</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -905,8 +895,7 @@ public class PersonRepository implements PanacheRepository&lt;Person&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>All the operations that are defined on <code>PanacheEntityBase</code> are available on your repository, so using it
-is exactly the same as using the active record pattern, except you need to inject it:</p>
+<p>常规操作都在 <code>PanacheEntityBase</code> 类中有相关标记，因此使用它与活动记录模式相同，除了您需要注入它</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -921,64 +910,63 @@ public long count(){
 </div>
 </div>
 <div class="sect2">
-<h3 id="most-useful-operations-2"><a class="anchor" href="#most-useful-operations-2"></a>Most useful operations</h3>
+<h3 id="有用的操作-2"><a class="anchor" href="#有用的操作-2"></a>有用的操作</h3>
 <div class="paragraph">
-<p>Once you have written your repository, here are the most common operations you will be able to perform:</p>
+<p>编写完成仓库后，您可以执行一下常见操作：</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// creating a person
+<pre class="highlight"><code class="language-java" data-lang="java">// 创建 Person 对象
 Person person = new Person();
 person.setName("Stef");
 person.setBirth(LocalDate.of(1910, Month.FEBRUARY, 1));
 person.setStatus(Status.Alive);
 
-// persist it
+// 持久化 Person 对象
 personRepository.persist(person);
 
-// note that once persisted, you don't need to explicitly save your entity: all
-// modifications are automatically persisted on transaction commit.
+// 注意，一旦持久化，您无需显式保存实体：所有修改都会在事务提交时自动持久化。
 
-// check if it's persistent
+// 检查是否持久化
 if(personRepository.isPersistent(person)){
-    // delete it
+    // 删除数据
     personRepository.delete(person);
 }
 
-// getting a list of all Person entities
+// 获取所有 Person
 List&lt;Person&gt; allPersons = personRepository.listAll();
 
-// finding a specific person by ID
+// 根据id查询 Person
 person = personRepository.findById(personId);
 
-// finding a specific person by ID via an Optional
+// 进行可能存在的查询，在查询结果不存在时抛出异常
 Optional&lt;Person&gt; optional = personRepository.findByIdOptional(personId);
 person = optional.orElseThrow(() -&gt; new NotFoundException());
 
-// finding all living persons
+// 查询 status 为 Status.Alive 的 Person
 List&lt;Person&gt; livingPersons = personRepository.list("status", Status.Alive);
 
-// counting all persons
+// 求 Person 数量
 long countAll = personRepository.count();
 
-// counting all living persons
+// 统计 status 为 Status.Alive 的数量
 long countAlive = personRepository.count("status", Status.Alive);
 
-// delete all living persons
+// 删除 status 为 Status.Alive 的数量
 personRepository.delete("status", Status.Alive);
 
-// delete all persons
+// 删除所有
 personRepository.deleteAll();
 
-// delete by id
+// 根据 id 删除
 boolean deleted = personRepository.deleteById(personId);
 
-// set the name of all living persons to 'Mortal'
+// 更新数据
 personRepository.update("name = 'Mortal' where status = ?1", Status.Alive);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>All <code>list</code> methods have equivalent <code>stream</code> versions.</p>
+<p>所有 <code>list</code> 方法都有等价的 <code>stream</code> 版本的方法</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -996,7 +984,7 @@ List&lt;String&gt; namesButEmmanuels = persons
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>stream</code> methods require a transaction to work.
+这些 <code>stream</code> 需要一个事务对象才能够工作。
 </td>
 </tr>
 </table>
@@ -1008,9 +996,7 @@ The <code>stream</code> methods require a transaction to work.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The rest of the documentation show usages based on the active record pattern only,
-but keep in mind that they can be performed with the repository pattern as well.
-The repository pattern examples have been omitted for brevity.
+文档的其他部分仅演示基于活动记录模式的用法，注意，他们也可以使用仓库模式执行。为了简洁期间，省略了仓库模式相关的代码。
 </td>
 </tr>
 </table>
@@ -1019,13 +1005,13 @@ The repository pattern examples have been omitted for brevity.
 </div>
 </div>
 <div class="sect1">
-<h2 id="writing-a-jax-rs-resource"><a class="anchor" href="#writing-a-jax-rs-resource"></a>Writing a JAX-RS resource</h2>
+<h2 id="编写-jax-rs-资源"><a class="anchor" href="#编写-jax-rs-资源"></a>编写 JAX-RS 资源</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>First, include one of the RESTEasy extensions to enable JAX-RS endpoints, for example, add the <code>io.quarkus:quarkus-resteasy-jackson</code> dependency for JAX-RS and JSON support.</p>
+<p>首先，需要引入 RESTEasy 拓展以启动 JAX-RS 端点，例如，添加 <code>io.quarkus:quarkus-resteasy-jackson</code> 依赖项，该依赖项支持 JAX-RS 和 JSON 。</p>
 </div>
 <div class="paragraph">
-<p>Then, you can create the following resource to create/read/update/delete your Person entity:</p>
+<p>然后，您可以创建资源对象，用于新增、读取、更新和删除 Person 实体：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1099,8 +1085,7 @@ public class PersonResource {
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Be careful to use the <code>@Transactional</code> annotation on the operations that modify the database,
-you can add the annotation at the class level for simplicity purpose.
+注意 <code>@Transactional</code> 需要在修改数据库操作上使用注解，为了简单期间，您可以在类级别添加该注解。
 </td>
 </tr>
 </table>
@@ -1108,38 +1093,37 @@ you can add the annotation at the class level for simplicity purpose.
 </div>
 </div>
 <div class="sect1">
-<h2 id="advanced-query"><a class="anchor" href="#advanced-query"></a>Advanced Query</h2>
+<h2 id="高级查询"><a class="anchor" href="#高级查询"></a>高级查询</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="paging"><a class="anchor" href="#paging"></a>Paging</h3>
+<h3 id="查询"><a class="anchor" href="#查询"></a>查询</h3>
 <div class="paragraph">
-<p>You should only use <code>list</code> and <code>stream</code> methods if your table contains small enough data sets. For larger data
-sets you can use the <code>find</code> method equivalents, which return a <code>PanacheQuery</code> on which you can do paging:</p>
+<p>如果您的数据表数量足够小，您应该使用 <code>list</code> 和 <code>stream</code> 相关方法。 <code>stream</code> 对于较大数据集，您可以使用 <code>find</code> 等方法，它返回一个 <code>PanacheQuery</code> 对象，您可以在其纸上使用分页方法：</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// create a query for all living persons
+<pre class="highlight"><code class="language-java" data-lang="java">// 创建一个分页查询
 PanacheQuery&lt;Person&gt; livingPersons = Person.find("status", Status.Alive);
 
-// make it use pages of 25 entries at a time
+// 分页数量为 25
 livingPersons.page(Page.ofSize(25));
 
-// get the first page
+// 获取数量
 List&lt;Person&gt; firstPage = livingPersons.list();
 
-// get the second page
+// 获取第二页
 List&lt;Person&gt; secondPage = livingPersons.nextPage().list();
 
-// get page 7
+// 获取第7页
 List&lt;Person&gt; page7 = livingPersons.page(Page.of(7, 25)).list();
 
-// get the number of pages
+// 获取总量
 int numberOfPages = livingPersons.pageCount();
 
-// get the total number of entities returned by this query without paging
+// 获取总量
 long count = livingPersons.count();
 
-// and you can chain methods of course
+// 链式调用
 return Person.find("status", Status.Alive)
     .page(Page.ofSize(25))
     .nextPage()
@@ -1147,26 +1131,29 @@ return Person.find("status", Status.Alive)
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>PanacheQuery</code> type has many other methods to deal with paging and returning streams.</p>
+<p><code>PanacheQuery</code> 类型有许多其他方法来处理分页和返回流。</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-a-range-instead-of-pages"><a class="anchor" href="#using-a-range-instead-of-pages"></a>Using a range instead of pages</h3>
+<h3 id="使用范围查询"><a class="anchor" href="#使用范围查询"></a>使用范围查询</h3>
 <div class="paragraph">
 <p><code>PanacheQuery</code> also allows range-based queries.</p>
 </div>
+<div class="paragraph">
+<p><code>PanacheQuery</code> 允许基于范围查询</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">// create a query for all living persons
+<pre class="highlight"><code class="language-java" data-lang="java">// 创建查询
 PanacheQuery&lt;Person&gt; livingPersons = Person.find("status", Status.Alive);
 
-// make it use a range: start at index 0 until index 24 (inclusive).
+// 让它使用一个范围：从索引 0 开始直到索引 24（包括）
 livingPersons.range(0, 24);
 
-// get the range
+// 获取范围内的数据
 List&lt;Person&gt; firstRange = livingPersons.list();
 
-// to get the next range, you need to call range again
+// 要获得下一个范围，您需要再次调用范围
 List&lt;Person&gt; secondRange = livingPersons.range(25, 49).list();</code></pre>
 </div>
 </div>
@@ -1178,8 +1165,7 @@ List&lt;Person&gt; secondRange = livingPersons.range(25, 49).list();</code></pre
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You cannot mix ranges and pages: if you use a range, all methods that depend on having a current page will throw an <code>UnsupportedOperationException</code>;
-you can switch back to paging using <code>page(Page)</code> or <code>page(int, int)</code>.</p>
+<p>您不能够混合使用 range 和 page ，如果您使用了 range 并且依赖 page 会抛出 <code>UnsupportedOperationException</code> 异常，如果出现该异常建议切换回 page。</p>
 </div>
 </td>
 </tr>
@@ -1187,9 +1173,9 @@ you can switch back to paging using <code>page(Page)</code> or <code>page(int, i
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting"><a class="anchor" href="#sorting"></a>Sorting</h3>
+<h3 id="排序"><a class="anchor" href="#排序"></a>排序</h3>
 <div class="paragraph">
-<p>All methods accepting a query string also accept the following simplified query form:</p>
+<p>所有查询都接收以字符串的心声进行排序查询：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1197,7 +1183,7 @@ you can switch back to paging using <code>page(Page)</code> or <code>page(int, i
 </div>
 </div>
 <div class="paragraph">
-<p>But these methods also accept an optional <code>Sort</code> parameter, which allows your to abstract your sorting:</p>
+<p>这些方法也接受一个可选的 <code>Sort</code> 参数，它允许您抽象排序</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1208,44 +1194,43 @@ List&lt;Person&gt; persons = Person.list("status", Sort.by("name").and("birth"),
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>Sort</code> class has plenty of methods for adding columns and specifying sort direction.</p>
+<p><code>Sort</code> 有很多用于添加列或者指定排序方向的方法。</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="simplified-queries"><a class="anchor" href="#simplified-queries"></a>Simplified queries</h3>
+<h3 id="简化查询"><a class="anchor" href="#简化查询"></a>简化查询</h3>
 <div class="paragraph">
-<p>Normally, HQL queries are of this form: <code>from EntityName [where &#8230;&#8203;] [order by &#8230;&#8203;]</code>, with optional elements
-at the end.</p>
+<p>通常 HQL 查询采用以下形式编写：  <code>from EntityName [where &#8230;&#8203;] [order by &#8230;&#8203;]</code></p>
 </div>
 <div class="paragraph">
-<p>If your select query does not start with <code>from</code>, we support the following additional forms:</p>
+<p>如果您的查询不以 <code>from</code> 开头，我们将附加以下形式：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>order by &#8230;&#8203;</code> which will expand to <code>from EntityName order by &#8230;&#8203;</code></p>
+<p>在 <code>from EntityName order by &#8230;&#8203;</code> 后添加 <code>order by &#8230;&#8203;</code></p>
 </li>
 <li>
-<p><code>&lt;singleColumnName&gt;</code> (and single parameter) which will expand to <code>from EntityName where &lt;singleColumnName&gt; = ?</code></p>
+<p>如果是单列查询会以：<code>from EntityName where &lt;singleColumnName&gt; = ?</code> 形式添加</p>
 </li>
 <li>
-<p><code>&lt;query&gt;</code> will expand to <code>from EntityName where &lt;query&gt;</code></p>
+<p>在`from EntityName where &lt;query&gt;` 中添加查询条件</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If your update query does not start with <code>update</code>, we support the following additional forms:</p>
+<p>如果您的更新不以 <code>update</code> 开头，我们将附加以下形式：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>from EntityName &#8230;&#8203;</code> which will expand to <code>update from EntityName &#8230;&#8203;</code></p>
+<p>将 <code>from EntityName &#8230;&#8203;</code> 扩展为 <code>update from EntityName &#8230;&#8203;</code></p>
 </li>
 <li>
-<p><code>set? &lt;singleColumnName&gt;</code> (and single parameter) which will expand to <code>update from EntityName set &lt;singleColumnName&gt; = ?</code></p>
+<p>如果是单列更新将会以 <code>update from EntityName set &lt;singleColumnName&gt; = ?</code> 形式添加</p>
 </li>
 <li>
-<p><code>set? &lt;update-query&gt;</code> will expand to <code>update from EntityName set &lt;update-query&gt;</code></p>
+<p>将 <code>set? &lt;update-query&gt;</code> 扩展为 <code>update from EntityName set &lt;update-query&gt;</code></p>
 </li>
 </ul>
 </div>
@@ -1272,8 +1257,7 @@ at the end.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can also write your queries in plain
-<a href="https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#hql">HQL</a>:
+您还可以通过编写普通 <a href="https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#hql">HQL</a> 进行查询
 </td>
 </tr>
 </table>
@@ -1286,9 +1270,9 @@ Order.update("update from Person set name = 'Mortal' where status = ?", Status.A
 </div>
 </div>
 <div class="sect2">
-<h3 id="named-queries"><a class="anchor" href="#named-queries"></a>Named queries</h3>
+<h3 id="命名查询"><a class="anchor" href="#命名查询"></a>命名查询</h3>
 <div class="paragraph">
-<p>You can reference a named query instead of a (simplified) HQL query by prefixing its name with the '#' character. You can also use named queries for count, update and delete queries.</p>
+<p>您可以通过再起名称前添加 <code>#</code> 符号来进行简化的命名查询，而不是简化 HQL 查询。您还可以将命名查询用在计数、更新和删除操作上</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1331,8 +1315,7 @@ public class Person extends PanacheEntity {
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Named queries can only be defined inside your JPA entity classes (being the Panache entity class, or the repository parameterized type),
-or on one of its super classes.</p>
+<p>命名查询只能在您的 JPA 实体类（作为 Panache 实体类或者仓库模式的泛型类）内部或者其超类上定义。</p>
 </div>
 </td>
 </tr>
@@ -1340,9 +1323,9 @@ or on one of its super classes.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="query-parameters"><a class="anchor" href="#query-parameters"></a>Query parameters</h3>
+<h3 id="参数查询"><a class="anchor" href="#参数查询"></a>参数查询</h3>
 <div class="paragraph">
-<p>You can pass query parameters by index (1-based) as shown below:</p>
+<p>你可以按索引（从1开始）传递参数，如下所示</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1350,7 +1333,7 @@ or on one of its super classes.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Or by name using a <code>Map</code>:</p>
+<p>或者按名称传递参数，这样需要使用 <code>Map</code> 结构，示例如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1361,7 +1344,7 @@ Person.find("name = :name and status = :status", params);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Or using the convenience class <code>Parameters</code> either as is or to build a <code>Map</code>:</p>
+<p>或者使用 <code>Parameters</code> 类来构建 <code>Map</code> 结构</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1375,25 +1358,27 @@ Person.find("name = :name and status = :status",
 </div>
 </div>
 <div class="paragraph">
-<p>Every query operation accepts passing parameters by index (<code>Object&#8230;&#8203;</code>), or by name (<code>Map&lt;String,Object&gt;</code> or <code>Parameters</code>).</p>
+<p>每个查询操作都接受通过索引 (<code>Object&#8230;&#8203;</code>) 或名称  (<code>Map&lt;String,Object&gt;</code> or <code>Parameters</code>) 的方式传递参数</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="query-projection"><a class="anchor" href="#query-projection"></a>Query projection</h3>
+<h3 id="查询映射"><a class="anchor" href="#查询映射"></a>查询映射</h3>
 <div class="paragraph">
-<p>Query projection can be done with the <code>project(Class)</code> method on the <code>PanacheQuery</code> object that is returned by the <code>find()</code> methods.</p>
+<p>Query projection can be done with the <code>project(Class)</code> method on the <code>PanacheQuery</code> object that is returned by the <code>find()</code> methods.
+查询映射对象可以通过 <code>project(Class)</code> 方法将 <code>PanacheQuery</code> 对象的 <code>find</code> 方法进行处理。</p>
 </div>
 <div class="paragraph">
-<p>You can use it to restrict which fields will be returned by the database.</p>
+<p>您可以使用它来限制数据库返回哪些字段。</p>
 </div>
 <div class="paragraph">
-<p>Hibernate will use <strong>DTO projection</strong> and generate a SELECT clause with the attributes from the projection class.
-This is also called <strong>dynamic instantiation</strong> or <strong>constructor expression</strong>, more info can be found on the Hibernate guide:
-<a href="https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#hql-select-clause">hql select clause</a></p>
+<p>Hibernate 将使用 <strong>DTO</strong> 映射并生成一个 SELECT 子句。这称为动态实例化（<strong>dynamic instantiation</strong>）或构造函数表达式（<strong>constructor expression</strong>），更多信息可以查看 <a href="https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#hql-select-clause">HQL SELECT 子句</a></p>
 </div>
 <div class="paragraph">
 <p>The projection class needs to be a valid Java Bean and have a constructor that contains all its attributes, this constructor will be used to
 instantiate the projection DTO instead of using the entity class. This class must have a matching constructor with all the class attributes as parameters.</p>
+</div>
+<div class="paragraph">
+<p>映射类需要是一个有效的 Java Bean 并且有一个包含所有属性的构造函数，这个构造函数将用于实例化映射对象，而不是使用实体类。此类不许有匹配的构造函数，并将所有属性作为构造参数。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1416,15 +1401,15 @@ PanacheQuery&lt;PersonName&gt; query = Person.find("status", Status.Alive).proje
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>@RegisterForReflection</code> annotation instructs Quarkus to keep the class and its members during the native compilation. More details about the <code>@RegisterForReflection</code> annotation can be found on  the <a href="writing-native-applications-tips.html#registerForReflection">native application tips</a> page.</td>
+<td><code>@RegisterForReflection</code> 注解表示 Quarkus 在编译期间保留类以及成员变量，更多关于 <code>@RegisterForReflection</code> 注解的信息可以查看 <a href="writing-native-applications-tips-CN.html#registerForReflection">原生应用提示</a> 文档</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>We use public fields here, but you can use private fields and getters/setters if you prefer.</td>
+<td>在这里使用 public 修饰字段，如果您愿意可以使用 private 修饰字段和 getters/setters</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>This constructor will be used by Hibernate, it must be the only constructor in your class and have all the class attributes as parameters.</td>
+<td>这个构造函数将被 Hibernate 使用，它必须是这个类中的唯一构造函数，并且具有所有成员变量作为构造参数</td>
 </tr>
 </table>
 </div>
@@ -1436,16 +1421,14 @@ PanacheQuery&lt;PersonName&gt; query = Person.find("status", Status.Alive).proje
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The implementation of the <code>project(Class)</code> method uses the constructor&#8217;s parameter names to build the select clause of the query,
-so the compiler must be configured to store parameter names inside the compiled class.
-This is enabled by default if you are using the Quarkus Maven archetype. If you are not using it, add the property <code>&lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;</code> to your <code>pom.xml</code>.</p>
+<p><code>project(Class)</code> 方法的实现使用构造函数的参数名称来构件 SELECT 子句，因此必须将编译器配置为：在编译后的类中存储参数名称。如果您使用 Quarkus Maven 骨架工程，则默认开启此功能。如果您没有使用 Quarkus Maven 骨架工程，请添加 <code>&lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;</code> 属性到您的 <code>pom.xml</code> 文件.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>If in the DTO projection object you have a field from a referenced entity, you can use the <code>@ProjectedFieldName</code> annotation to provide the path for the SELECT statement.</p>
+<p>如果在映射对象中有来自引用实体的字段，则可以使用 <code>@ProjectedFieldName</code> 注解为 SELECT 提供搜索路径。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1475,7 +1458,7 @@ PanacheQuery&lt;DogDto&gt; query = Dog.findAll().project(DogDto.class);</code></
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>ownerName</code> DTO constructor&#8217;s parameter will be loaded from the <code>owner.name</code> HQL property.</td>
+<td>构造函数中 <code>ownerName</code> 的取值将从 HQL 中的 <code>owner.name</code> 上获取。</td>
 </tr>
 </table>
 </div>
@@ -1483,43 +1466,26 @@ PanacheQuery&lt;DogDto&gt; query = Dog.findAll().project(DogDto.class);</code></
 </div>
 </div>
 <div class="sect1">
-<h2 id="multiple-persistence-units"><a class="anchor" href="#multiple-persistence-units"></a>Multiple Persistence Units</h2>
+<h2 id="多单元持久化"><a class="anchor" href="#多单元持久化"></a>多单元持久化</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The support for multiple persistence units is described in detail in <a href="hibernate-orm.html#multiple-persistence-units">the Hibernate ORM guide</a>.</p>
-</div>
-<div class="paragraph">
-<p>When using Panache, things are simple:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A given Panache entity can be attached to only a single persistence unit.</p>
-</li>
-<li>
-<p>Given that, Panache already provides the necessary plumbing to transparently find the appropriate <code>EntityManager</code> associated to a Panache entity.</p>
-</li>
-</ul>
+<p>在 <a href="hibernate-orm-CN.html#multiple-persistence-units">Hibernate ORM 教程</a> 中详细描述了 Hibernate 对多单元持久化的支持。使用 Panache 实现起来很简单：
+* 给定的 Panache 实体只能附加到单个持久化单元
+* Panache 提供了必要的通道来找到与 Panache 实体联动的 <code>EntityManager</code></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="transactions"><a class="anchor" href="#transactions"></a>Transactions</h2>
+<h2 id="事务"><a class="anchor" href="#事务"></a>事务</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Make sure to wrap methods modifying your database (e.g. <code>entity.persist()</code>) within a transaction. Marking a
-CDI bean method <code>@Transactional</code> will do that for you and make that method a transaction boundary. We recommend doing
-so at your application entry point boundaries like your REST endpoint controllers.</p>
+<p>确保修改数据库相关操作的方法封装在事务中（例如 <code>entity.persist()</code> ）。使用 <code>@Transactional</code> 注解标记 CDI Bean 方法，它将为您完成事务处理。我们建议在您的程序入口使用（例如 REST 端点控制器）</p>
 </div>
 <div class="paragraph">
-<p>JPA batches changes you make to your entities and sends changes (it&#8217;s called flush) at the end of the transaction or before a query.
-This is usually a good thing as it&#8217;s more efficient.
-But if you want to check optimistic locking failures, do object validation right away or generally want to get immediate feedback, you can force the flush operation by calling <code>entity.flush()</code> or even use <code>entity.persistAndFlush()</code> to make it a single method call. This will allow you to catch any <code>PersistenceException</code> that could occur when JPA send those changes to the database.
-Remember, this is less efficient so don&#8217;t abuse it.
-And your transaction still has to be committed.</p>
+<p>JPA 会批量处理您对实体所做的变化，并在事务结束或查询之前发送变化（称之为 <strong>刷新</strong> ）。这通常情况下是一件耗时，因为它更加有效。但是如果您想检查乐观锁失败或立即进行对象验证，您可以通过强制调用刷新操作（执行 <code>entity.flush()</code>  方法）或者使用 <code>entity.persistAndFlush()</code> 方法。这允许您捕获 <code>PersistenceException</code> 用来收集 JPA 与数据库交互是发送的异常情况。请记住，这样效率较低，请不要滥用它，而且您的事务仍然需要提交。</p>
 </div>
 <div class="paragraph">
-<p>Here is an example of the usage of the flush method to allow making a specific action in case of <code>PersistenceException</code>:</p>
+<p>以下是 <code>flush</code> 方法的使用示例：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1540,16 +1506,16 @@ public void create(Parameter parameter){
 </div>
 </div>
 <div class="sect1">
-<h2 id="lock-management"><a class="anchor" href="#lock-management"></a>Lock management</h2>
+<h2 id="锁管理"><a class="anchor" href="#锁管理"></a>锁管理</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Panache provides direct support for database locking with your entity/repository, using <code>findById(Object, LockModeType)</code> or <code>find().withLock(LockModeType)</code>.</p>
+<p>Panache 中使用 <code>findById(Object, LockModeType)</code> 或者 <code>find().withLock(LockModeType)</code> 支持传入锁</p>
 </div>
 <div class="paragraph">
-<p>The following examples are for the active record pattern, but the same can be used with repositories.</p>
+<p>以活动记录模式为例，锁的使用如下，这个方式同样适用于仓库模式</p>
 </div>
 <div class="sect2">
-<h3 id="first-locking-using-findbyid"><a class="anchor" href="#first-locking-using-findbyid"></a>First: Locking using findById().</h3>
+<h3 id="第一-锁定-findbyid-方法"><a class="anchor" href="#第一-锁定-findbyid-方法"></a>第一： 锁定 findById 方法</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">public class PersonEndpoint {
@@ -1567,7 +1533,7 @@ public void create(Parameter parameter){
 </div>
 </div>
 <div class="sect2">
-<h3 id="second-locking-in-a-find"><a class="anchor" href="#second-locking-in-a-find"></a>Second: Locking in a find().</h3>
+<h3 id="第二-锁定-find-方法"><a class="anchor" href="#第二-锁定-find-方法"></a>第二： 锁定 find 方法</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">public class PersonEndpoint {
@@ -1584,21 +1550,16 @@ public void create(Parameter parameter){
 </div>
 </div>
 <div class="paragraph">
-<p>Be careful that locks are released when the transaction ends, so the method that invokes the lock query must be annotated with the <code>@Transactional</code> annotation.</p>
+<p>注意，事务结束时灰释放所，因此调用所查询的方法必须使用 <code>@Transactional</code> 注解。</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="custom-ids"><a class="anchor" href="#custom-ids"></a>Custom IDs</h2>
+<h2 id="自定义-id"><a class="anchor" href="#自定义-id"></a>自定义 ID</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>IDs are often a touchy subject, and not everyone&#8217;s up for letting them handled by the framework, once again we
-have you covered.</p>
-</div>
-<div class="paragraph">
-<p>You can specify your own ID strategy by extending <code>PanacheEntityBase</code> instead of <code>PanacheEntity</code>. Then
-you just declare whatever ID you want as a public field:</p>
+<p>ID 通常是一个敏感主题，并不是每一个人都愿意让框架处理它。您可以通过拓展来指定自己的 ID 策略，实体类继承 <code>PanacheEntityBase</code> 而不继承 <code>PanacheEntity</code>，您只需要声明 ID 字段：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1619,8 +1580,7 @@ public class Person extends PanacheEntityBase {
 </div>
 </div>
 <div class="paragraph">
-<p>If you&#8217;re using repositories, then you will want to extend <code>PanacheRepositoryBase</code> instead of <code>PanacheRepository</code>
-and specify your ID type as an extra type parameter:</p>
+<p>如果您正在使用仓库模式，那么您应该实现 <code>PanacheRepositoryBase</code> 接口而不是 <code>PanacheRepository</code> 接口，<code>PanacheRepositoryBase</code> 接口允许您自定义 ID 类型。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1633,17 +1593,12 @@ public class PersonRepository implements PanacheRepositoryBase&lt;Person,Integer
 </div>
 </div>
 <div class="sect1">
-<h2 id="mocking"><a class="anchor" href="#mocking"></a>Mocking</h2>
+<h2 id="模拟"><a class="anchor" href="#模拟"></a>模拟</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="using-the-active-record-pattern"><a class="anchor" href="#using-the-active-record-pattern"></a>Using the active record pattern</h3>
+<h3 id="使用活动记录模式"><a class="anchor" href="#使用活动记录模式"></a>使用活动记录模式</h3>
 <div class="paragraph">
-<p>If you are using the active record pattern you cannot use Mockito directly as it does not support mocking static methods,
-but you can use the <code>quarkus-panache-mock</code> module which allows you to use Mockito to mock all provided static
-methods, including your own.</p>
-</div>
-<div class="paragraph">
-<p>Add this dependency to your <code>pom.xml</code>:</p>
+<p>如果您使用的是活动记录模式，则不能够直接使用 Mockito ，因为它不支持模拟静态方法，但是您可以使用 <code>quarkus-panache-mock</code> 模块，它允许您使用 Mockito 模拟所提供的静态方法，依赖信息如下：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1655,7 +1610,7 @@ methods, including your own.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Given this simple entity:</p>
+<p>给定简单实体</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1671,7 +1626,7 @@ public class Person extends PanacheEntity {
 </div>
 </div>
 <div class="paragraph">
-<p>You can write your mocking test like this:</p>
+<p>您可以向这样编写模拟测试</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1751,15 +1706,14 @@ public class PanacheFunctionalityTest {
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Be sure to call your <code>verify</code> and <code>do*</code> methods on <code>PanacheMock</code> rather than <code>Mockito</code>, otherwise you won&#8217;t know
-what mock object to pass.</td>
+<td>请务必调用 <code>PanacheMock</code> 提供的 <code>verify</code> 方法和 <code>do*</code> 方法。而不是 <code>Mockito</code> 类中提供的方法，否则您将不知道要传递什么对象进行模拟。</td>
 </tr>
 </table>
 </div>
 <div class="sect3">
-<h4 id="mocking-entitymanager-session-and-entity-instance-methods"><a class="anchor" href="#mocking-entitymanager-session-and-entity-instance-methods"></a>Mocking <code>EntityManager</code>, <code>Session</code> and entity instance methods</h4>
+<h4 id="模拟-entitymanager-session-和实体实例化方法"><a class="anchor" href="#模拟-entitymanager-session-和实体实例化方法"></a>模拟 <code>EntityManager</code> 、 <code>Session</code> 和实体实例化方法</h4>
 <div class="paragraph">
-<p>If you need to mock entity instance methods, such as <code>persist()</code> you can do it by mocking the Hibernate ORM <code>Session</code> object:</p>
+<p>如果您需要模拟实体实例化方法，比如 <code>persist()</code> 方法，您可以通过模拟 Hibernate ORM Session 对象来实现：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1792,10 +1746,9 @@ public class PanacheMockingTest {
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-the-repository-pattern"><a class="anchor" href="#using-the-repository-pattern"></a>Using the repository pattern</h3>
+<h3 id="使用仓库模式"><a class="anchor" href="#使用仓库模式"></a>使用仓库模式</h3>
 <div class="paragraph">
-<p>If you are using the repository pattern you can use Mockito directly, using the <code>quarkus-junit5-mockito</code> module,
-which makes mocking beans much easier:</p>
+<p>如果您使用仓库模式，您可以直接使用 Mockito ，使用 <code>quarkus-junit5-mockito</code> 模块，这使得模拟 bean 更容易：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1807,7 +1760,7 @@ which makes mocking beans much easier:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Given this simple entity:</p>
+<p>给定简单实体</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1823,7 +1776,7 @@ public class Person {
 </div>
 </div>
 <div class="paragraph">
-<p>And this repository:</p>
+<p>仓库对象：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1836,7 +1789,7 @@ public class PersonRepository implements PanacheRepository&lt;Person&gt; {
 </div>
 </div>
 <div class="paragraph">
-<p>You can write your mocking test like this:</p>
+<p>您可以向这样编写模拟测试</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1890,17 +1843,15 @@ public class PanacheFunctionalityTest {
 </div>
 </div>
 <div class="sect1">
-<h2 id="how-and-why-we-simplify-hibernate-orm-mappings"><a class="anchor" href="#how-and-why-we-simplify-hibernate-orm-mappings"></a>How and why we simplify Hibernate ORM mappings</h2>
+<h2 id="为什么要如此简化-hibernate-orm-的映射"><a class="anchor" href="#为什么要如此简化-hibernate-orm-的映射"></a>为什么要如此简化 Hibernate ORM 的映射</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When it comes to writing Hibernate ORM entities, there are a number of annoying things that users have grown used to
-reluctantly deal with, such as:</p>
+<p>在编写 Hibernate ORM 实体时，用户已经习惯了不情愿的处理许多令人烦恼的事情，例如：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Duplicating ID logic: most entities need an ID, most people don&#8217;t care how it&#8217;s set, because it&#8217;s not really
-relevant to your model.</p>
+<p>重复 ID 逻辑，大多数实体都需要一个ID，大多数人都不关心它是如何设置的，因为它与您的模型并非直接相关</p>
 </li>
 <li>
 <p>Traditional EE patterns advise to split entity definition (the model) from the operations you can do on them
@@ -1911,23 +1862,27 @@ where you need to do entity operations, which breaks your edit flow and requires
 writing to set up an injection point before coming back to use it.</p>
 </li>
 <li>
-<p>Hibernate queries are super powerful, but overly verbose for common operations, requiring you to write queries even
-when you don&#8217;t need all the parts.</p>
-</li>
-<li>
-<p>Hibernate is very general-purpose, but does not make it trivial to do trivial operations that make up 90% of our
-model usage.</p>
+<p>传统 EE 模型中建议将实体定义（模型）从您可以对它们的执行操作（DAO,仓库) 中分离，单实际上这需要在状态和操作之间进行分离。</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>With Panache, we took an opinionated approach to tackle all these problems:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Make your entities extend <code>PanacheEntity</code>: it has an ID field that is auto-generated. If you require
-a custom ID strategy, you can extend <code>PanacheEntityBase</code> instead and handle the ID yourself.</p>
+<p>Hibernate 查询非常强大，但对于常见操作来说过于荣昌，及时您不需要所有部分，也需要编写查询。</p>
+</li>
+<li>
+<p>Hibernate 是非常通用的，单不会让我们的模型使用率高达 90% 的琐碎操作变得轻而易举。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>借助 Panache ，我们采取了一种自以为是的方法来解决这些问题：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>您的实体通过继承 <code>PanacheEntity</code> ： 它有一个自动生成的 ID 字段，如果宁需要自定义 ID策略，则可以继承 <code>PanacheEntityBase</code> 拓展ID。</p>
 </li>
 <li>
 <p>Use public fields. Get rid of dumb getter and setters. Hibernate ORM w/o Panache also doesn&#8217;t require you to use getters and setters,
@@ -1935,34 +1890,30 @@ but Panache will additionally generate all getters and setters that are missing,
 write <em>useful</em> accessors when you need them, which will be used even though your entity users still use field accesses. This implies that from the Hibernate perspective you&#8217;re using accessors via getters and setters even while it looks like field accessors.</p>
 </li>
 <li>
-<p>With the active record pattern: put all your entity logic in static methods in your entity class and don&#8217;t create DAOs.
-Your entity superclass comes with lots of super useful static methods, and you can add your own in your entity class.
-Users can just start using your entity <code>Person</code> by typing <code>Person.</code> and getting completion for all the operations in a single place.</p>
+<p>使用活动记录模式，将所有实体逻辑放在实体的静态方法中，不需要创建DAO。您的实体类中会携带很多有用的静态方法，您可以在实体类中增加自己想要的方法，用户只需要在一个地方输入 <code>Person</code> 即可操作实体相关内容。</p>
 </li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Don&#8217;t write parts of the query that you don&#8217;t need: write <code>Person.find("order by name")</code> or
-<code>Person.find("name = ?1 and status = ?2", "stef", Status.Alive)</code> or even better
-<code>Person.find("name", "stef")</code>.</p>
+<p>不需要编写查询部分； 编写 <code>Person.find("order by name")</code> 、 <code>Person.find("name = ?1 and status = ?2", "stef", Status.Alive)</code> 甚至于 <code>Person.find("name", "stef")</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>That&#8217;s all there is to it: with Panache, Hibernate ORM has never looked so trim and neat.</p>
+<p>有了 Panache Hibernate ORM 从未看起来如此简单</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="defining-entities-in-external-projects-or-jars"><a class="anchor" href="#defining-entities-in-external-projects-or-jars"></a>Defining entities in external projects or jars</h2>
+<h2 id="在外部项目或-jar-中定义实体"><a class="anchor" href="#在外部项目或-jar-中定义实体"></a>在外部项目或 jar 中定义实体</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hibernate ORM with Panache relies on compile-time bytecode enhancements to your entities.</p>
+<p>带有 Panache 的 Hibernate ORM 依赖于对实体的编译时字节码增强。</p>
 </div>
 <div class="paragraph">
-<p>It attempts to identify archives with Panache entities (and consumers of Panache entities)
-by the presence of the marker file <code>META-INF/panache-archive.marker</code>. Panache includes an
-annotation processor that will automatically create this file in archives that depend on
-Panache (even indirectly). If you have disabled annotation processors you may need to create
-this file manually in some cases.</p>
+<p>它尝试通过标记文件  <code>META-INF/panache-archive.marker</code> 来识别 Panache 实体，Panache包含一个注解处理器，它将自动以来在 Panache （或者间接依赖）。如果您禁用了注解处理器，在某些情况下需要手动创建该文件。</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -1971,9 +1922,7 @@ this file manually in some cases.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you include the jpa-modelgen annotation processor this will exclude the Panache
-annotation processor by default. If you do this you should either create the marker file
-yourself, or add the <code>quarkus-panache-common</code> as well, as shown below:
+如果您包含 jpa-modelgen 注解处理器，在默认情况下是排除 Panache 注解处理器。如果您这样做，您应该自己创建标记文件，或者添加 <code>quarkus-panache-common</code> 依赖，
 </td>
 </tr>
 </table>
@@ -2005,7 +1954,7 @@ yourself, or add the <code>quarkus-panache-common</code> as well, as shown below
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-17 11:27:40 +0800
+Last updated 2022-03-24 09:48:04 +0800
 </div>
 </div>
 </body>
